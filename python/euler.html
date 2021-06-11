@@ -188,6 +188,12 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
+        <a class="binder-button" href="https://mybinder.org/v2/gh/adamwangdata/adamwangdata.github.io/main?urlpath=tree/python/euler.py"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
         
         
         <button type="button" class="btn btn-secondary topbarbtn"
@@ -381,8 +387,8 @@ You can even modify the code so if you’re having trouble with a Sudoku puzzle,
     {
         requestKernel: true,
         binderOptions: {
-            repo: "executablebooks/jupyter-book",
-            ref: "master",
+            repo: "adamwangdata/adamwangdata.github.io",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
