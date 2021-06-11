@@ -186,12 +186,6 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/adamwangdata/adamwangdata.github.io/main?urlpath=tree/python/euler.py"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
         
         
         <button type="button" class="btn btn-secondary topbarbtn"
@@ -247,7 +241,7 @@ At least, that was my goal when solving them.</p>
 </div>
 <p>Occasionally the simplest brute force algorithm works, but often clever modifications are required.
 In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.
-You can find my all 100 of my solutions <a class="reference external" href="https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples">here</a>, but I thought I’d highlight a few particularly interesting ones.</p>
+You can find my all 100 of my solutions <a class="reference external" href="https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples">here</a>, but I wanted to highlight a few particularly interesting ones.</p>
 <div class="section" id="problem-96-sudoku">
 <h2>Problem 96: Sudoku<a class="headerlink" href="#problem-96-sudoku" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://projecteuler.net/problem=96">Problem 96</a> is one of my favorites.
@@ -338,15 +332,18 @@ You can even modify the code so if you’re having trouble with a Sudoku puzzle,
     <span class="n">line</span> <span class="o">=</span> <span class="n">puzzle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="n">puzzle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span>
 <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">puzzle</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;initial grid:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
 
 <span class="c1"># Solve the puzzle!</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;solving...&quot;</span><span class="p">)</span>
 <span class="n">solve_sudoku</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">print_sol</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[8 0 0 0 0 0 0 0 0]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>initial grid:
+[[8 0 0 0 0 0 0 0 0]
  [0 0 3 6 0 0 0 0 0]
  [0 7 0 0 9 0 2 0 0]
  [0 5 0 0 0 7 0 0 0]
@@ -355,6 +352,7 @@ You can even modify the code so if you’re having trouble with a Sudoku puzzle,
  [0 0 1 0 0 0 0 6 8]
  [0 0 8 5 0 0 0 1 0]
  [0 9 0 0 0 0 4 0 0]]
+solving...
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[8 1 2 7 5 3 6 4 9]
@@ -388,16 +386,16 @@ You can even modify the code so if you’re having trouble with a Sudoku puzzle,
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "portfolio"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "portfolio",
+            kernelName: "python3",
             path: "./python"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'portfolio'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
