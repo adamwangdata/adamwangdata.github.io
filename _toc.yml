@@ -1,15 +1,11 @@
-# Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
-
-- file: preface
-
-- part: Statistics and Machine Learning
+format: jb-book
+root: preface
+parts:
+- caption: Statistics and Machine Learning
   chapters:
   - file: stat-ml/resources
   - file: stat-ml/sample
-
-- part: Python
+- caption: Python
   chapters:
   - file: python/resources
   - file: python/euler
-
