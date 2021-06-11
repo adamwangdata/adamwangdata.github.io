@@ -48,7 +48,7 @@ The magic 100 number may also have been motivated by [Wes McKinney's blog post](
 ```
 Occasionally the simplest brute force algorithm works, but often clever modifications are required.
 In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.
-You can find my all 100 of my solutions LINK, but I thought I'd highlight a few particularly interesting ones.
+You can find my all 100 of my solutions [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples), but I thought I'd highlight a few particularly interesting ones.
 
 ## Problem 96: Sudoku
 

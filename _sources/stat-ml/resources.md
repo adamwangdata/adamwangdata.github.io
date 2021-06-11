@@ -7,7 +7,7 @@ I've worked through the following books in detail:
 
 I completed all exercises that are interesting or potentially insightful, filled gaps in my knowledge, and extended topics presented in the books.
 An example of this work is given in the next section § [](data-analysis).
-My complete accompaniments, totaling over 300 pages, can be found LINK.
+My complete accompaniments, totaling over 300 pages, can be found [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/stat-ml-examples).
 
 I've also worked through:
 
