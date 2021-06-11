@@ -1,0 +1,8 @@
+# To update environment based on this file, run
+# conda env update --prefix ./env --file binder/environment.yml --prune
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.6
+  - jupyter-book=0.10.2
+  - numpy=1.20.3
