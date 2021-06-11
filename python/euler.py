@@ -48,7 +48,7 @@ The magic 100 number may also have been motivated by [Wes McKinney's blog post](
 ```
 Occasionally the simplest brute force algorithm works, but often clever modifications are required.
 In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.
-You can find my all 100 of my solutions [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples), but I thought I'd highlight a few particularly interesting ones.
+You can find my all 100 of my solutions [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples), but I wanted to highlight a few particularly interesting ones.
 
 ## Problem 96: Sudoku
 
@@ -141,9 +141,11 @@ for i in range(len(puzzle)):
     line = puzzle[i].strip()
     puzzle[i] = [int(char) for char in line]
 grid = np.array(puzzle)
+print("initial grid:")
 print(grid)
 
 # Solve the puzzle!
+print("solving...")
 solve_sudoku(grid, print_sol=True);
 
 #%% [markdown]
