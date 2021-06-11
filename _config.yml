@@ -14,7 +14,7 @@ parse:
     - amsmath
 
 launch_buttons:
-  binderhub_url: ""
+  binderhub_url: https://mybinder.org
   thebe: true
 
 repository:
