@@ -5,6 +5,3 @@ More examples are available at:
 
 - [https://github.com/adamwangdata/adamwangdata.github.io/tree/main/stat-ml-examples](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/stat-ml-examples)
 - [https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples)
-
-```{tableofcontents}
-```
