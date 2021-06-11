@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Euler &#8212; Portfolio</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.c441f2ba0852f4cabcb80105e3a46ae6.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/math-aw.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Learning Resources" href="resources.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Portfolio</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preface.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Statistics and Machine Learning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../stat-ml/resources.html">
+   Learning Resources
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../stat-ml/sample.html">
+   Sample Data Analysis
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Python
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="resources.html">
+   Learning Resources
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Project Euler
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/python/euler.py"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.py</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-96-sudoku">
+   Problem 96: Sudoku
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#another-problem">
+   Another problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#and-one-more">
+   And one more
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="project-euler">
+<h1>Project Euler<a class="headerlink" href="#project-euler" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://projecteuler.net/about">Project Euler</a> is a series of computational problems that, generally speaking, can be solved by a computer in less than a minute.
+At least, that was my goal when solving them.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The magic 100 number may also have been motivated by <a class="reference external" href="https://wesmckinney.com/blog/im-moving-to-san-francisco-and-hiring/">Wes McKinney’s blog post</a> where he gives “Extra points if you have [solved 100 or more problems on Project Euler]”.</p>
+</div>
+<p>Occasionally the simplest brute force algorithm works, but often clever modifications are required.
+In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.
+You can find my all 100 of my solutions LINK, but I thought I’d highlight a few particularly interesting ones.</p>
+<div class="section" id="problem-96-sudoku">
+<h2>Problem 96: Sudoku<a class="headerlink" href="#problem-96-sudoku" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://projecteuler.net/problem=96">Problem 96</a> is one of my favorites.
+The goal is to solve a <a class="reference external" href="https://en.wikipedia.org/wiki/Sudoku">Sudoku</a> puzzle algorithmically.
+The crude brute force method is obviously too slow, but the space of possible valid solutions can be drastically reduced by applying the constraints of the game: each digit 1 to 9 must be present in each row, column, and 3 by 3 subgrid.
+I settled on an algorithm that systematically fills one digit at a time with a candidate solution, i.e. one that satisfies the Sudoku constraints.
+It keeps on filling digits until either the grid is complete, meaning the puzzle has been solved, or no candidate solutions exist.
+In the latter case, the algorithm must backtrack to a previous state that could have more candidate solutions, and continue its search.
+I implemented this guess and backtrack via recursion.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The current puzzle was designed to be difficult (for humans, at least) by mathematician Arto Inkala, taken from <a class="reference external" href="https://www.telegraph.co.uk/news/science/science-news/9359579/Worlds-hardest-sudoku-can-you-crack-it.html">this article</a>.</p>
+</div>
+<p>Given a 3 by 3 <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array representing a Sudoku grid, the following <code class="docutils literal notranslate"><span class="pre">solve_sudoku()</span></code> function prints the solution if it is solvable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can try out the code without leaving this page!
+Hover over the <span class="fa fa-rocket"></span> launch button at the top of this page, then click the <span class="guilabel">Live Code</span> button.
+You can even modify the code so if you’re having trouble with a Sudoku puzzle, just modify <code class="docutils literal notranslate"><span class="pre">puzzle</span></code> to your liking. Zeros are interpreted as empty cells.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">solve_sudoku</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">print_sol</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Solve a Sudoku grid using backtracking, assuming a</span>
+<span class="sd">    unique solution is defined. grid is updated in-place.&quot;&quot;&quot;</span>
+    <span class="n">n_empty</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Count empty entries as we search through the grid.</span>
+
+    <span class="c1"># 4 loops to easily index each of 9 rows, columns, and 3x3 grids.</span>
+    <span class="c1"># Start searching in top-left 3x3 grid.</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">subrow</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">row</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">subcol</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">col</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)):</span>
+
+                    <span class="c1"># Fill empty entries.</span>
+                    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">subrow</span><span class="p">,</span> <span class="n">subcol</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">n_empty</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="c1"># For possible solutions satisfying Sudoku constraints,</span>
+                        <span class="c1"># recursively continuing search with updated grid.</span>
+                        <span class="c1"># Backtrack if necessary.</span>
+                        <span class="k">for</span> <span class="n">sol</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">is_not_possible_sol</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span>
+                                                   <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">subrow</span><span class="p">,</span> <span class="n">subcol</span><span class="p">):</span>
+                                <span class="k">continue</span>
+                            <span class="k">else</span><span class="p">:</span>  <span class="c1"># sol may be a valid solution.</span>
+                                <span class="n">grid</span><span class="p">[</span><span class="n">subrow</span><span class="p">,</span> <span class="n">subcol</span><span class="p">]</span> <span class="o">=</span> <span class="n">sol</span>
+                                <span class="k">if</span> <span class="n">solve_sudoku</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">print_sol</span><span class="p">):</span>
+                                    <span class="k">return</span> <span class="kc">True</span>
+                                <span class="k">else</span><span class="p">:</span>  <span class="c1"># No solution found; backtrack.</span>
+                                    <span class="n">grid</span><span class="p">[</span><span class="n">subrow</span><span class="p">,</span> <span class="n">subcol</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="k">return</span> <span class="kc">False</span>  <span class="c1"># No possible solutions found; terminate</span>
+                                      <span class="c1"># this branch and backtrack.</span>
+
+    <span class="c1"># If no empty entries counted (grid is complete), return True.</span>
+    <span class="n">is_solvable</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_empty</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_solvable</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">print_sol</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No solution found.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">is_solvable</span>
+
+<span class="k">def</span> <span class="nf">is_not_possible_sol</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">subrow</span><span class="p">,</span> <span class="n">subcol</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Determine if sol may fill element grid[subrow, subcol] given Sudoku</span>
+<span class="sd">    constraints.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>   <span class="n">sol</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">[</span><span class="n">subrow</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="ow">or</span> <span class="n">sol</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">[:,</span> <span class="n">subcol</span><span class="p">]</span>
+            <span class="ow">or</span> <span class="n">sol</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">row</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">3</span><span class="o">*</span><span class="n">col</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">col</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="p">)</span>
+
+<span class="c1"># Initialize a puzzle. Zeros represent empty cells.</span>
+<span class="n">puzzle</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;800000000</span>
+<span class="s2">            003600000</span>
+<span class="s2">            070090200</span>
+<span class="s2">            050007000</span>
+<span class="s2">            000045700</span>
+<span class="s2">            000100030</span>
+<span class="s2">            001000068</span>
+<span class="s2">            008500010</span>
+<span class="s2">            090000400&quot;&quot;&quot;</span>
+
+<span class="c1"># Convert string puzzle to 9x9 numpy array of integers.</span>
+<span class="n">puzzle</span> <span class="o">=</span> <span class="n">puzzle</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">puzzle</span><span class="p">)):</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">puzzle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">puzzle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">puzzle</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+
+<span class="c1"># Solve the puzzle!</span>
+<span class="n">solve_sudoku</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">print_sol</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[8 0 0 0 0 0 0 0 0]
+ [0 0 3 6 0 0 0 0 0]
+ [0 7 0 0 9 0 2 0 0]
+ [0 5 0 0 0 7 0 0 0]
+ [0 0 0 0 4 5 7 0 0]
+ [0 0 0 1 0 0 0 3 0]
+ [0 0 1 0 0 0 0 6 8]
+ [0 0 8 5 0 0 0 1 0]
+ [0 9 0 0 0 0 4 0 0]]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[8 1 2 7 5 3 6 4 9]
+ [9 4 3 6 8 2 1 7 5]
+ [6 7 5 4 9 1 2 8 3]
+ [1 5 4 2 3 7 8 9 6]
+ [3 6 9 8 4 5 7 2 1]
+ [2 8 7 1 6 9 5 3 4]
+ [5 2 1 9 7 4 3 6 8]
+ [4 3 8 5 2 6 9 1 7]
+ [7 9 6 3 1 8 4 5 2]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="another-problem">
+<h2>Another problem<a class="headerlink" href="#another-problem" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="and-one-more">
+<h2>And one more<a class="headerlink" href="#and-one-more" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "executablebooks/jupyter-book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "portfolio"
+        },
+        kernelOptions: {
+            kernelName: "portfolio",
+            path: "./python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'portfolio'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="resources.html" title="previous page">Learning Resources</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Adam Wang<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
