@@ -29,10 +29,10 @@ sphinx:
       # Enable Python and R files to be source documents
       .py:
         - jupytext.reads
-        - fmt: py:percent
+        - fmt: py
       .r:
         - jupytext.reads
-        - fmt: r:perent
+        - fmt: r
     mathjax_config:
       TeX:
         Macros:
