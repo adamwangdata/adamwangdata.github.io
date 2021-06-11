@@ -3,6 +3,7 @@
 
 title: Portfolio
 author: Adam Wang
+copyright: "2021"
 only_build_toc_files: true
 
 execute:
@@ -14,7 +15,8 @@ parse:
     - amsmath
 
 launch_buttons:
-  binderhub_url: https://mybinder.org
+  notebook_interface: "classic"
+  binderhub_url: "https://mybinder.org"
   thebe: true
 
 repository:
