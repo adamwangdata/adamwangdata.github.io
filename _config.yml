@@ -15,8 +15,7 @@ parse:
     - amsmath
 
 launch_buttons:
-  notebook_interface: "classic"
-  binderhub_url: "https://mybinder.org"
+  binderhub_url: ""
   thebe: true
 
 repository:
@@ -29,10 +28,10 @@ sphinx:
       # Enable Python and R files to be source documents
       .py:
         - jupytext.reads
-        - fmt: py
+        - fmt: py:percent
       .r:
         - jupytext.reads
-        - fmt: r
+        - fmt: r:percent
     mathjax_config:
       TeX:
         Macros:
