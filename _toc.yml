@@ -4,7 +4,7 @@ parts:
 - caption: Statistics and Machine Learning
   chapters:
   - file: stat-ml/resources
-  - file: stat-ml/sample
+  - file: stat-ml/forecast
 - caption: Python
   chapters:
   - file: python/resources
