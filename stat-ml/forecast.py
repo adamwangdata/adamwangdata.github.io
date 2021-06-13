@@ -66,6 +66,9 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('./globwarm.csv')
 df.head(3)
+
+#%%
+
 df.tail(3)
 
 #%% [markdown]
@@ -121,6 +124,9 @@ df = (
 )
 df.ds = format_years(df.ds)
 df.head(3)
+
+#%%
+
 df.tail(3)
 
 #%% [markdown]
@@ -221,6 +227,9 @@ from prophet.diagnostics import cross_validation
 
 df_cv = cross_validation(model, initial='36500 days', horizon='7300 days')
 df_cv.head(3)
+
+#%%
+
 df_cv.tail(3)
 
 #%% [markdown]
