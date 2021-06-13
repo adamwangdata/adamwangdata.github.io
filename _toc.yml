@@ -5,6 +5,7 @@ parts:
   chapters:
   - file: stat-ml/resources
   - file: stat-ml/forecast
+  - file: stat-ml/reconstruct
 - caption: Python
   chapters:
   - file: python/resources
