@@ -42,8 +42,18 @@
 #
 # ## Summary
 #
-# TODO...
+# Using proxy measurements of temperature, like tree ring radius, I built a model to predict annual average temperatures.
+# Because this proxy data is available much further back in time, I can use my model to reconstruct annual temperature data back to 1000 AD.
+# This results in the following reconstruction:
 #
+# ![forecast](./reconstruct.png)
+#
+# ```{note}
+# You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
+# Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
+# Once you see "Launching from mybinder.org: ready", you can run code cells.
+# Refresh the page to revert to the original view.
+# ```
 # ## Data Source
 #
 # TODO...
@@ -59,7 +69,6 @@ install.packages("corrplot")  # In case not found in conda env
 library(corrplot)  # For corrplot()
 library(ggplot2)  # Plot multiple ggplots in a grid.
 library(gridExtra)  # Plot multiple ggplots in a grid.
-
 
 #%% [markdown]
 #

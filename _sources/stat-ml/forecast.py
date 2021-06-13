@@ -43,8 +43,19 @@
 
 ## Summary
 
-Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures for the next two decades.
+Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures for up until 2050.
+This results in the following projection:
 
+```{image} ./forecast.png
+:align: center
+```
+
+```{note}
+You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
+Once you see "Launching from mybinder.org: ready", you can run code cells.
+Refresh the page to revert to the original view.
+```
 
 ## Data Source
 
