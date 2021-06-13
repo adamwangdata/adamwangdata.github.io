@@ -3,13 +3,19 @@
 channels:
   - conda-forge
 dependencies:
-  - python=3.7
-  - numpy
+  - python=3.7.10
+  - numpy=1.20.3
   - cython
   - matplotlib
   - pandas
   - scipy
   - pip:
-    - pystan==2.19.1.1
+    - pystan=2.19.1.1
     - prophet
-    - jupyter-book==0.11.1
+    - plotly
+    - jupyter-book=0.11.1
+  - r-base
+  - r-irkernel
+  - r-repr
+  - r-faraway
+  - r-corrplot
