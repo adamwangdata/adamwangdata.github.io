@@ -54,7 +54,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Learning Resources" href="../python/resources.html" />
+    <link rel="next" title="Time Series Reconstruction" href="reconstruct.html" />
     <link rel="prev" title="Learning Resources" href="resources.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -104,6 +104,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Time Series Forecasting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="reconstruct.html">
+   Time Series Reconstruction
   </a>
  </li>
 </ul>
@@ -248,7 +253,7 @@
 <span id="time-series"></span><h1>Time Series Forecasting<a class="headerlink" href="#time-series-forecasting" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
-<p>Using all recorded annual temperatures averages (from 1850 to 2020), I use <a class="reference external" href="https://facebook.github.io/prophet/">Prophet</a> to forecast annual temperatures for the next decade.</p>
+<p>Using all recorded annual temperatures averages (from 1850 to 2020), I use <a class="reference external" href="https://facebook.github.io/prophet/">Prophet</a> to forecast annual temperatures for the next two decades.</p>
 </div>
 <div class="section" id="data-source">
 <h2>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h2>
@@ -267,7 +272,63 @@ For the purposes of this analysis, I will just use the point estimate.</p>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./globwarm.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>Anomaly (deg C)</th>
+      <th>Lower confidence limit (2.5%)</th>
+      <th>Upper confidence limit (97.5%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1850</td>
+      <td>-0.435791</td>
+      <td>-0.635680</td>
+      <td>-0.235902</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1851</td>
+      <td>-0.219249</td>
+      <td>-0.428398</td>
+      <td>-0.010100</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1852</td>
+      <td>-0.235702</td>
+      <td>-0.457689</td>
+      <td>-0.013715</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -342,7 +403,7 @@ For simplicity, I’ll drop this point from the analysis.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/forecast_7_0.png" src="../_images/forecast_7_0.png" />
+<img alt="../_images/forecast_8_0.png" src="../_images/forecast_8_0.png" />
 </div>
 </div>
 <p>There is also clearly a nonlinear trend amidst the random variation from year to year.
@@ -369,7 +430,55 @@ Prophet expects a two column dataframe with datestamps <code class="docutils lit
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">format_years</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ds</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1850-12-31</td>
+      <td>-0.435791</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1851-12-31</td>
+      <td>-0.219249</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1852-12-31</td>
+      <td>-0.235702</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -443,7 +552,7 @@ Prophet expects a two column dataframe with datestamps <code class="docutils lit
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO:prophet:Disabling daily seasonality. Run prophet with daily_seasonality=True to override this.
 </pre></div>
 </div>
-<img alt="../_images/forecast_11_2.png" src="../_images/forecast_11_2.png" />
+<img alt="../_images/forecast_13_2.png" src="../_images/forecast_13_2.png" />
 </div>
 </div>
 <p>The reason is that we need to account for long term cycles over many years.
@@ -465,7 +574,7 @@ In other words, we shouldn’t include too many Fourier terms, controlled by the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/forecast_13_0.png" src="../_images/forecast_13_0.png" />
+<img alt="../_images/forecast_15_0.png" src="../_images/forecast_15_0.png" />
 </div>
 </div>
 <p>The fit’s a bit better in terms of smoothness, but still not great.
@@ -484,7 +593,7 @@ Let’s try increasing the seasonality period a bit more:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/forecast_15_0.png" src="../_images/forecast_15_0.png" />
+<img alt="../_images/forecast_17_0.png" src="../_images/forecast_17_0.png" />
 </div>
 </div>
 <p>The fit is much better.
@@ -499,7 +608,7 @@ Let’s see what it forecasts.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/forecast_17_0.png" src="../_images/forecast_17_0.png" />
+<img alt="../_images/forecast_19_0.png" src="../_images/forecast_19_0.png" />
 </div>
 </div>
 <p>The model stays roughly linear with the latest data, but levels off due to the seasonality built into the model.</p>
@@ -520,7 +629,6 @@ This approach can be implemented in Prophet as follows:</p>
 
 <span class="n">df_cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="s1">&#39;36500 days&#39;</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="s1">&#39;7300 days&#39;</span><span class="p">)</span>
 <span class="n">df_cv</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">df_cv</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -529,8 +637,73 @@ This approach can be implemented in Prophet as follows:</p>
 </pre></div>
 </div>
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "1b8edec24d5a458b85130e4b473a58b6"}
+{"version_major": 2, "version_minor": 0, "model_id": "bd7863e74ab9494fba89227f67c33c65"}
 </script><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>yhat</th>
+      <th>yhat_lower</th>
+      <th>yhat_upper</th>
+      <th>y</th>
+      <th>cutoff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1951-12-31</td>
+      <td>-0.006353</td>
+      <td>-0.161634</td>
+      <td>0.152794</td>
+      <td>0.053849</td>
+      <td>1951-01-18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1952-12-31</td>
+      <td>-0.015820</td>
+      <td>-0.166665</td>
+      <td>0.124517</td>
+      <td>0.069817</td>
+      <td>1951-01-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1953-12-31</td>
+      <td>-0.025520</td>
+      <td>-0.178778</td>
+      <td>0.133318</td>
+      <td>0.206579</td>
+      <td>1951-01-18</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cv</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -561,8 +734,8 @@ This approach can be implemented in Prophet as follows:</p>
       <th>117</th>
       <td>2018-12-31</td>
       <td>0.104272</td>
-      <td>-0.100081</td>
-      <td>0.306190</td>
+      <td>-0.088163</td>
+      <td>0.296830</td>
       <td>0.959662</td>
       <td>2001-01-05</td>
     </tr>
@@ -570,8 +743,8 @@ This approach can be implemented in Prophet as follows:</p>
       <th>118</th>
       <td>2019-12-31</td>
       <td>0.115833</td>
-      <td>-0.085315</td>
-      <td>0.297106</td>
+      <td>-0.077936</td>
+      <td>0.326645</td>
       <td>1.143743</td>
       <td>2001-01-05</td>
     </tr>
@@ -579,8 +752,8 @@ This approach can be implemented in Prophet as follows:</p>
       <th>119</th>
       <td>2020-12-31</td>
       <td>0.129281</td>
-      <td>-0.060167</td>
-      <td>0.345233</td>
+      <td>-0.076667</td>
+      <td>0.326723</td>
       <td>1.275727</td>
       <td>2001-01-05</td>
     </tr>
@@ -608,7 +781,7 @@ unsurprisingly, performance is worse the farther out the window:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/forecast_21_0.png" src="../_images/forecast_21_0.png" />
+<img alt="../_images/forecast_24_0.png" src="../_images/forecast_24_0.png" />
 </div>
 </div>
 <p>The two curves differ by the amount of averaging used in computing the MSE.
@@ -670,8 +843,9 @@ A dataframe of metrics can be extracted with <code class="docutils literal notra
 </table>
 </div></div></div>
 </div>
-<p>The above code with <code class="docutils literal notranslate"><span class="pre">rolling_window=1</span></code> is useful for hyperparameter tuning of optimizing performance, on average, over predictions on a fixed horizon.
-This is done in the code below to find the optimum (custom) seasonality period and number of Fourier terms.
+<p>The above code with <code class="docutils literal notranslate"><span class="pre">rolling_window=1</span></code> is useful for hyperparameter tuning.
+It allows us to optimizing average performance over a fixed horizon window.
+This is done in the code below to find the optimum seasonality period and number of Fourier terms.
 I also optimize over two model parameters <code class="docutils literal notranslate"><span class="pre">changepoint_prior_scale</span></code> and <code class="docutils literal notranslate"><span class="pre">seasonality_prior_scale</span></code> which control the flexibility of the changepoints and seasonalities.</p>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
@@ -890,7 +1064,7 @@ Name: 35, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/forecast_30_0.png" src="../_images/forecast_30_0.png" />
+<img alt="../_images/forecast_33_0.png" src="../_images/forecast_33_0.png" />
 </div>
 </div>
 </div>
@@ -898,7 +1072,7 @@ Name: 35, dtype: float64
 
 
 <script type="application/vnd.jupyter.widget-state+json">
-{"state": {"26fc9bd177b54bd8b6734e4dd88a9975": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "cb8832a4f5d54ce3b07963c444596868": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "1f9ea2936bd541249cf300dd63c5835d": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_26fc9bd177b54bd8b6734e4dd88a9975", "max": 6.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_cb8832a4f5d54ce3b07963c444596868", "value": 6.0}}, "0cbee3e7581247b7b7add22fb4516dc3": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "9695cc6d493140bd913401ea08e40e2f": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "372e2d097fb8450a9d9d1367b845c445": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_0cbee3e7581247b7b7add22fb4516dc3", "placeholder": "\u200b", "style": "IPY_MODEL_9695cc6d493140bd913401ea08e40e2f", "value": "100%"}}, "66a0a22f97ac49118efd08dbabb38313": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "5595401cf07c44a589f4823394f756fd": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "9a97689a53db40e28ad765890d78c27b": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_66a0a22f97ac49118efd08dbabb38313", "placeholder": "\u200b", "style": "IPY_MODEL_5595401cf07c44a589f4823394f756fd", "value": " 6/6 [00:07&lt;00:00,  1.30s/it]"}}, "0197d84a934d460699ce292934042274": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "1b8edec24d5a458b85130e4b473a58b6": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_372e2d097fb8450a9d9d1367b845c445", "IPY_MODEL_1f9ea2936bd541249cf300dd63c5835d", "IPY_MODEL_9a97689a53db40e28ad765890d78c27b"], "layout": "IPY_MODEL_0197d84a934d460699ce292934042274"}}}, "version_major": 2, "version_minor": 0}
+{"state": {"74b240b7a6d548e2994f8a6179809c10": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "43d180040dc34eb082e9c6f7962b8a66": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "0153b38a4ccf4475bf1cd0cd8f684da3": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_74b240b7a6d548e2994f8a6179809c10", "max": 6.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_43d180040dc34eb082e9c6f7962b8a66", "value": 6.0}}, "f4001f1af5f84731be6e47230ef93b54": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "98a6cc9faf0644b49d208496a799bf7f": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "54eb2dbd2e72465aa6d207e652397b8d": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_f4001f1af5f84731be6e47230ef93b54", "placeholder": "\u200b", "style": "IPY_MODEL_98a6cc9faf0644b49d208496a799bf7f", "value": "100%"}}, "ca6e0ab00b0b4b239185a218d54122c1": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "c5993c0aae664ed7b45b74796a9baa31": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "c93dd42e33d4457f8878fdbcd04ecd6b": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_ca6e0ab00b0b4b239185a218d54122c1", "placeholder": "\u200b", "style": "IPY_MODEL_c5993c0aae664ed7b45b74796a9baa31", "value": " 6/6 [00:07&lt;00:00,  1.32s/it]"}}, "3ee727e8757e4355a4ddde3ef65b35b7": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "bd7863e74ab9494fba89227f67c33c65": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_54eb2dbd2e72465aa6d207e652397b8d", "IPY_MODEL_0153b38a4ccf4475bf1cd0cd8f684da3", "IPY_MODEL_c93dd42e33d4457f8878fdbcd04ecd6b"], "layout": "IPY_MODEL_3ee727e8757e4355a4ddde3ef65b35b7"}}}, "version_major": 2, "version_minor": 0}
 </script>
 
 
@@ -928,7 +1102,7 @@ Name: 35, dtype: float64
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="resources.html" title="previous page">Learning Resources</a>
-    <a class='right-next' id="next-link" href="../python/resources.html" title="next page">Learning Resources</a>
+    <a class='right-next' id="next-link" href="reconstruct.html" title="next page">Time Series Reconstruction</a>
 
         </div>
         

@@ -43,7 +43,7 @@
 
 ## Summary
 
-Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures for the next decade.
+Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures for the next two decades.
 
 
 ## Data Source
@@ -66,6 +66,9 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('./globwarm.csv')
 df.head(3)
+
+#%%
+
 df.tail(3)
 
 #%% [markdown]
@@ -121,6 +124,9 @@ df = (
 )
 df.ds = format_years(df.ds)
 df.head(3)
+
+#%%
+
 df.tail(3)
 
 #%% [markdown]
@@ -221,6 +227,9 @@ from prophet.diagnostics import cross_validation
 
 df_cv = cross_validation(model, initial='36500 days', horizon='7300 days')
 df_cv.head(3)
+
+#%%
+
 df_cv.tail(3)
 
 #%% [markdown]
@@ -264,8 +273,9 @@ df_performance
 
 #%% [markdown]
 
-# The above code with `rolling_window=1` is useful for hyperparameter tuning of optimizing performance, on average, over predictions on a fixed horizon.
-# This is done in the code below to find the optimum (custom) seasonality period and number of Fourier terms.
+# The above code with `rolling_window=1` is useful for hyperparameter tuning.
+# It allows us to optimizing average performance over a fixed horizon window.
+# This is done in the code below to find the optimum seasonality period and number of Fourier terms.
 # I also optimize over two model parameters `changepoint_prior_scale` and `seasonality_prior_scale` which control the flexibility of the changepoints and seasonalities.
 # ```{margin}
 # This cell takes a while to run so is not executable, but later cells that analyze `tuning_results.csv` are executable.
