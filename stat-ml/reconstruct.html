@@ -56,7 +56,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1], "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1], "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1], "abs": ["\\mathopen{}\\left\\lvert#1\\right\\rvert\\mathclose{}", 1], "norm": ["\\mathopen{}\\left\\lVert#1\\right\\rVert\\mathclose{}", 1], "vec": ["\\boldsymbol{\\mathbf{#1}}", 1], "mat": ["\\mathbf{#1}", 1], "tpose": ["#1^T", 1], "inv": ["#1^{-1}", 1], "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1], "seq": ["1, 2, \\ldots, #1", 1], "reals": ["\\mathbb{R}"], "mper": ["\\,\\text{.}"], "mcom": ["\\,\\text{,}"]}}, "tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Learning Resources" href="../python/resources.html" />
+    <link rel="next" title="Project Euler" href="../python/euler.html" />
     <link rel="prev" title="Time Series Forecasting" href="forecast.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -120,11 +120,6 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../python/resources.html">
-   Learning Resources
-  </a>
- </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../python/euler.html">
    Project Euler
@@ -236,18 +231,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-diagnostics-and-re-selection">
-   Model diagnostics and (re)selection).
+  <a class="reference internal nav-link" href="#model-diagnostics-and-selection">
+   Model Diagnostics and Selection
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#optimizing-predictive-accuracy">
-   Optimizing predictive accuracy
+   Optimizing Predictive Accuracy
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#making-predictions">
-   Making predictions
+   Making Predictions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
   </a>
  </li>
 </ul>
@@ -265,9 +265,9 @@
 <span id="reconstruct"></span><h1>Time Series Reconstruction<a class="headerlink" href="#time-series-reconstruction" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
-<p>Using proxy measurements of temperature, like tree ring radius, I built a model to predict annual average temperatures.
-Because this proxy data is available much further back in time, I can use my model to reconstruct annual temperature data back to 1000 AD.
-This results in the following reconstruction:</p>
+<p>I built a model to predict annual average temperatures all the way back to 1000 AD using proxy data, like tree ring radii.
+Though recorded temperature data is only available from 1850, proxy data is available much further back in time.
+My model results in the following reconstruction:</p>
 <p><img alt="forecast" src="../_images/reconstruct.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -279,16 +279,17 @@ Refresh the page to revert to the original view.</p>
 </div>
 <div class="section" id="data-source">
 <h2>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h2>
-<p>TODO…</p>
+<p>Data was obtained from the <code class="docutils literal notranslate"><span class="pre">faraway</span></code> package’s <code class="docutils literal notranslate"><span class="pre">globwarm</span></code> dataset.
+It consists of average northern hemisphere temperature <code class="docutils literal notranslate"><span class="pre">nhtemp</span></code> from 1856 to 2000 and eight climate proxies from 1000 to 2000.
+Proxy data include tree ring, ice score, and sea shell data from a variety of geographic regions.
+The original data can be found at <a class="reference external" href="https://www.ncdc.noaa.gov/paleo-search/study/6271">https://www.ncdc.noaa.gov/paleo-search/study/6271</a>.</p>
 </div>
 <div class="section" id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
-<p>First, a few package imports:</p>
+<p>First, a few frequently used package imports:</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">faraway</span><span class="p">)</span>  <span class="c1"># For data, sumary(), and vif()</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;corrplot&quot;</span><span class="p">)</span>  <span class="c1"># In case not found in conda env</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">corrplot</span><span class="p">)</span>  <span class="c1"># For corrplot()</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>  <span class="c1"># Plot multiple ggplots in a grid.</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">gridExtra</span><span class="p">)</span>  <span class="c1"># Plot multiple ggplots in a grid.</span>
 </pre></div>
@@ -393,9 +394,7 @@ I prefer graphical summaries of a data frame over numerical summaries provided b
 </div>
 <div class="section" id="data-exploration">
 <span id="data-exploration-reconstruct"></span><h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h2>
-<p>The first step is to learn about the data using <code class="docutils literal notranslate"><span class="pre">?globwarm</span></code>.
-There, we learn <code class="docutils literal notranslate"><span class="pre">nhtemp</span></code> is the northern hemisphere average temperature (in Celsius) but is only available for years 1856–2000.
-We wish to build a model that can predict <code class="docutils literal notranslate"><span class="pre">nhtemp</span></code> from the eight climate proxies because proxy data is available for years 1000-2000.
+<p>We wish to build a model that can predict <code class="docutils literal notranslate"><span class="pre">nhtemp</span></code> from the eight climate proxies because proxy data is available for years 1000-2000.
 Since the model requires available responses for training, for most of my analysis I’ll use a subset of data where <code class="docutils literal notranslate"><span class="pre">nhtemp</span></code> is available.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -438,6 +437,14 @@ A graphical summary of the response nhtemp and predictors is shown next.</p>
 The other variables, including the response, are approximately symmetric and unimodal.
 It is also worth considering relationships between variables.
 I do this using Spearman’s rank correlation, which measures the strength of monotonic (but not necessarily linear) relationships.</p>
+<div class="cell tag_remove-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;corrplot&quot;</span><span class="p">)</span>  <span class="c1"># In case not found in conda env</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">corrplot</span><span class="p">)</span>  <span class="c1"># For corrplot()</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">set_pars</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="m">5</span><span class="p">))</span>
@@ -447,7 +454,7 @@ I do this using Spearman’s rank correlation, which measures the strength of mo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_15_0.png" src="../_images/reconstruct_15_0.png" />
+<img alt="../_images/reconstruct_16_0.png" src="../_images/reconstruct_16_0.png" />
 </div>
 </div>
 <p>A few variables have multiple strong correlations, e.g. <code class="docutils literal notranslate"><span class="pre">mongolia</span></code> and <code class="docutils literal notranslate"><span class="pre">urals</span></code>, so I may need to address collinearity later although it is less problematic for prediction.
@@ -464,7 +471,7 @@ There is little noise in the proxy data from year to year, so scatterplots of pr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_17_0.png" src="../_images/reconstruct_17_0.png" />
+<img alt="../_images/reconstruct_18_0.png" src="../_images/reconstruct_18_0.png" />
 </div>
 </div>
 <p>Scatterplots of response against correlated proxies yield more familiar plots; indeed the response is more variable which is why we’re modeling it with a random error.</p>
@@ -480,13 +487,13 @@ There is little noise in the proxy data from year to year, so scatterplots of pr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_19_0.png" src="../_images/reconstruct_19_0.png" />
+<img alt="../_images/reconstruct_20_0.png" src="../_images/reconstruct_20_0.png" />
 </div>
 </div>
 <p>The left (right) plot exhibits a (non)linear trend. Because prediction is of primary interest, I will consider nonlinear transformations later.</p>
 </div>
-<div class="section" id="model-diagnostics-and-re-selection">
-<h2>Model diagnostics and (re)selection).<a class="headerlink" href="#model-diagnostics-and-re-selection" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="model-diagnostics-and-selection">
+<h2>Model Diagnostics and Selection<a class="headerlink" href="#model-diagnostics-and-selection" title="Permalink to this headline">¶</a></h2>
 <p>For now, nothing is particularly alarming, so I’ll start with a simple model linear in all predictors.
 Since we’re interested in past prediction, I’ll reserve 30% of the oldest data as a test set to select the best model, measured by RMSE, and build the model on the rest of the data.</p>
 <div class="cell docutils container">
@@ -526,19 +533,19 @@ I’ll examine R’s default diagnostic plots next.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_23_0.png" src="../_images/reconstruct_23_0.png" />
+<img alt="../_images/reconstruct_24_0.png" src="../_images/reconstruct_24_0.png" />
 </div>
 </div>
 <ol class="simple">
 <li><p><strong>Residuals vs Fitted.</strong> There is no obvious trend suggestive of poor model structure. There are a few large residuals, particularly the later years implying the model underestimates the latest data.</p></li>
 <li><p><strong>Normal Q-Q.</strong> The right tail violates the normality assumption, which seem to be the latest data.</p></li>
 <li><p><strong>Scale-Location.</strong> The residuals do not deviate much from the constant variance assumption.</p></li>
-<li><p><strong>Residuals vs Leverage.</strong> The oldest points in the dataset, 1899 and 1900, have the highest leverage and influence, but not high enough for me to consider their removal.
-Aside from normality of errors, which is the least important assumption, the simple model looks OK.
+<li><p><strong>Residuals vs Leverage.</strong> The oldest points in the dataset, 1899 and 1900, have the highest leverage and influence, but not high enough for me to consider their removal.</p></li>
+</ol>
+<p>Aside from normality of errors, which is the least important assumption, the simple model looks OK.
 One could argue the large residuals are problematic for past predictions; perhaps they are indicative of global warming in recent years, a small range of time with distinct behavior that my simple linear model cannot capture.
 I’ll test this formally using leave-one-out Studentized residuals, which are approximately distributed as <span class="math notranslate nohighlight">\(\mathcal{T}(n−p−1)\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> is the number of parameters.
-Using a Bonferroni correction at the <span class="math notranslate nohighlight">\(\alpha=0.05\)</span> level,</p></li>
-</ol>
+Using a Bonferroni correction at the <span class="math notranslate nohighlight">\(\alpha=0.05\)</span> level,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">tresid</span> <span class="o">&lt;-</span> <span class="nf">rstudent</span><span class="p">(</span><span class="n">lmod</span><span class="p">)</span>
@@ -565,7 +572,7 @@ This is hard to see from the diagnostic plots because year has not yet informed 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_27_0.png" src="../_images/reconstruct_27_0.png" />
+<img alt="../_images/reconstruct_28_0.png" src="../_images/reconstruct_28_0.png" />
 </div>
 </div>
 <p>To address the correlated errors, I’ll use generalized least squares (GLS) with an AR1 correlation structure.
@@ -583,7 +590,7 @@ Specifically, I’ll model the the errors as a linear 1-step lag:</p>
       &amp;      &amp;     &amp;  &amp; 1 \\
   }
 \end{split}\]</div>
-<p>We can then transform the response and design matrix to <span class="math notranslate nohighlight">\(\boldsymbol{y}'=\boldsymbol{S}^{-1} \boldsymbol{y}\)</span> and  and <span class="math notranslate nohighlight">\(\boldsymbol{X}'=\boldsymbol{S}^{-2}\boldsymbol{X}\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{S}\)</span> is obtained from the Choleski decomposition <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}=\boldsymbol{S}\boldsymbol{S}^{T}\)</span>, and regress <span class="math notranslate nohighlight">\(\boldsymbol{y}'\)</span> on <span class="math notranslate nohighlight">\(\boldsymbol{X}'\)</span>:</p>
+<p>We can then transform the response and design matrix to <span class="math notranslate nohighlight">\(\boldsymbol{y}'=\boldsymbol{S}^{-1} \boldsymbol{y}\)</span> and  and <span class="math notranslate nohighlight">\(\boldsymbol{X}'=\boldsymbol{S}^{-1}\boldsymbol{X}\)</span>, where <span class="math notranslate nohighlight">\(\boldsymbol{S}\)</span> is obtained from the Choleski decomposition <span class="math notranslate nohighlight">\(\boldsymbol{\Sigma}=\boldsymbol{S}\boldsymbol{S}^{T}\)</span>, and regress <span class="math notranslate nohighlight">\(\boldsymbol{y}'\)</span> on <span class="math notranslate nohighlight">\(\boldsymbol{X}'\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[ \boldsymbol{y}' = \boldsymbol{X}'\boldsymbol{\beta} + \boldsymbol{\varepsilon}' \]</div>
 <div class="margin sidebar">
@@ -679,7 +686,7 @@ n = 102, p = 9, Residual SE = 0.27744, R-Squared = 0.03
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_35_0.png" src="../_images/reconstruct_35_0.png" />
+<img alt="../_images/reconstruct_36_0.png" src="../_images/reconstruct_36_0.png" />
 </div>
 </div>
 <div class="margin sidebar">
@@ -698,7 +705,7 @@ However, this is an artifact of the transformed design matrix <span class="math 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_37_0.png" src="../_images/reconstruct_37_0.png" />
+<img alt="../_images/reconstruct_38_0.png" src="../_images/reconstruct_38_0.png" />
 </div>
 </div>
 <p>To check the degree of collinearity, I examined the condition numbers. The largest was 11.75677, so I won’t take any special precautions.
@@ -721,13 +728,13 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 &quot;NaNs produced&quot;
 </pre></div>
 </div>
-<img alt="../_images/reconstruct_39_2.png" src="../_images/reconstruct_39_2.png" />
+<img alt="../_images/reconstruct_40_2.png" src="../_images/reconstruct_40_2.png" />
 </div>
 </div>
 <p>The exact form of the weights was found by trial and error. The resultant weights span a large range; the oldest point is weighed more than 10 times the most recent point, which results in a larger Cook’s distance. I’ll see whether the weights help in prediction next, skipping variable selection since <span class="math notranslate nohighlight">\(n/p\)</span> is not too small and we’re focused on prediction.</p>
 </div>
 <div class="section" id="optimizing-predictive-accuracy">
-<h2>Optimizing predictive accuracy<a class="headerlink" href="#optimizing-predictive-accuracy" title="Permalink to this headline">¶</a></h2>
+<h2>Optimizing Predictive Accuracy<a class="headerlink" href="#optimizing-predictive-accuracy" title="Permalink to this headline">¶</a></h2>
 <p>I’ll grade models on the mean RMSE of their predictions for the test data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -818,7 +825,7 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 <p>Surprisingly, the linear model with ridge regression obtains the best accuracy among all models considered. Ridge regression doesn’t benefit the GLS models—inspection of the penalized coefficients show all terms but the intercept are shrunk to zero. I’ll continue with <code class="docutils literal notranslate"><span class="pre">glmod</span></code> and <code class="docutils literal notranslate"><span class="pre">ridge_lmod</span></code> to compare their predictions. If there are stark differences I’ll need to think harder on picking one model.</p>
 </div>
 <div class="section" id="making-predictions">
-<h2>Making predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">¶</a></h2>
+<h2>Making Predictions<a class="headerlink" href="#making-predictions" title="Permalink to this headline">¶</a></h2>
 <p>I’ll train the models on all data with available <code class="docutils literal notranslate"><span class="pre">nhtemp</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -856,7 +863,7 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_56_0.png" src="../_images/reconstruct_56_0.png" />
+<img alt="../_images/reconstruct_57_0.png" src="../_images/reconstruct_57_0.png" />
 </div>
 </div>
 <p>The GLS model better captures temporal variation, while the ridge model hovers around the mean temperature -0.12034. This feature is even more pronounced when we predict back to year 1000, leading to drastically different predictions.</p>
@@ -871,10 +878,38 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_58_0.png" src="../_images/reconstruct_58_0.png" />
+<img alt="../_images/reconstruct_59_0.png" src="../_images/reconstruct_59_0.png" />
 </div>
 </div>
-<p>Since the ridge model makes no correction for the strongly correlated residuals, other than shrinking estimates, I favor the GLS model.</p>
+<p>Since the ridge model makes no correction for the strongly correlated residuals, other than shrinking estimates, I favor the GLS model.
+Converting it to <code class="docutils literal notranslate"><span class="pre">ggplot()</span></code> for a prettier plot yields the temperature reconstruction:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">set_pars</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">))</span>
+<span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">globwarm</span><span class="o">$</span><span class="n">year</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">globwarm</span><span class="o">$</span><span class="n">nhtemp</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">glmod_pred</span><span class="p">)</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_line</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">pred</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">temp</span><span class="p">),</span> <span class="n">shape</span><span class="o">=</span><span class="m">1</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">xlab</span><span class="p">(</span><span class="s">&#39;Year&#39;</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">ylab</span><span class="p">(</span><span class="s">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+&quot;Removed 856 rows containing missing values (geom_point).&quot;
+</pre></div>
+</div>
+<img alt="../_images/reconstruct_61_1.png" src="../_images/reconstruct_61_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>I built a standard least squares regression model, a model accounting for correlated errors, and a model with additional weights after correlation adjustment.
+Each of these models was tuned to have highest predictive accuracy on test data, as well as their regularized counterparts.
+Though one of the regularized models had the best predictive accuracy, its underlying structure is not suited for time series data, which was validated by graphical diagnostics.
+A more detailed analysis should optimize cross-validated predictive accuracy, accounting for correlation structure, and contain uncertainty estimates in the reconstruction.</p>
 </div>
 </div>
 
@@ -904,7 +939,7 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="forecast.html" title="previous page">Time Series Forecasting</a>
-    <a class='right-next' id="next-link" href="../python/resources.html" title="next page">Learning Resources</a>
+    <a class='right-next' id="next-link" href="../python/euler.html" title="next page">Project Euler</a>
 
         </div>
         

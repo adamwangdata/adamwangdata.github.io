@@ -1,0 +1,61 @@
+Traceback (most recent call last):
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\jupyter_cache\executors\utils.py", line 56, in single_nb_execution
+    record_timing=False,
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\nbclient\client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\nbclient\util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\nbclient\util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "c:\users\adam\documents\portfolio\env\lib\asyncio\base_events.py", line 587, in run_until_complete
+    return future.result()
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\nbclient\client.py", line 554, in async_execute
+    cell, index, execution_count=self.code_cells_executed + 1
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\nbclient\client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "c:\users\adam\documents\portfolio\env\lib\site-packages\nbclient\client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+import time
+
+def reduce_triangle(nums):
+    last_row = nums[-1]
+    next_last_row = nums[-2]
+    for i in range(len(next_last_row)):
+        next_last_row[i] += max(last_row[i], last_row[i+1])
+    nums = nums[:-2]
+    nums.append(next_last_row)
+    return nums
+
+start = time.time()
+
+# Process data.
+with open("p67_tri_nums.txt") as f:
+    nums = f.read().split('\n')
+
+rows = len(nums)
+for i in range(rows):
+    nums[i] = [int(x) for x in nums[i].split(' ')]
+
+# Compute maximum path sum.
+while len(nums) > 1:
+    nums = reduce_triangle(nums)
+print(nums)
+
+print(time.time() - start)
+------------------
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mFileNotFoundError[0m                         Traceback (most recent call last)
+[1;32m<ipython-input-2-6f8d6f8b80eb>[0m in [0;36m<module>[1;34m[0m
+[0;32m     13[0m [1;33m[0m[0m
+[0;32m     14[0m [1;31m# Process data.[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
+[1;32m---> 15[1;33m [1;32mwith[0m [0mopen[0m[1;33m([0m[1;34m"p67_tri_nums.txt"[0m[1;33m)[0m [1;32mas[0m [0mf[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+[0m[0;32m     16[0m     [0mnums[0m [1;33m=[0m [0mf[0m[1;33m.[0m[0mread[0m[1;33m([0m[1;33m)[0m[1;33m.[0m[0msplit[0m[1;33m([0m[1;34m'\n'[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[0;32m     17[0m [1;33m[0m[0m
+
+[1;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'p67_tri_nums.txt'
+FileNotFoundError: [Errno 2] No such file or directory: 'p67_tri_nums.txt'
+

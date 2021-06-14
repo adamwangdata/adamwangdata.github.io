@@ -42,9 +42,9 @@
 #
 # ## Summary
 #
-# Using proxy measurements of temperature, like tree ring radius, I built a model to predict annual average temperatures.
-# Because this proxy data is available much further back in time, I can use my model to reconstruct annual temperature data back to 1000 AD.
-# This results in the following reconstruction:
+# I built a model to predict annual average temperatures all the way back to 1000 AD using proxy data, like tree ring radii.
+# Though recorded temperature data is only available from 1850, proxy data is available much further back in time.
+# My model results in the following reconstruction:
 #
 # ![forecast](./reconstruct.png)
 #
@@ -56,17 +56,18 @@
 # ```
 # ## Data Source
 #
-# TODO...
+# Data was obtained from the `faraway` package's `globwarm` dataset.
+# It consists of average northern hemisphere temperature `nhtemp` from 1856 to 2000 and eight climate proxies from 1000 to 2000.
+# Proxy data include tree ring, ice score, and sea shell data from a variety of geographic regions.
+# The original data can be found at [https://www.ncdc.noaa.gov/paleo-search/study/6271](https://www.ncdc.noaa.gov/paleo-search/study/6271).
 #
 # ## Preliminaries
 #
-# First, a few package imports:
+# First, a few frequently used package imports:
 
 #%% tags=["remove-output"]
 
 library(faraway)  # For data, sumary(), and vif()
-install.packages("corrplot")  # In case not found in conda env
-library(corrplot)  # For corrplot()
 library(ggplot2)  # Plot multiple ggplots in a grid.
 library(gridExtra)  # Plot multiple ggplots in a grid.
 
@@ -169,8 +170,6 @@ set_pars <- function(panels=1, dim=NULL) {
 #
 # (data-exploration-reconstruct)=
 # ## Data Exploration
-# The first step is to learn about the data using `?globwarm`.
-# There, we learn `nhtemp` is the northern hemisphere average temperature (in Celsius) but is only available for years 1856–2000.
 # We wish to build a model that can predict `nhtemp` from the eight climate proxies because proxy data is available for years 1000-2000.
 # Since the model requires available responses for training, for most of my analysis I'll use a subset of data where `nhtemp` is available.
 
@@ -210,6 +209,11 @@ summary_plot(df[, !(names(df) %in% 'year')])
 # It is also worth considering relationships between variables.
 # I do this using Spearman's rank correlation, which measures the strength of monotonic (but not necessarily linear) relationships.
 
+#%% tags=['remove-output']
+
+install.packages("corrplot")  # In case not found in conda env
+library(corrplot)  # For corrplot()
+
 #%%
 
 set_pars(dim=c(5, 5))
@@ -247,7 +251,7 @@ grid.arrange(plot1, plot2, ncol = 2)
 #
 # The left (right) plot exhibits a (non)linear trend. Because prediction is of primary interest, I will consider nonlinear transformations later.
 
-# ## Model diagnostics and (re)selection).
+# ## Model Diagnostics and Selection
 # For now, nothing is particularly alarming, so I'll start with a simple model linear in all predictors.
 # Since we're interested in past prediction, I'll reserve 30% of the oldest data as a test set to select the best model, measured by RMSE, and build the model on the rest of the data.
 
@@ -275,6 +279,7 @@ plot(lmod)
 # 2. **Normal Q-Q.** The right tail violates the normality assumption, which seem to be the latest data.
 # 3. **Scale-Location.** The residuals do not deviate much from the constant variance assumption.
 # 4. **Residuals vs Leverage.** The oldest points in the dataset, 1899 and 1900, have the highest leverage and influence, but not high enough for me to consider their removal.
+#
 # Aside from normality of errors, which is the least important assumption, the simple model looks OK.
 # One could argue the large residuals are problematic for past predictions; perhaps they are indicative of global warming in recent years, a small range of time with distinct behavior that my simple linear model cannot capture.
 # I’ll test this formally using leave-one-out Studentized residuals, which are approximately distributed as $\mathcal{T}(n−p−1)$, where $p$ is the number of parameters.
@@ -320,7 +325,7 @@ plot(lmod$residuals[1:(nrow(train)-1)], lmod$residuals[2:nrow(train)])
 #   }
 # $$
 #
-# We can then transform the response and design matrix to $\boldsymbol{y}'=\boldsymbol{S}^{-1} \boldsymbol{y}$ and  and $\boldsymbol{X}'=\boldsymbol{S}^{-2}\boldsymbol{X}$, where $\boldsymbol{S}$ is obtained from the Choleski decomposition $\boldsymbol{\Sigma}=\boldsymbol{S}\boldsymbol{S}^{T}$, and regress $\boldsymbol{y}'$ on $\boldsymbol{X}'$:
+# We can then transform the response and design matrix to $\boldsymbol{y}'=\boldsymbol{S}^{-1} \boldsymbol{y}$ and  and $\boldsymbol{X}'=\boldsymbol{S}^{-1}\boldsymbol{X}$, where $\boldsymbol{S}$ is obtained from the Choleski decomposition $\boldsymbol{\Sigma}=\boldsymbol{S}\boldsymbol{S}^{T}$, and regress $\boldsymbol{y}'$ on $\boldsymbol{X}'$:
 #
 # $$ \boldsymbol{y}' = \boldsymbol{X}'\boldsymbol{\beta} + \boldsymbol{\varepsilon}' $$
 #
@@ -401,7 +406,7 @@ plot(wglmod)
 #
 # The exact form of the weights was found by trial and error. The resultant weights span a large range; the oldest point is weighed more than 10 times the most recent point, which results in a larger Cook’s distance. I’ll see whether the weights help in prediction next, skipping variable selection since $n/p$ is not too small and we’re focused on prediction.
 #
-# ## Optimizing predictive accuracy
+# ## Optimizing Predictive Accuracy
 #
 # I’ll grade models on the mean RMSE of their predictions for the test data.
 
@@ -464,7 +469,7 @@ get_rmse(X_test %*% coef(ridge_wglmod)[2:(ncol(X)+1)], test$nhtemp)
 #
 # Surprisingly, the linear model with ridge regression obtains the best accuracy among all models considered. Ridge regression doesn’t benefit the GLS models—inspection of the penalized coefficients show all terms but the intercept are shrunk to zero. I’ll continue with `glmod` and `ridge_lmod` to compare their predictions. If there are stark differences I’ll need to think harder on picking one model.
 #
-# ## Making predictions
+# ## Making Predictions
 #
 # I’ll train the models on all data with available `nhtemp`.
 
@@ -516,3 +521,24 @@ legend('topleft', legend = c('ridge', 'GLS'), lty = 1, col = 2:3)
 #%% [markdown]
 #
 # Since the ridge model makes no correction for the strongly correlated residuals, other than shrinking estimates, I favor the GLS model.
+# Converting it to `ggplot()` for a prettier plot yields the temperature reconstruction:
+
+#%%
+
+set_pars(dim=c(8, 3))
+df <- data.frame(year=globwarm$year, temp=globwarm$nhtemp, pred=glmod_pred)
+ggplot(df) +
+  geom_line(aes(x=year, y=pred), size=1) +
+  geom_point(aes(x=year,y=temp), shape=1) +
+  xlab('Year') +
+  ylab('Temperature (C)')
+
+#%% [markdown]
+#
+# ## Conclusion
+#
+# I built a standard least squares regression model, a model accounting for correlated errors, and a model with additional weights after correlation adjustment.
+# Each of these models was tuned to have highest predictive accuracy on test data, as well as their regularized counterparts.
+# Though one of the regularized models had the best predictive accuracy, its underlying structure is not suited for time series data, which was validated by graphical diagnostics.
+# A more detailed analysis should optimize cross-validated predictive accuracy, accounting for correlation structure, and contain uncertainty estimates in the reconstruction.
+

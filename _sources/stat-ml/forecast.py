@@ -109,12 +109,12 @@ plt.show()
 #%% [markdown]
 
 """
-There is also clearly a nonlinear trend amidst the random variation from year to year.
-We also expect some long term cyclical patterns, for instance [Milankovitch cycles](https://en.wikipedia.org/wiki/Milankovitch_cycles) due to variations in Earth's movement relative to the Sun.
+There is clearly a nonlinear trend amidst the random variation from year to year.
+We expect some long term cyclical patterns, for instance [Milankovitch cycles](https://en.wikipedia.org/wiki/Milankovitch_cycles) due to variations in Earth's movement relative to the Sun.
 However, these patterns are difficult to extract because we have just under 200 years of data to work with.
 These cyclical patterns are very important, however, because we don't have access to more granular data with daily, weekly, and/or yearly variation typically present in business problems.
 For this reason, [Prophet](https://facebook.github.io/prophet/) is useful as it can easily implement custom seasonalities.
-It's also flexible in its ability to detect changepoints, another crucial parameter affecting model fit as we will see next.
+It's also flexible in its ability to detect changepoints, another crucial parameter affecting model fit as we will see in § [](optimize-forecast)
 
 ## Building a Simple Forecast
 
@@ -143,7 +143,7 @@ df.tail(3)
 #%% [markdown]
 
 """
-`df` is now ready for Prophet modeling, but as hinted in § [](data-exploration), a model built from defaults performs very poorly:
+`df` is now ready for Prophet modeling, but as hinted in § [](data-exploration), a model built from defaults performs poorly:
 ```{margin}
 The INFO messages tell us weekly and daily seasonalities are disabled (by default) as they should be, because our data resolution is on much longer timescales.
 ```
@@ -169,8 +169,8 @@ The reason is that we need to account for long term cycles over many years.
 A yearly seasonality is meaningless in this context, because we don't have sub-year level data.
 Let's try again, disabling the usual seasonalities and implementing our own using the `add_seasonality()` method.
 From the scatterplot of the raw data, any noticeable variation occurs after at least 50 years.
-At this scale, the variation is relatively small, so the fit shouldn't be too flexible.
-In other words, we shouldn't include too many Fourier terms, controlled by the `fourier_order` parameter.
+At the 50 year scale, the variation is relatively small, so we shouldn't make the fit too flexible.
+In Prophet's language, we shouldn't include too many Fourier terms, controlled by the `fourier_order` parameter.
 """
 #%%
 
@@ -179,7 +179,7 @@ model = Prophet(
     weekly_seasonality = False,
     yearly_seasonality = False,
 )
-model.add_seasonality('50 years', period = 365*50, fourier_order = 2)
+model.add_seasonality('50 years', period=365*50, fourier_order=2)
 plot_model_fit(model, df)
 
 
@@ -198,7 +198,7 @@ model = Prophet(
     weekly_seasonality = False,
     yearly_seasonality = False,
 )
-model.add_seasonality('centuryly', period = 365*100, fourier_order = 2)
+model.add_seasonality('centuryly', period=365*100, fourier_order=2)
 plot_model_fit(model, df)
 
 #%% [markdown]
@@ -220,13 +220,14 @@ plt.show()
 """
 The model stays roughly linear with the latest data, but levels off due to the seasonality built into the model.
 
+(optimize-forecast)=
 ## Optimizing the Forecast
 
 The previous hand-tuning was insightful, but largely experimental.
 A more principled approach tunes the parameters based on some performance metric(s).
-Cross-validation is often used for this, but we have to be a bit careful with time series data due to correlations between data points.
+Cross-validation is often used for this, but we have to be careful with time series data due to correlations between data points.
 One approach preserves the ordering of time by training on the first (say) 100 years of data and testing on the next 20 years of data.
-Then we train on the first 110 years of data and again test on the next 20 years of data.
+Then we train on the first 110 years of data and test on the next 20 years of data.
 We repeat this until we reach the end of the data.
 Each batch gives us an estimate of errors of predictions made 1, 2, ..., 20 years in the future while preserving the ordering of time.
 This approach can be implemented in Prophet as follows:
@@ -246,9 +247,9 @@ df_cv.tail(3)
 #%% [markdown]
 
 """
-For example, we see the the first `cutoff` point is in 1960.
+For example, we see the the first `cutoff` point is in 1951.
 The model is trained on data up until the cutoff, then predictions (`yhat`) are made for the next 20 years.
-The cutoff points are then incremented by 10 years until 2000.
+The cutoff points are then incremented by 10 years until 2001.
 I'll measure model performance using mean squared error (MSE), but a variety of metrics could be used.
 We can plot MSE as a function of horizon length (how far in time the prediction is made) using `plot_cross_validation_metric()`;
 unsurprisingly, performance is worse the farther out the window:
@@ -269,9 +270,9 @@ plt.show()
 
 """
 The two curves differ by the amount of averaging used in computing the MSE.
-Each point in the blue curved is averaged over 10% of the data while the orange curve is averaged over 50% of the data.
+Each point in the blue curved is averaged over 10% of the data while each point in the orange curve is averaged over 50% of the data.
 The blue curve is more variable but can give estimates over shorter horizons.
-Setting `rolling_window=1` averages over all the data, giving just a single average estimate for the MSE predicting within a 20 year horizon.
+Setting `rolling_window=1` averages over all the data, giving just a single average estimate for the MSE of predictions within a 20 year horizon.
 A dataframe of metrics can be extracted with `performance_metrics()`:
 """
 
@@ -285,7 +286,7 @@ df_performance
 #%% [markdown]
 
 # The above code with `rolling_window=1` is useful for hyperparameter tuning.
-# It allows us to optimizing average performance over a fixed horizon window.
+# It allows us to optimize average performance over a fixed horizon window.
 # This is done in the code below to find the optimum seasonality period and number of Fourier terms.
 # I also optimize over two model parameters `changepoint_prior_scale` and `seasonality_prior_scale` which control the flexibility of the changepoints and seasonalities.
 # ```{margin}
@@ -380,3 +381,15 @@ future = model.make_future_dataframe(periods=30, freq='Y')
 forecast = model.predict(future)
 model.plot(forecast, xlabel='Year', ylabel='Temperature (C)')
 plt.show()
+
+#%% [markdown]
+
+"""
+## Conclusion
+
+Using Prophet, I modeled atypical seasonal variations estimated from the data itself with the help of cross-validation.
+Optimizing over other flexibility tuning parameters yields the above forecast.
+Though the projection is made over 30 years, we are most confident in its ability over the next 20 years due to the 20 year horizon used when cross-validating.
+The procedure to generate time series forecasts is extendable to other domains, for instance sales data.
+It can be easily automated to incorporate the latest data to provide the most up-to-date forecasts.
+"""

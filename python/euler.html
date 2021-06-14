@@ -52,9 +52,11 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1], "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1], "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1], "abs": ["\\mathopen{}\\left\\lvert#1\\right\\rvert\\mathclose{}", 1], "norm": ["\\mathopen{}\\left\\lVert#1\\right\\rVert\\mathclose{}", 1], "vec": ["\\boldsymbol{\\mathbf{#1}}", 1], "mat": ["\\mathbf{#1}", 1], "tpose": ["#1^T", 1], "inv": ["#1^{-1}", 1], "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1], "seq": ["1, 2, \\ldots, #1", 1], "reals": ["\\mathbb{R}"], "mper": ["\\,\\text{.}"], "mcom": ["\\,\\text{,}"]}}, "tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Learning Resources" href="resources.html" />
+    <link rel="prev" title="Time Series Reconstruction" href="../stat-ml/reconstruct.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -117,11 +119,6 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="resources.html">
-   Learning Resources
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Project Euler
@@ -218,13 +215,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#another-problem">
-   Another problem
+  <a class="reference internal nav-link" href="#other-games">
+   Other Games
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#and-one-more">
-   And one more
+  <a class="reference internal nav-link" href="#maximum-paths">
+   Maximum Paths
   </a>
  </li>
 </ul>
@@ -244,10 +241,10 @@
 At least, that was my goal when solving them.</p>
 <div class="margin sidebar">
 <p class="sidebar-title"></p>
-<p>The magic 100 number may also have been motivated by <a class="reference external" href="https://wesmckinney.com/blog/im-moving-to-san-francisco-and-hiring/">Wes McKinney’s blog post</a> where he gives “Extra points if you have [solved 100 or more problems on Project Euler]”.</p>
+<p><span class="math notranslate nohighlight">\(^\dagger\)</span> The magic 100 number may also have been motivated by <a class="reference external" href="https://wesmckinney.com/blog/im-moving-to-san-francisco-and-hiring/">Wes McKinney’s blog post</a> where he gives “Extra points if you have [solved 100 or more problems on Project Euler]”.</p>
 </div>
 <p>Occasionally the simplest brute force algorithm works, but often clever modifications are required.
-In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.
+In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.<span class="math notranslate nohighlight">\(^\dagger\)</span>
 You can find my all 100 of my solutions <a class="reference external" href="https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples">here</a>, but I wanted to highlight a few particularly interesting ones.</p>
 <div class="section" id="problem-96-sudoku">
 <h2>Problem 96: Sudoku<a class="headerlink" href="#problem-96-sudoku" title="Permalink to this headline">¶</a></h2>
@@ -376,11 +373,93 @@ solving...
 </div>
 </div>
 </div>
-<div class="section" id="another-problem">
-<h2>Another problem<a class="headerlink" href="#another-problem" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="other-games">
+<h2>Other Games<a class="headerlink" href="#other-games" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://projecteuler.net/problem=54">Problem 54</a> and <a class="reference external" href="https://projecteuler.net/problem=84">Problem 84</a> are also fun problems that require you to implement Poker and Monopoly movement.
+They are not particularly difficult algorithmically, but they require a bit of care in keeping track of all possibilities.
+The Poker problem tasks you to construct an algorithm that, given two valid Poker hands, determines the outcome of that game.
+The Monopoly problem tasks you to simulate playing Monopoly by yourself, implementing all the movement rules like dice roll movement and “Go to Jail” squares.
+You are then tasked with finding the long term probabilities of landing on any given square.
+The most common square is the Jail square, with probability near 6%.
+The code for these problems is a bit long, but you can find my solutions (along with all the other 100 problems) <a class="reference external" href="https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples">here</a>.</p>
 </div>
-<div class="section" id="and-one-more">
-<h2>And one more<a class="headerlink" href="#and-one-more" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="maximum-paths">
+<h2>Maximum Paths<a class="headerlink" href="#maximum-paths" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://projecteuler.net/problem=18">Problem 18</a> and <a class="reference external" href="https://projecteuler.net/problem=67">Problem 67</a> contain a triangle of numbers like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="mi">3</span>
+  <span class="mi">7</span> <span class="mi">4</span>
+ <span class="mi">2</span> <span class="mi">4</span> <span class="mi">6</span>
+<span class="mi">8</span> <span class="mi">5</span> <span class="mi">9</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Starting from the top, you take either a step left or right to the row below, repeating until you reach the bottom.
+You are tasked for finding the path that results in the maximum sum of numbers traversed.
+In the above case, that path is 3 + 7 + 4 + 9 = 23.
+The brute force solution of iterating through all <span class="math notranslate nohighlight">\(2^{\text{number of rows} - 1}\)</span> paths works for Problem 18, but is incredibly inefficient.
+The follow-up problem, Problem 67, has 100 rows and therefore cannot solved with brute force.</p>
+<p>An efficient algorithm modifies a purely “greedy” approach that would step in the direction of the largest number.
+Starting from the top, we can’t use a “greedy” approach because the full
+path is unknown. However, on the <em>very last</em> choice, a greedy approach is fine
+because the path terminates there. Take, for example,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="mi">3</span>
+  <span class="mi">7</span> <span class="mi">4</span>
+ <span class="mi">2</span> <span class="mi">4</span> <span class="mi">6</span>
+<span class="mi">8</span> <span class="mi">5</span> <span class="mi">9</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Conditioned on reaching the line <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">4</span> <span class="pre">6</span></code>, if we are at 2 we should always choose
+max(8, 5) = 8 and similarly choose 9 if we are at 4 or 6. Thus the largest
+sum conditioned on reaching 2 4 6 results in a reduced triangle</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="mi">3</span>
+   <span class="mi">7</span>   <span class="mi">4</span>
+<span class="mi">10</span>  <span class="mi">13</span>  <span class="mi">15</span>
+</pre></div>
+</div>
+<p>We can iteratively apply this logic resulting in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="mi">3</span>       <span class="o">--&gt;</span>  <span class="mf">23.</span>
+  <span class="mi">20</span>   <span class="mi">19</span>
+</pre></div>
+</div>
+<p>In Python:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">reduce_triangle</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
+    <span class="n">last_row</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">next_last_row</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">next_last_row</span><span class="p">)):</span>
+        <span class="n">next_last_row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">max</span><span class="p">(</span><span class="n">last_row</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">last_row</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_last_row</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nums</span>
+
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Process data.</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;p67_tri_nums.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)]</span>
+
+<span class="c1"># Compute maximum path sum.</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">nums</span> <span class="o">=</span> <span class="n">reduce_triangle</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[7273]]
+0.015013933181762695
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -409,7 +488,7 @@ solving...
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="resources.html" title="previous page">Learning Resources</a>
+    <a class='left-prev' id="prev-link" href="../stat-ml/reconstruct.html" title="previous page">Time Series Reconstruction</a>
 
         </div>
         
