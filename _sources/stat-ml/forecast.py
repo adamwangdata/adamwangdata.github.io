@@ -43,7 +43,7 @@
 
 ## Summary
 
-Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures for up until 2050.
+Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures up until 2050.
 This results in the following projection:
 
 ```{image} ./forecast.png
