@@ -9,6 +9,7 @@ dependencies:
   - matplotlib
   - pandas
   - scipy
+  - nltk
   - pip
   - pip:
     - pystan==2.19.1.1
