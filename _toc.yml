@@ -1,9 +1,13 @@
 format: jb-book
 root: preface
 parts:
+- caption: Deploying Models
+  chapters:
+  - file: deploy/churn
 - caption: Statistics and Machine Learning
   chapters:
   - file: stat-ml/resources
+  - file: stat-ml/ff_yelp
   - file: stat-ml/forecast
   - file: stat-ml/reconstruct
 - caption: Python
