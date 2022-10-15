@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time Series Forecasting &#8212; Portfolio</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/math-aw.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Time Series Reconstruction" href="reconstruct.html" />
+    <link rel="prev" title="Farmer’s Fridge Yelp Reviews Analysis" href="ff_yelp.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Portfolio</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preface.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Deploying Models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deploy/churn.html">
+   Predicting Churn with Amazon SageMaker
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Statistics and Machine Learning
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="ff_yelp.html">
+   Farmer’s Fridge Yelp Reviews Analysis
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Time Series Forecasting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="reconstruct.html">
+   Time Series Reconstruction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="resources.html">
+   More Examples and Learning Resources
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../python/euler.html">
+   Project Euler
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/stat-ml/forecast.py"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.py</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-source">
+   Data Source
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-exploration">
+   Data Exploration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-a-simple-forecast">
+   Building a Simple Forecast
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimizing-the-forecast">
+   Optimizing the Forecast
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Time Series Forecasting</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-source">
+   Data Source
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-exploration">
+   Data Exploration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-a-simple-forecast">
+   Building a Simple Forecast
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optimizing-the-forecast">
+   Optimizing the Forecast
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="time-series-forecasting">
+<span id="time-series"></span><h1>Time Series Forecasting<a class="headerlink" href="#time-series-forecasting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>Using all recorded annual temperatures averages (from 1850 to 2020), I use <a class="reference external" href="https://facebook.github.io/prophet/">Prophet</a> to forecast annual temperatures for the next two decades.</p>
+</div>
+<div class="section" id="data-source">
+<h2>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h2>
+<p>Average northern hemisphere temperature data was obtained from <a class="reference external" href="https://www.metoffice.gov.uk/hadobs/hadcrut5/">https://www.metoffice.gov.uk/hadobs/hadcrut5/</a>, specifically the “HadCRUT5 analysis time series: ensemble means and uncertainties”.
+The temperatures are expressed as deviations, or anomalies, from reference temperatures over the period of 1961–1990; for details <a class="reference external" href="https://crudata.uea.ac.uk/cru/data/temperature/#faq5">see here</a>.
+Each anomaly is a best estimate calculated from an ensemble of 100 time series, hence confidence intervals are present in the dataset.
+For the purposes of this analysis, I will just use the point estimate.</p>
+</div>
+<div class="section" id="data-exploration">
+<span id="id1"></span><h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h2>
+<p>Let’s load in the data and examine it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./globwarm.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>Anomaly (deg C)</th>
+      <th>Lower confidence limit (2.5%)</th>
+      <th>Upper confidence limit (97.5%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1850</td>
+      <td>-0.435791</td>
+      <td>-0.635680</td>
+      <td>-0.235902</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1851</td>
+      <td>-0.219249</td>
+      <td>-0.428398</td>
+      <td>-0.010100</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1852</td>
+      <td>-0.235702</td>
+      <td>-0.457689</td>
+      <td>-0.013715</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>Anomaly (deg C)</th>
+      <th>Lower confidence limit (2.5%)</th>
+      <th>Upper confidence limit (97.5%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>169</th>
+      <td>2019</td>
+      <td>1.143743</td>
+      <td>1.108290</td>
+      <td>1.179197</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>2020</td>
+      <td>1.275727</td>
+      <td>1.236863</td>
+      <td>1.314590</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>2021</td>
+      <td>1.004906</td>
+      <td>0.764207</td>
+      <td>1.245604</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Since 2021 data collection is still ongoing, the confidence limits are much wider.
+For simplicity, I’ll drop this point from the analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Time</span> <span class="o">&lt;=</span> <span class="mi">2020</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, let’s plot the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Time</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Anomaly (deg C)&quot;</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/forecast_8_0.png" src="../_images/forecast_8_0.png" />
+</div>
+</div>
+<p>There is also clearly a nonlinear trend amidst the random variation from year to year.
+We also expect some long term cyclical patterns, for instance <a class="reference external" href="https://en.wikipedia.org/wiki/Milankovitch_cycles">Milankovitch cycles</a> due to variations in Earth’s movement relative to the Sun.
+However, these patterns are difficult to extract because we have just under 200 years of data to work with.
+These cyclical patterns are very important, however, because we don’t have access to more granular data with daily, weekly, and/or yearly variation typically present in business problems.
+For this reason, <a class="reference external" href="https://facebook.github.io/prophet/">Prophet</a> is useful as it can easily implement custom seasonalities.
+It’s also flexible in its ability to detect changepoints, another crucial parameter affecting model fit as we will see next.</p>
+</div>
+<div class="section" id="building-a-simple-forecast">
+<h2>Building a Simple Forecast<a class="headerlink" href="#building-a-simple-forecast" title="Permalink to this headline">¶</a></h2>
+<p>First, we must format the data appropriately.
+Prophet expects a two column dataframe with datestamps <code class="docutils literal notranslate"><span class="pre">ds</span></code> formatted like <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> and numeric data <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_years</span><span class="p">(</span><span class="n">years</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert numeric years to YYYY-MM-DD format, using an arbitrary day.&quot;&quot;&quot;</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-12-31&quot;</span> <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ds</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;Anomaly (deg C)&quot;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Time&quot;</span><span class="p">:</span> <span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="s2">&quot;Anomaly (deg C)&quot;</span><span class="p">:</span> <span class="s2">&quot;y&quot;</span><span class="p">})</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">format_years</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ds</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1850-12-31</td>
+      <td>-0.435791</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1851-12-31</td>
+      <td>-0.219249</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1852-12-31</td>
+      <td>-0.235702</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>168</th>
+      <td>2018-12-31</td>
+      <td>0.959662</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>2019-12-31</td>
+      <td>1.143743</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>2020-12-31</td>
+      <td>1.275727</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">df</span></code> is now ready for Prophet modeling, but as hinted in § <a class="reference internal" href="#data-exploration"><span class="std std-ref">Data Exploration</span></a>, a model built from defaults performs very poorly:</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>The INFO messages tell us weekly and daily seasonalities are disabled (by default) as they should be, because our data resolution is on much longer timescales.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">prophet</span> <span class="kn">import</span> <span class="n">Prophet</span>
+
+<span class="k">def</span> <span class="nf">plot_model_fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fit and plot predictions of a Prophet() model on the training data.&quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">()</span>
+<span class="n">plot_model_fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:10:58 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:10:58 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<img alt="../_images/forecast_13_2.png" src="../_images/forecast_13_2.png" />
+</div>
+</div>
+<p>The reason is that we need to account for long term cycles over many years.
+A yearly seasonality is meaningless in this context, because we don’t have sub-year level data.
+Let’s try again, disabling the usual seasonalities and implementing our own using the <code class="docutils literal notranslate"><span class="pre">add_seasonality()</span></code> method.
+From the scatterplot of the raw data, any noticeable variation occurs after at least 50 years.
+At this scale, the variation is relatively small, so the fit shouldn’t be too flexible.
+In other words, we shouldn’t include too many Fourier terms, controlled by the <code class="docutils literal notranslate"><span class="pre">fourier_order</span></code> parameter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">(</span>
+    <span class="n">daily_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">weekly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">yearly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_seasonality</span><span class="p">(</span><span class="s1">&#39;50 years&#39;</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="mi">365</span><span class="o">*</span><span class="mi">50</span><span class="p">,</span> <span class="n">fourier_order</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plot_model_fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:10:58 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:10:58 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<img alt="../_images/forecast_15_2.png" src="../_images/forecast_15_2.png" />
+</div>
+</div>
+<p>The fit’s a bit better in terms of smoothness, but still not great.
+Increasing <code class="docutils literal notranslate"><span class="pre">fourier_order</span></code> just amounts to more more variation around a similar mean trend line.
+Let’s try increasing the seasonality period a bit more:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">(</span>
+    <span class="n">daily_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">weekly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">yearly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_seasonality</span><span class="p">(</span><span class="s1">&#39;centuryly&#39;</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="mi">365</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">fourier_order</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plot_model_fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:10:59 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:10:59 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<img alt="../_images/forecast_17_2.png" src="../_images/forecast_17_2.png" />
+</div>
+</div>
+<p>The fit is much better.
+Let’s see what it forecasts.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">make_future_dataframe</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">forecast</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/forecast_19_0.png" src="../_images/forecast_19_0.png" />
+</div>
+</div>
+<p>The model stays roughly linear with the latest data, but levels off due to the seasonality built into the model.</p>
+</div>
+<div class="section" id="optimizing-the-forecast">
+<h2>Optimizing the Forecast<a class="headerlink" href="#optimizing-the-forecast" title="Permalink to this headline">¶</a></h2>
+<p>The previous hand-tuning was insightful, but largely experimental.
+A more principled approach tunes the parameters based on some performance metric(s).
+Cross-validation is often used for this, but we have to be a bit careful with time series data due to correlations between data points.
+One approach preserves the ordering of time by training on the first (say) 100 years of data and testing on the next 20 years of data.
+Then we train on the first 110 years of data and again test on the next 20 years of data.
+We repeat this until we reach the end of the data.
+Each batch gives us an estimate of errors of predictions made 1, 2, …, 20 years in the future while preserving the ordering of time.
+This approach can be implemented in Prophet as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">prophet.diagnostics</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+
+<span class="n">df_cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="s1">&#39;36500 days&#39;</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="s1">&#39;7300 days&#39;</span><span class="p">)</span>
+<span class="n">df_cv</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "db685372d3cb421582da1d7b24562a57"}
+</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:00 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:00 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:01 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:01 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:01 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:01 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:02 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:02 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:02 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:02 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:02 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:02 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>yhat</th>
+      <th>yhat_lower</th>
+      <th>yhat_upper</th>
+      <th>y</th>
+      <th>cutoff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1951-12-31</td>
+      <td>-0.006353</td>
+      <td>-0.165691</td>
+      <td>0.142488</td>
+      <td>0.053849</td>
+      <td>1951-01-18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1952-12-31</td>
+      <td>-0.015820</td>
+      <td>-0.171212</td>
+      <td>0.134162</td>
+      <td>0.069817</td>
+      <td>1951-01-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1953-12-31</td>
+      <td>-0.025520</td>
+      <td>-0.172739</td>
+      <td>0.133059</td>
+      <td>0.206579</td>
+      <td>1951-01-18</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cv</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ds</th>
+      <th>yhat</th>
+      <th>yhat_lower</th>
+      <th>yhat_upper</th>
+      <th>y</th>
+      <th>cutoff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>117</th>
+      <td>2018-12-31</td>
+      <td>0.104320</td>
+      <td>-0.110070</td>
+      <td>0.296969</td>
+      <td>0.959662</td>
+      <td>2001-01-05</td>
+    </tr>
+    <tr>
+      <th>118</th>
+      <td>2019-12-31</td>
+      <td>0.115883</td>
+      <td>-0.080976</td>
+      <td>0.332513</td>
+      <td>1.143743</td>
+      <td>2001-01-05</td>
+    </tr>
+    <tr>
+      <th>119</th>
+      <td>2020-12-31</td>
+      <td>0.129332</td>
+      <td>-0.073423</td>
+      <td>0.326172</td>
+      <td>1.275727</td>
+      <td>2001-01-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>For example, we see the the first <code class="docutils literal notranslate"><span class="pre">cutoff</span></code> point is in 1960.
+The model is trained on data up until the cutoff, then predictions (<code class="docutils literal notranslate"><span class="pre">yhat</span></code>) are made for the next 20 years.
+The cutoff points are then incremented by 10 years until 2000.
+I’ll measure model performance using mean squared error (MSE), but a variety of metrics could be used.
+We can plot MSE as a function of horizon length (how far in time the prediction is made) using <code class="docutils literal notranslate"><span class="pre">plot_cross_validation_metric()</span></code>;
+unsurprisingly, performance is worse the farther out the window:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">prophet.plot</span> <span class="kn">import</span> <span class="n">plot_cross_validation_metric</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plot_cross_validation_metric</span><span class="p">(</span><span class="n">df_cv</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span> <span class="n">rolling_window</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span>
+                             <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C0&#39;</span><span class="p">)</span>
+<span class="n">plot_cross_validation_metric</span><span class="p">(</span><span class="n">df_cv</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">,</span> <span class="n">rolling_window</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span>
+                             <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/adam/projects/website/env/lib/python3.7/site-packages/prophet/plot.py:544: FutureWarning: casting timedelta64[ns] values to int64 with .astype(...) is deprecated and will raise in a future version. Use .view(...) instead.
+  x_plt = df_none[&#39;horizon&#39;].astype(&#39;timedelta64[ns]&#39;).astype(np.int64) / float(dt_conversions[i])
+/home/adam/projects/website/env/lib/python3.7/site-packages/prophet/plot.py:545: FutureWarning: casting timedelta64[ns] values to int64 with .astype(...) is deprecated and will raise in a future version. Use .view(...) instead.
+  x_plt_h = df_h[&#39;horizon&#39;].astype(&#39;timedelta64[ns]&#39;).astype(np.int64) / float(dt_conversions[i])
+</pre></div>
+</div>
+<img alt="../_images/forecast_24_1.png" src="../_images/forecast_24_1.png" />
+</div>
+</div>
+<p>The two curves differ by the amount of averaging used in computing the MSE.
+Each point in the blue curved is averaged over 10% of the data while the orange curve is averaged over 50% of the data.
+The blue curve is more variable but can give estimates over shorter horizons.
+Setting <code class="docutils literal notranslate"><span class="pre">rolling_window=1</span></code> averages over all the data, giving just a single average estimate for the MSE predicting within a 20 year horizon.
+A dataframe of metrics can be extracted with <code class="docutils literal notranslate"><span class="pre">performance_metrics()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">prophet.diagnostics</span> <span class="kn">import</span> <span class="n">performance_metrics</span>
+
+<span class="n">df_performance</span> <span class="o">=</span> <span class="n">performance_metrics</span><span class="p">(</span><span class="n">df_cv</span><span class="p">,</span> <span class="n">rolling_window</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_performance</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>horizon</th>
+      <th>mse</th>
+      <th>rmse</th>
+      <th>mae</th>
+      <th>mape</th>
+      <th>mdape</th>
+      <th>smape</th>
+      <th>coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7300 days</td>
+      <td>0.225344</td>
+      <td>0.474704</td>
+      <td>0.358752</td>
+      <td>3.293395</td>
+      <td>1.07114</td>
+      <td>1.545593</td>
+      <td>0.391667</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The above code with <code class="docutils literal notranslate"><span class="pre">rolling_window=1</span></code> is useful for hyperparameter tuning.
+It allows us to optimizing average performance over a fixed horizon window.
+This is done in the code below to find the optimum seasonality period and number of Fourier terms.
+I also optimize over two model parameters <code class="docutils literal notranslate"><span class="pre">changepoint_prior_scale</span></code> and <code class="docutils literal notranslate"><span class="pre">seasonality_prior_scale</span></code> which control the flexibility of the changepoints and seasonalities.</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>This cell takes a while to run so is not executable, but later cells that analyze <code class="docutils literal notranslate"><span class="pre">tuning_results.csv</span></code> are executable.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="k">def</span> <span class="nf">make_grid_combinations</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Turn a dictionary of grid points into a dictionary of all combinations</span>
+<span class="sd">    of those grid points.&quot;&quot;&quot;</span>
+    <span class="n">all_params</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">grid</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">all_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">vals</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">all_params</span>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;period&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="s1">&#39;fourier_order&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+    <span class="s1">&#39;changepoint_prior_scale&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">.005</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mf">.5</span><span class="p">],</span>
+    <span class="s1">&#39;seasonality_prior_scale&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">all_params</span> <span class="o">=</span> <span class="n">make_grid_combinations</span><span class="p">(</span><span class="n">param_grid</span><span class="p">)</span>
+<span class="n">mses</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Cross-validate each combination of grid parameters to estimate MSEs</span>
+<span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">all_params</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">(</span>
+        <span class="n">daily_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">weekly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">yearly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">changepoint_prior_scale</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;changepoint_prior_scale&#39;</span><span class="p">],</span>
+        <span class="n">seasonality_prior_scale</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;seasonality_prior_scale&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_seasonality</span><span class="p">(</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; year&#39;</span><span class="p">,</span>
+        <span class="n">period</span> <span class="o">=</span> <span class="mi">365</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;period&#39;</span><span class="p">],</span>
+        <span class="n">fourier_order</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;fourier_order&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="n">df_cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="s1">&#39;36500 days&#39;</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="s1">&#39;7300 days&#39;</span><span class="p">)</span>
+    <span class="n">df_performance</span> <span class="o">=</span> <span class="n">performance_metrics</span><span class="p">(</span><span class="n">df_cv</span><span class="p">,</span> <span class="n">rolling_window</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">mses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_performance</span><span class="p">[</span><span class="s1">&#39;mse&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">tuning_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_params</span><span class="p">)</span>
+<span class="n">tuning_results</span><span class="p">[</span><span class="s1">&#39;mse&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mses</span>
+<span class="n">tuning_results</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;tuning_results.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The result is stored in a dataframe of cross-validated MSEs and the parameters used in the model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tuning_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./tuning_results.csv&#39;</span><span class="p">)</span>
+<span class="n">tuning_results</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>period</th>
+      <th>fourier_order</th>
+      <th>changepoint_prior_scale</th>
+      <th>seasonality_prior_scale</th>
+      <th>mse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>50</td>
+      <td>2</td>
+      <td>0.005</td>
+      <td>0.1</td>
+      <td>0.154416</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>50</td>
+      <td>2</td>
+      <td>0.005</td>
+      <td>1.0</td>
+      <td>0.155571</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>50</td>
+      <td>2</td>
+      <td>0.005</td>
+      <td>10.0</td>
+      <td>0.156148</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50</td>
+      <td>2</td>
+      <td>0.050</td>
+      <td>0.1</td>
+      <td>0.152661</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50</td>
+      <td>2</td>
+      <td>0.050</td>
+      <td>1.0</td>
+      <td>0.154947</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>100</td>
+      <td>6</td>
+      <td>0.050</td>
+      <td>1.0</td>
+      <td>0.243489</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>100</td>
+      <td>6</td>
+      <td>0.050</td>
+      <td>10.0</td>
+      <td>0.245329</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>100</td>
+      <td>6</td>
+      <td>0.500</td>
+      <td>0.1</td>
+      <td>0.108537</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>100</td>
+      <td>6</td>
+      <td>0.500</td>
+      <td>1.0</td>
+      <td>0.108298</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>100</td>
+      <td>6</td>
+      <td>0.500</td>
+      <td>10.0</td>
+      <td>0.106562</td>
+    </tr>
+  </tbody>
+</table>
+<p>81 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p>The best parameters, measured by MSE, are easily obtained:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">best_params</span> <span class="o">=</span> <span class="n">tuning_results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">tuning_results</span><span class="p">[</span><span class="s1">&#39;mse&#39;</span><span class="p">]),</span> <span class="p">:]</span>
+<span class="n">best_params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>period                     75.000000
+fourier_order               2.000000
+changepoint_prior_scale     0.500000
+seasonality_prior_scale    10.000000
+mse                         0.048304
+Name: 35, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s see what the optimized model looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Prophet</span><span class="p">(</span>
+    <span class="n">daily_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">weekly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">yearly_seasonality</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">changepoint_prior_scale</span> <span class="o">=</span> <span class="mf">.5</span><span class="p">,</span>
+    <span class="n">seasonality_prior_scale</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add_seasonality</span><span class="p">(</span><span class="s1">&#39;centuryly&#39;</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="mi">365</span><span class="o">*</span><span class="mi">75</span><span class="p">,</span> <span class="n">fourier_order</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">future</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">make_future_dataframe</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">forecast</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">forecast</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:03 - cmdstanpy - INFO - Chain [1] start processing
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21:11:03 - cmdstanpy - INFO - Chain [1] done processing
+</pre></div>
+</div>
+<img alt="../_images/forecast_33_2.png" src="../_images/forecast_33_2.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"3caf061969d4493387b246d35ee1cced": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "ac8e202f24624abfa81d596c6866e085": {"model_name": "ProgressStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "464b7779cb7f4bbeb44e1423a13e57c5": {"model_name": "FloatProgressModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_3caf061969d4493387b246d35ee1cced", "max": 6.0, "min": 0.0, "orientation": "horizontal", "style": "IPY_MODEL_ac8e202f24624abfa81d596c6866e085", "value": 6.0}}, "f3feab8548e245d9a792137b566ede3b": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "86911bd846ad4df1904f1c430cfc8d8f": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "e780115109f744d2abfdbe0770af2d54": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_f3feab8548e245d9a792137b566ede3b", "placeholder": "\u200b", "style": "IPY_MODEL_86911bd846ad4df1904f1c430cfc8d8f", "value": "100%"}}, "d919b10882114c66b3b8fed97a0e44b6": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "85415298ab5d497ea8e633461c76eb58": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "7fce70c036be4261803bcacb1b4255fd": {"model_name": "HTMLModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_d919b10882114c66b3b8fed97a0e44b6", "placeholder": "\u200b", "style": "IPY_MODEL_85415298ab5d497ea8e633461c76eb58", "value": " 6/6 [00:02&lt;00:00,  2.61it/s]"}}, "5b9db3d9864e4753b12678529034fe77": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "db685372d3cb421582da1d7b24562a57": {"model_name": "HBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_e780115109f744d2abfdbe0770af2d54", "IPY_MODEL_464b7779cb7f4bbeb44e1423a13e57c5", "IPY_MODEL_7fce70c036be4261803bcacb1b4255fd"], "layout": "IPY_MODEL_5b9db3d9864e4753b12678529034fe77"}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "adamwangdata/adamwangdata.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./stat-ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="ff_yelp.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Farmer’s Fridge Yelp Reviews Analysis</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="reconstruct.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Time Series Reconstruction</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Adam Wang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,1238 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predicting Churn with Amazon SageMaker &#8212; Portfolio</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/math-aw.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1], "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1], "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1], "abs": ["\\mathopen{}\\left\\lvert#1\\right\\rvert\\mathclose{}", 1], "norm": ["\\mathopen{}\\left\\lVert#1\\right\\rVert\\mathclose{}", 1], "vec": ["\\boldsymbol{\\mathbf{#1}}", 1], "mat": ["\\mathbf{#1}", 1], "tpose": ["#1^T", 1], "inv": ["#1^{-1}", 1], "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1], "seq": ["1, 2, \\ldots, #1", 1], "reals": ["\\mathbb{R}"], "mper": ["\\,\\text{.}"], "mcom": ["\\,\\text{,}"]}}, "tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Farmer’s Fridge Yelp Reviews Analysis" href="../stat-ml/ff_yelp.html" />
+    <link rel="prev" title="Preface" href="../preface.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Portfolio</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preface.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Deploying Models
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Predicting Churn with Amazon SageMaker
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Statistics and Machine Learning
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../stat-ml/ff_yelp.html">
+   Farmer’s Fridge Yelp Reviews Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../stat-ml/forecast.html">
+   Time Series Forecasting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../stat-ml/reconstruct.html">
+   Time Series Reconstruction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../stat-ml/resources.html">
+   More Examples and Learning Resources
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../python/euler.html">
+   Project Euler
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/deploy/churn.py"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.py</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-source">
+     Data Source
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-choice">
+     Model Choice
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-training">
+   Model Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-inference">
+   Model Inference
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complementary-metrics-to-accuracy">
+     Complementary Metrics to Accuracy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#informing-retention-strategies">
+     Informing Retention Strategies
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#personalizing-retention-strategies">
+     Personalizing Retention Strategies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-deployment">
+   Model Deployment
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-training-script">
+     Python Training Script
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sagemaker-notebook-instance">
+     SageMaker Notebook Instance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#future-work">
+   Future Work
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Predicting Churn with Amazon SageMaker</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-source">
+     Data Source
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-choice">
+     Model Choice
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-training">
+   Model Training
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-inference">
+   Model Inference
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complementary-metrics-to-accuracy">
+     Complementary Metrics to Accuracy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#informing-retention-strategies">
+     Informing Retention Strategies
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#personalizing-retention-strategies">
+     Personalizing Retention Strategies
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-deployment">
+   Model Deployment
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-training-script">
+     Python Training Script
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sagemaker-notebook-instance">
+     SageMaker Notebook Instance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#future-work">
+   Future Work
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="predicting-churn-with-amazon-sagemaker">
+<span id="churn"></span><h1>Predicting Churn with Amazon SageMaker<a class="headerlink" href="#predicting-churn-with-amazon-sagemaker" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>I prototyped a model to predict the probability a customer churns using scikit-learn.
+I then identified which characteristics were important and used those insights to suggest personalized customer retention strategies in an automated way.
+Finally, I trained and deployed the model to a hosted endpoint with Amazon SageMaker that is capable of making real-time predictions and automatically suggesting personalized retention strategies.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click the <span class="guilabel">Live Code</span> button.
+Once you see “Launching from mybinder.org: ready”, you can run code cells.
+Refresh the page to revert to the original view.</p>
+</div>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>It is important for any business to retain their customers.
+Therefore it is important to predict ahead of time who is at risk to churn and implement cost effective strategies to retain them.
+My model and its associated retention strategies are specific to a company that offers phone and internet services, but the approach is generalizable to other domains and datasets.</p>
+<div class="section" id="data-source">
+<h3>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h3>
+<p>I used the Telco customer churn dataset available by IBM <a class="reference external" href="https://github.com/IBM/telco-customer-churn-on-icp4d">here</a>.
+It consists of data about a fictional company that provides phone and internet service to approximately 7,000 customers.
+Each customer has 20 variables including whether or not they churned this quarter, the services they use, how much they pay, how long they’ve been a customer, and basic demographic information.</p>
+</div>
+<div class="section" id="model-choice">
+<h3>Model Choice<a class="headerlink" href="#model-choice" title="Permalink to this headline">¶</a></h3>
+<p>I used logistic regression due to its interpretability and thus ability to inform retention strategies.
+I also opted for scikit-learn’s implementation rather than SageMaker’s built-in one for more flexibility;
+in particular, it’s straightforward to access the model’s coefficients via a scikit-learn training script to make personalized recommendations in the deployed model.
+Though I do not show it here, prediction focused algorithms like support vector machines or gradient boosted trees only have marginally better accuracy than cross-validated, regularized logistic regression.
+Combining with logistic regression’s interpretability makes it a strong choice here.</p>
+</div>
+</div>
+<div class="section" id="model-training">
+<span id="churn-train"></span><h2>Model Training<a class="headerlink" href="#model-training" title="Permalink to this headline">¶</a></h2>
+<p>Before training a classification model with scikit-learn, we must split the data into a matrix of predictors <code class="docutils literal notranslate"><span class="pre">X</span></code> and a vector of responses <code class="docutils literal notranslate"><span class="pre">y</span></code> indicating the true labels.
+Because many variables in the churn dataset are categorical variables like yes/no, we also need to specially encode them.
+For binary variables, a simple numeric 0/1 coding is sufficient.
+For categorical variables with <span class="math notranslate nohighlight">\(k\)</span> categories, creating <span class="math notranslate nohighlight">\(k - 1\)</span> binary (dummy) variables is the most flexible way to model them.
+Finally, we should split the data into a training/test set to assess the performance of our trained model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Split data into X (predictors) and y (response). Also fill in missing</span>
+<span class="c1"># values and ensure categorical predictors are treated consistently.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;churn.csv&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;customerID&#39;</span><span class="p">,</span> <span class="s1">&#39;Churn&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;SeniorCitizen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;SeniorCitizen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Churn&#39;</span><span class="p">]</span>
+
+<span class="c1"># Create k-1 dummy variables for k-category predictors, ensure numeric</span>
+<span class="c1"># variables are numbers, and encode the binary response to numeric</span>
+<span class="c1"># 0 (yes churn) and 1 (yes churn).</span>
+<span class="n">numeric_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">,</span> <span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">,</span> <span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span>
+<span class="n">categorical_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">numeric_vars</span><span class="p">]</span>
+<span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">categorical_vars</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Split into training and test sets.</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For logistic regression, the main tuning parameter is the type and amount of regularization on the model coefficients.
+<span class="math notranslate nohighlight">\(l_2\)</span> (ridge) regularization generally results in better predictions but <span class="math notranslate nohighlight">\(l_1\)</span> (LASSO) regularization is able to perform variable selection.
+In this case, the interpretability increase of the <span class="math notranslate nohighlight">\(l_1\)</span> model is only minimal, so I’ll stick with <span class="math notranslate nohighlight">\(l_2\)</span>, optimizing the amount of regularization with cross-validation:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegressionCV</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                             <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Cs_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">scores_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;-o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;cross-validated accuracy&#39;</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;regularization parameter&#39;</span><span class="p">,</span>
+       <span class="n">xscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Optimal amount of regularization: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">C_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal amount of regularization: [0.04641589]
+</pre></div>
+</div>
+<img alt="../_images/churn_5_1.png" src="../_images/churn_5_1.png" />
+</div>
+</div>
+<p>Examining accuracies on the training and test sets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy on training set: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy on test set: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy on training set: 0.8046653144016227
+Accuracy on test set: 0.8116422148603881
+</pre></div>
+</div>
+</div>
+</div>
+<p>we see that the model generalized well.
+Though we only trained on 70% of the data, when we deploy the model we should use all of the data.
+The above test suggests it’s reasonable to use <span class="math notranslate nohighlight">\(l_2\)</span> regularization with amount near <code class="docutils literal notranslate"><span class="pre">C=.05</span></code>.</p>
+</div>
+<div class="section" id="model-inference">
+<h2>Model Inference<a class="headerlink" href="#model-inference" title="Permalink to this headline">¶</a></h2>
+<p>Before deploying the model for use in production, we should learn about it to inform business decisions based on the model predictions.
+For example, while it’s useful to identify customers expected to churn, it’s even more useful to identify why they’re expected to churn and develop customer retention strategies.
+Let’s first train the model on all of the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8059065739031662
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="complementary-metrics-to-accuracy">
+<h3>Complementary Metrics to Accuracy<a class="headerlink" href="#complementary-metrics-to-accuracy" title="Permalink to this headline">¶</a></h3>
+<p>While accuracy is a useful metric, it’s not always the best one, particularly for imbalanced data.
+For instance, if our model always predicted no churn:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy when predicting no one churns: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy when predicting no one churns: 0.7346301292063041
+</pre></div>
+</div>
+</div>
+</div>
+<p>it still achieves 73% accuracy.
+However, it identifies no customer that churns, and is ultimately useless to the business.
+A more complete picture examines false positives and negatives in the <em>confusion matrix</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">y</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pred 0&#39;</span><span class="p">,</span> <span class="s1">&#39;pred 1&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;true 0&#39;</span><span class="p">,</span> <span class="s1">&#39;true 1&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pred 0</th>
+      <th>pred 1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>true 0</th>
+      <td>4655</td>
+      <td>519</td>
+    </tr>
+    <tr>
+      <th>true 1</th>
+      <td>848</td>
+      <td>1021</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>For instance, two questions of interest are: (1) among all customers who churned, how many did we correctly predict? and (2) among all customers who did not churn, how many did we correct predict?
+These are the true positive and true negative rates, respectively.
+In this case, they are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;True positive rate:&#39;</span><span class="p">,</span> <span class="mi">1021</span> <span class="o">/</span> <span class="p">(</span><span class="mi">848</span> <span class="o">+</span> <span class="mi">1021</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;True negative rate:&#39;</span><span class="p">,</span> <span class="mi">4655</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4655</span> <span class="o">+</span> <span class="mi">519</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True positive rate: 0.5462814339218833
+True negative rate: 0.8996907614998068
+</pre></div>
+</div>
+</div>
+</div>
+<p>These metrics can be tuned by the prediction threshold, which currently predicts a customer churns if their probability of churning is <span class="math notranslate nohighlight">\(p_\ast = 0.5\)</span> or more.
+The threshold depends on the cost of customer churn and customer retention strategies, both to the business and the customer.
+If the strategy is expensive to implement, a higher probability threshold should be used.
+If the cost of churn is more expensive, a lower probability threshold should be used.
+Different thresholds can also be used for different customer retention strategies.
+For example, a threshold of <span class="math notranslate nohighlight">\(p_\ast = 0.3\)</span> results in true positive and negative rates near 76%.
+The improved identification of customers who are likely to churn may offset the reduction in overall accuracy, down to 77%.
+Clearly there is a tradeoff between true positive and negative rates, but the ability to tune the threshold to the business’ needs is a strength of the logistic regression model.
+A detailed analysis to choose <span class="math notranslate nohighlight">\(p_\ast\)</span> in conjunction with retention strategies is warranted, with input from experts in finance, customer experience, marketing, etc.</p>
+</div>
+<div class="section" id="informing-retention-strategies">
+<h3>Informing Retention Strategies<a class="headerlink" href="#informing-retention-strategies" title="Permalink to this headline">¶</a></h3>
+<p>Another important question is “what predictors are related to customer churn?”
+These can help inform what retention strategies should be used.
+We can answer this by looking at the effects of changing predictor values, which are closely related to the logistic regression coefficients:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">effects</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">effects</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span> <span class="o">*=</span> <span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">effects</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tenure              -0.772033
+MonthlyCharges       0.101111
+TotalCharges         0.365056
+gender_Male         -0.036198
+SeniorCitizen_yes    0.211798
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>For numeric variables, I specified the effect of an increase of half a standard deviation, which are approximately 1 year as a customer (<code class="docutils literal notranslate"><span class="pre">tenure</span></code>), $15/month (<code class="docutils literal notranslate"><span class="pre">MonthlyCharges</span></code>), and $1,000 total (<code class="docutils literal notranslate"><span class="pre">TotalCharges</span></code>).
+Effects that are large in magnitude and positive are associated with an increase in probability to churn.
+On the other hand, effects that are large in magnitude but negative are associated with a decrease in probability to churn.
+Effects close to zero have little impact.
+Looking at their distribution,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">effects</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Typical predictor effects&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Typical predictor effects&#39;)]
+</pre></div>
+</div>
+<img alt="../_images/churn_19_1.png" src="../_images/churn_19_1.png" />
+</div>
+</div>
+<p>we can define the most impactful effects to have magnitude larger than 0.3.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">effects</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">effects</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">.3</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Contract_Two year             -0.809298
+tenure                        -0.772033
+Contract_One year             -0.476092
+TechSupport_Yes               -0.439334
+PhoneService_Yes              -0.433702
+OnlineSecurity_Yes            -0.425426
+PaperlessBilling_Yes           0.315337
+TotalCharges                   0.365056
+InternetService_Fiber optic    0.561126
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Evidently having a contract is one of the most impactful predictors of churn.
+About half of those in the dataset are on a contract while the other half pay month-to-month.
+There is a stark difference comparing churn rates between those groups:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Churn rate with a contract&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Contract</span> <span class="o">!=</span> <span class="s1">&#39;Month-to-month&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Churn rate without a contract&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Contract</span> <span class="o">==</span> <span class="s1">&#39;Month-to-month&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Churn rate with a contract 0.06755050505050506
+Churn rate without a contract 0.4270967741935484
+</pre></div>
+</div>
+</div>
+</div>
+<p>Customers who’ve had a longer tenure with the company are also less likely to churn.
+This combination suggests that offering contracts may be an effective customer retention strategy.
+Add-on services like tech support and online security also reduce churn rate.</p>
+<p>There are a few indications that internet users are more likely to churn.
+This is probably due to the fact that phone service is more portable, and not a reason the company should stop offering internet services.
+While total charge history is associated with more customer churn, this effect is not relevant because we don’t have what-if scenarios like “what if this customer suddenly spent another $1,000?”
+In addition, a larger total charge amount is generally cancelled out by longer tenures due to the correlation of those variables.
+Monthly payments are more relevant and modifiable, but do not show up in the top effects.</p>
+<p>There are a few less clear indicators like paperless billing.
+This does not mean that enrolling in paperless billing causes a customer to churn, i.e. advising customers to not enroll in paperless billing is not an effective retention solution.
+More likely there is an unmeasured variable like age that is correlated with paperless billing and churn, e.g. younger people are more likely to enroll in paperless billing and move (resulting in churn).</p>
+</div>
+<div class="section" id="personalizing-retention-strategies">
+<span id="churn-personalize"></span><h3>Personalizing Retention Strategies<a class="headerlink" href="#personalizing-retention-strategies" title="Permalink to this headline">¶</a></h3>
+<p>The previous discussion is about average effects over the entire population, but are not personalized.
+It would be better if we could answer “what should we do for this specific person to retain them as a customer?”
+To do that, we can look at the model coefficients weighted by the actual predictor values of a person.
+This tells us each predictor’s contribution to the churn probability for a particular customer.
+For instance, consider the following person who’s predicted to churn with 78% probability:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">346</span><span class="p">]]</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.22470234, 0.77529766]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can compute their personalized effects as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_personalized_effects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">nonzero</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract components of the linear predictor in the logistic regression</span>
+<span class="sd">    model for a customer with predictor values `x`.&quot;&quot;&quot;</span>
+    <span class="n">personalized_effects</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span>
+    <span class="n">personalized_effects</span> <span class="o">=</span> <span class="n">personalized_effects</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">nonzero</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">personalized_effects</span><span class="p">[</span><span class="n">personalized_effects</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">personalized_effects</span>
+
+<span class="n">get_personalized_effects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PhoneService_Yes                 -0.433702
+tenure                           -0.125750
+TotalCharges                      0.054179
+StreamingTV_Yes                   0.100488
+StreamingMovies_Yes               0.112199
+PaymentMethod_Electronic check    0.288616
+PaperlessBilling_Yes              0.315337
+InternetService_Fiber optic       0.561126
+MonthlyCharges                    0.607583
+Name: 346, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The only personalized effects lowering their predicted churn probability are phone service and a relatively short tenure.
+On the other hand, they have high monthly charges, are an internet user, and are enrolled in paperless billing and pay electronically.
+Of those, only their monthly rate is actionable, so one solution would be to offer a contract at a slightly lower monthly rate.
+A better solution would use what we learned about the population of customers overall and also offer a contract.
+If they commited to a 2-year contract at 90% of their current rate, their predicted churn probability would decrease to 58%:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_modified</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;Contract_Two year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">.9</span>
+<span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">]</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_modified</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.41781569, 0.58218431]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Further adding tech support and online security to their contract lowers their churn probability to 37%:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;TechSupport_Yes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x_modified</span><span class="p">[</span><span class="s1">&#39;OnlineSecurity_Yes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_modified</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.63018573, 0.36981427]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above reasoning can be automated in the following <code class="docutils literal notranslate"><span class="pre">suggest_retention_measures()</span></code> function, which returns a list of recommended retention measures.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">suggest_retention_measures</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Given the logistic regression customer churn model and predictor values</span>
+<span class="sd">    `x` of a particular customer, create a list of possible customer</span>
+<span class="sd">    retention measures in order of greatest predicted effect.&quot;&quot;&quot;</span>
+    <span class="n">measures</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">personalized_effects</span> <span class="o">=</span> <span class="n">get_personalized_effects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">nonzero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">has_no_contract</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Contract_Two year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+                       <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;Contract_One year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">has_no_contract</span> <span class="ow">and</span> <span class="n">personalized_effects</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s1">&#39;Offer customer a promotional contract and consider lowering &#39;</span>
+            <span class="s1">&#39;their monthly rate ($</span><span class="si">{}</span><span class="s1">).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">has_no_contract</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s1">&#39;Offer customer a promotional contract at a similar monthly &#39;</span>
+            <span class="s1">&#39;rate ($</span><span class="si">{}</span><span class="s1">).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;TechSupport_Yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Offer customer tech support.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;PhoneService_Yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Offer customer phone service.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;OnlineSecurity_Yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Offer customer online security.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">measures</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No automated solution suggested.&#39;</span>
+              <span class="s2">&quot;Returning customer&#39;s personalized effects to analyze.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">personalized_effects</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">measures</span>
+
+<span class="n">suggest_retention_measures</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Offer customer a promotional contract and consider lowering their monthly rate ($90.4).&#39;,
+ &#39;Offer customer tech support.&#39;,
+ &#39;Offer customer online security.&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="model-deployment">
+<h2>Model Deployment<a class="headerlink" href="#model-deployment" title="Permalink to this headline">¶</a></h2>
+<p>Using the previous training and inference code as a foundation, we are now ready to deploy the model with Amazon SageMaker.</p>
+<div class="section" id="python-training-script">
+<h3>Python Training Script<a class="headerlink" href="#python-training-script" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to include a Python training script that SageMaker will import during the training step.
+The training code is nearly identical to the code in § <a class="reference internal" href="#churn-train"><span class="std std-ref">Model Training</span></a>, but because SageMaker calls this script via command line, we must parse arguments like hyperparameter values and file directory locations.
+We also need a way to serialize and deserialize the trained model, done with the <code class="docutils literal notranslate"><span class="pre">joblib</span></code> module and a custom <code class="docutils literal notranslate"><span class="pre">model_fn()</span></code> function, so SageMaker understands them.
+Finally, I modified the inference code in <code class="docutils literal notranslate"><span class="pre">predict_fn()</span></code> to return the predicted probability and model coefficients for making personalized retention strategies, rather than just a yes/no customer churn prediction.
+The following is my complete <code class="docutils literal notranslate"><span class="pre">sklearn_churn.py</span></code> training script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+
+    <span class="c1"># Define hyperparameters</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--regularization&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Sagemaker specific arguments. Defaults are set in the environment variables.</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--output-data-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SM_OUTPUT_DATA_DIR&#39;</span><span class="p">])</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--model-dir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SM_MODEL_DIR&#39;</span><span class="p">])</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--train&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;SM_CHANNEL_TRAIN&#39;</span><span class="p">])</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Load in data and split into X and y</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="s1">&#39;train.csv&#39;</span><span class="p">))</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;customerID&#39;</span><span class="p">,</span> <span class="s1">&#39;Churn&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">[</span><span class="s1">&#39;SeniorCitizen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;SeniorCitizen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Churn&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Encode categorical variables as dummy variables</span>
+    <span class="n">numeric_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">,</span> <span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">,</span> <span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span>
+    <span class="n">categorical_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">numeric_vars</span><span class="p">]</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">categorical_vars</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Fit model</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">regularization</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># Save model to `model_dir` as file &#39;model.joblib&#39;</span>
+    <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">model_dir</span><span class="p">,</span> <span class="s1">&#39;model.joblib&#39;</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">model_fn</span><span class="p">(</span><span class="n">model_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Deserialize and return fitted model.&quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="s2">&quot;model.joblib&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+
+<span class="k">def</span> <span class="nf">predict_fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="n">churn_prob</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">coef</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">churn_prob</span><span class="p">,</span> <span class="n">coef</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sagemaker-notebook-instance">
+<h3>SageMaker Notebook Instance<a class="headerlink" href="#sagemaker-notebook-instance" title="Permalink to this headline">¶</a></h3>
+<p>Next, we can write the training and inference code in a Jupyter Notebook using a SageMaker notebook instance.
+Once the Jupyter environment is created, upload the above training script <code class="docutils literal notranslate"><span class="pre">sklearn_churn.py</span></code>.
+The following code cells and output were run in the SageMaker notebook using a file titled <code class="docutils literal notranslate"><span class="pre">telco-churn.ipynb</span></code>.
+First, download the data and save it to the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder in the current working directory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download and save data</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">data_url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;data/train.csv&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Success: downloaded Telco customer churn data to data/train.csv.&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data load error: &#39;</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Success: downloaded Telco customer churn data to data/train.csv.
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check contents of working directory</span>
+
+! ls --recursive
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>.:
+data  lost+found  sklearn_churn.py  telco-churn.ipynb
+
+./data:
+train.csv
+ls: cannot open directory ./lost+found: Permission denied
+</pre></div>
+</div>
+<p>Next, upload the data to a default Amazon S3 bucket using the SageMaker Python SDK, and create a role to enable permissions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Upload data to S3</span>
+
+<span class="kn">import</span> <span class="nn">sagemaker</span>
+
+<span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;sklearn-telco-churn&#39;</span>
+<span class="n">work_directory</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span>
+<span class="n">sagemaker_session</span> <span class="o">=</span> <span class="n">sagemaker</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+<span class="n">train_input</span> <span class="o">=</span> <span class="n">sagemaker_session</span><span class="o">.</span><span class="n">upload_data</span><span class="p">(</span>
+    <span class="n">work_directory</span><span class="p">,</span> <span class="n">key_prefix</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">work_directory</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a SageMaker-compatible role used by this notebook instance</span>
+
+<span class="kn">from</span> <span class="nn">sagemaker</span> <span class="kn">import</span> <span class="n">get_execution_role</span>
+
+<span class="n">role</span> <span class="o">=</span> <span class="n">get_execution_role</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We are now ready to create and train the model.
+We do this by creating a scikit-learn estimator, which uses our training script <code class="docutils literal notranslate"><span class="pre">sklearn_churn.py</span></code>, and calling its <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create sklearn estimator and train the model</span>
+
+<span class="kn">from</span> <span class="nn">sagemaker.sklearn.estimator</span> <span class="kn">import</span> <span class="n">SKLearn</span>
+
+<span class="n">framework_version</span> <span class="o">=</span> <span class="s2">&quot;0.23-1&quot;</span>
+<span class="n">script_path</span> <span class="o">=</span> <span class="s2">&quot;sklearn_churn.py&quot;</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">SKLearn</span><span class="p">(</span>
+    <span class="n">entry_point</span> <span class="o">=</span> <span class="n">script_path</span><span class="p">,</span>
+    <span class="n">framework_version</span> <span class="o">=</span> <span class="n">framework_version</span><span class="p">,</span>
+    <span class="n">instance_type</span> <span class="o">=</span> <span class="s1">&#39;ml.m4.xlarge&#39;</span><span class="p">,</span>
+    <span class="n">role</span> <span class="o">=</span> <span class="n">role</span><span class="p">,</span>
+    <span class="n">sagemaker_session</span> <span class="o">=</span> <span class="n">sagemaker_session</span><span class="p">,</span>
+    <span class="n">hyperparameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;regularization&#39;</span><span class="p">:</span> <span class="mf">.05</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">({</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="n">train_input</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>2021-06-29 19:41:59 Starting - Starting the training job...
+...(output trimmed)...
+Reporting training SUCCESS
+
+2021-06-29 19:45:56 Uploading - Uploading generated training model
+2021-06-29 19:45:56 Completed - Training job completed
+Training seconds: 63
+Billable seconds: 63
+</pre></div>
+</div>
+<p>Finally, deploying the model is just a simple <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deploy the model</span>
+
+<span class="n">predictor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">initial_instance_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">instance_type</span><span class="o">=</span><span class="s2">&quot;ml.m4.xlarge&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-----------------!
+</pre></div>
+</div>
+<p>With the deployed model, we can make real-time predictions using <code class="docutils literal notranslate"><span class="pre">predictor</span></code>.
+We can test it within the same Jupyter Notebook by sending requests to the created endpoint.
+For simplicity, I’ll use the same example in § <a class="reference internal" href="#churn-personalize"><span class="std std-ref">Personalizing Retention Strategies</span></a>, generating personalized retention strategies for a customer likely to churn.
+Let’s load in the data and clean it up in a format <code class="docutils literal notranslate"><span class="pre">predictor</span></code> expects:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load in data and clean it up</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/churn.csv&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;customerID&#39;</span><span class="p">,</span> <span class="s1">&#39;Churn&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;SeniorCitizen&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;SeniorCitizen&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="s1">&#39;TotalCharges&#39;</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Churn&#39;</span><span class="p">]</span>
+
+<span class="c1"># Encode categorical variables as dummy variables</span>
+<span class="n">numeric_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tenure&#39;</span><span class="p">,</span> <span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">,</span> <span class="s1">&#39;TotalCharges&#39;</span><span class="p">]</span>
+<span class="n">categorical_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">numeric_vars</span><span class="p">]</span>
+<span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">numeric_vars</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">categorical_vars</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">y</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Calling the <code class="docutils literal notranslate"><span class="pre">predict()</span></code> method yields the predicted churn probability and the model coefficients:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">346</span><span class="p">]]</span>
+<span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([0.7752199488662624,
+       array([-6.28816764e-02,  6.71836625e-03,  3.22313109e-04, -3.62093891e-02,
+        2.11700027e-01, -1.88526375e-02, -1.72425059e-01, -4.33854036e-01,
+        2.64606502e-01,  2.06138086e-01,  5.61257052e-01, -1.00013357e-01,
+       -1.00013357e-01, -4.25320987e-01, -1.00013357e-01, -1.80374348e-01,
+       -1.00013357e-01, -1.06372626e-01, -1.00013357e-01, -4.39229152e-01,
+       -1.00013357e-01,  1.00475922e-01, -1.00013357e-01,  1.12193889e-01,
+       -4.76361099e-01, -8.09811673e-01,  3.15258003e-01, -1.27037030e-01,
+        2.88597744e-01, -7.67199703e-02])], dtype=object)
+</pre></div>
+</div>
+<p>Reusing the automatic suggestion of retention measures in § <a class="reference internal" href="#churn-personalize"><span class="std std-ref">Personalizing Retention Strategies</span></a>, we get the same results as before, but using the deployed model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_personalized_effects</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">coef</span><span class="p">,</span> <span class="n">nonzero</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract components of the linear predictor in the logistic regression</span>
+<span class="sd">    model for a customer with predictor values `x`.&quot;&quot;&quot;</span>
+    <span class="n">personalized_effects</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">coef</span>
+    <span class="n">personalized_effects</span> <span class="o">=</span> <span class="n">personalized_effects</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">nonzero</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">personalized_effects</span><span class="p">[</span><span class="n">personalized_effects</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">personalized_effects</span>
+
+
+<span class="k">def</span> <span class="nf">suggest_retention_measures</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">coef</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Given the logistic regression customer churn model and predictor values</span>
+<span class="sd">    `x` of a particular customer, create a list of possible customer</span>
+<span class="sd">    retention measures in order of greatest predicted effect.&quot;&quot;&quot;</span>
+    <span class="n">measures</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">personalized_effects</span> <span class="o">=</span> <span class="n">get_personalized_effects</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">coef</span><span class="p">,</span> <span class="n">nonzero</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">has_no_contract</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Contract_Two year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+                       <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;Contract_One year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">has_no_contract</span> <span class="ow">and</span> <span class="n">personalized_effects</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s1">&#39;Offer customer a promotional contract and consider lowering &#39;</span>
+            <span class="s1">&#39;their monthly rate ($</span><span class="si">{}</span><span class="s1">).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">has_no_contract</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s1">&#39;Offer customer a promotional contract at a similar monthly &#39;</span>
+            <span class="s1">&#39;rate ($</span><span class="si">{}</span><span class="s1">).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;MonthlyCharges&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;TechSupport_Yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Offer customer tech support.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;PhoneService_Yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Offer customer phone service.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;OnlineSecurity_Yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">measures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Offer customer online security.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">measures</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No automated solution suggested.&#39;</span>
+              <span class="s2">&quot;Returning customer&#39;s personalized effects to analyze.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">personalized_effects</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">measures</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">churn_prob</span><span class="p">,</span> <span class="n">coef</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Customer </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">customerID</span><span class="p">[</span><span class="mi">346</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;s churn probability: </span><span class="si">{</span><span class="n">churn_prob</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">suggest_retention_measures</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">coef</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Customer 2034-GDRCN&#39;s churn probability: 0.7752199488662624
+
+[&#39;Offer customer a promotional contract and consider lowering their monthly rate ($90.4).&#39;,
+ &#39;Offer customer tech support.&#39;,
+ &#39;Offer customer online security.&#39;]
+</pre></div>
+</div>
+<p>Finally, it’s good practice to terminate resources when they’re not in use, in this case deleting the deployed endpoint:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predictor</span><span class="o">.</span><span class="n">delete_endpoint</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="future-work">
+<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
+<p>There are three main avenues of improvement:</p>
+<ol class="simple">
+<li><p>Determine specific retention strategies after factoring costs of the strategy and of customer churn. Each strategy may have an associated prediction probability threshold <span class="math notranslate nohighlight">\(p_\ast\)</span> before it is suggested.</p></li>
+<li><p>Automate the model deployment and inference to periodically predict churn and suggest strategies for all customers, using the most recent data.</p></li>
+<li><p>An improved prediction model. This includes updating the model with the latest data to combat model drift.</p></li>
+</ol>
+<p>As mentioned before, the specific strategies to use should have input from experts in finance, customer experience, marketing, etc. who can help determine their cost and effectiveness.
+Given that information, it is much easier to choose <span class="math notranslate nohighlight">\(p_\ast\)</span>.
+A simple model assumes a retention strategy is implemented if the model predicts a customer will churn (which is based on <span class="math notranslate nohighlight">\(p_\ast\)</span>) at some fixed cost <span class="math notranslate nohighlight">\(C_\text{strategy}\)</span>.
+We also assume a cost if a customer churns, <span class="math notranslate nohighlight">\(C_\text{churn}\)</span>.
+Then assuming customers accept the retention strategy, the total cost to the company as a function of the elements of the confusion matrix (false/true positive/negative) is</p>
+<div class="math notranslate nohighlight">
+\[
+C_\text{total} \approx
+    C_\text{strategy} \times \text{FP}
+    + C_\text{strategy} \times \text{TP}
+    + C_\text{churn} \times \text{FN}
+    + 0 \times \text{TN}.
+\]</div>
+<p>Since the elements of the confusion matrix depend on <span class="math notranslate nohighlight">\(p_\ast\)</span>, we can view this as an optimization problem with cost function <span class="math notranslate nohighlight">\(C_\text{total}\)</span> and tunable parameter <span class="math notranslate nohighlight">\(p_\ast\)</span>.
+Of course some true positives can still churn, hence the approximation.
+A more detailed model could maximize <em>expected</em> profits, factoring in the reduction in churn probability due to a retention strategy.
+The probabilities could be informed by the logistic regression model or, even better, by empirical effectiveness in the past.</p>
+<p>Regarding the second avenue, it is straightforward to batch train using SageMaker Batch Transform, which just invokes the <code class="docutils literal notranslate"><span class="pre">tranformer()</span></code> method instead of <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> on the scikit-learn estimator <code class="docutils literal notranslate"><span class="pre">model</span></code>.
+Automatically retraining, deploying, and batch transforming the data periodically would need to integrate other AWS tools, e.g. Step Functions and AWS Lambda.</p>
+<p>Finally, there are multiple ways to improve the model.
+I have assumed an <em>additive</em> model, meaning that there are no interaction effects between pairs of predictors.
+It’s possible there are synergistic effects, e.g. customers who have phone and internet service as a bundle may be less likely to churn than expected from their individual effects.
+We could also model the numeric variables more flexibly rather than assuming a single linear term, e.g. perhaps there is a critical <code class="docutils literal notranslate"><span class="pre">tenure</span></code> value after which there are diminishing returns.
+These modifications would make the model harder to interpret, but gains in predictive accuracy may be worth it.</p>
+<p>It could also be useful to collect time data pinpointing when customers churn, and not just whether they did in the past quarter.
+Customers who have already churned would still be useful data points in such a <em>survival analysis</em> model.
+This may be a more efficient use of data and allow us to predict <em>when</em> a customer is expected to churn.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "adamwangdata/adamwangdata.github.io",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./deploy"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../preface.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Preface</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../stat-ml/ff_yelp.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Farmer’s Fridge Yelp Reviews Analysis</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Adam Wang<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
