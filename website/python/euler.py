@@ -48,7 +48,7 @@ $^\dagger$ The magic 100 number may also have been motivated by [Wes McKinney's 
 ```
 Occasionally the simplest brute force algorithm works, but often clever modifications are required.
 In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.$^\dagger$
-You can find my all 100 of my solutions [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples), but I wanted to highlight a few particularly interesting ones.
+You can find my all 100 of my solutions [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/supplemental/python), but I wanted to highlight a few particularly interesting ones.
 
 ## Problem 96: Sudoku
 
@@ -74,6 +74,7 @@ You can even modify the code so if you're having trouble with a Sudoku puzzle, j
 #%%
 
 import numpy as np
+
 
 def solve_sudoku(grid, print_sol=False):
     """Solve a Sudoku grid using backtracking, assuming a
@@ -159,7 +160,7 @@ The Poker problem tasks you to construct an algorithm that, given two valid Poke
 The Monopoly problem tasks you to simulate playing Monopoly by yourself, implementing all the movement rules like dice roll movement and "Go to Jail" squares.
 You are then tasked with finding the long term probabilities of landing on any given square.
 The most common square is the Jail square, with probability near 6%.
-The code for these problems is a bit long, but you can find my solutions (along with all the other 100 problems) [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples).
+The code for these problems is a bit long, but you can find my solutions (along with all the other 100 problems) [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/supplemental/python).
 
 ## Maximum Paths
 
@@ -205,6 +206,7 @@ In Python:
 #%%
 
 import time
+
 
 def reduce_triangle(nums):
     last_row = nums[-1]
