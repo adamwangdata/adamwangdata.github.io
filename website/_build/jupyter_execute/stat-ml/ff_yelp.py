@@ -297,10 +297,9 @@
 # In[1]:
 
 
-
 import pandas as pd
 
-df = pd.read_csv('yelp.csv')
+df = pd.read_csv("yelp.csv")
 df.head()
 
 
@@ -315,8 +314,7 @@ df.head()
 # 
 # It's much more convenient to work with datetime objects, so let's convert them:
 
-# In[ ]:
-
+# In[2]:
 
 
 df.date = pd.to_datetime(df.date)
@@ -325,21 +323,19 @@ df.date = pd.to_datetime(df.date)
 # Now we can easily group reviews by year.
 # Also grouping by fridge (i.e. business) location, we can count the number of reviews posted at each location in a given year:
 
-# In[ ]:
-
+# In[3]:
 
 
 grouped_by_year_and_loc = df.groupby([df.date.dt.year, df.business_location])
-annual_counts = grouped_by_year_and_loc.rating.agg('count').unstack()
+annual_counts = grouped_by_year_and_loc.rating.agg("count").unstack()
 annual_counts
 
 
-# In[ ]:
-
+# In[4]:
 
 
 ax = annual_counts.plot()
-ax.set(xlabel='Year', ylabel='Number of Annual Reviews')
+ax.set(xlabel="Year", ylabel="Number of Annual Reviews")
 
 
 # The first Loop location seems to have been one of the first fridges, with reviews available in the same year the company was founded.
@@ -349,11 +345,11 @@ ax.set(xlabel='Year', ylabel='Number of Annual Reviews')
 # 
 # If we're interested in annual trends over time, it may helpful to combine the two Loop locations to avoid aggregates from only 5 or fewer reviews:
 
-# In[ ]:
-
+# In[5]:
 
 
 import numpy as np
+
 
 def combine_loop_locations(locations):
     combined_locations = []
@@ -364,7 +360,8 @@ def combine_loop_locations(locations):
             combined_locations.append(loc)
     return combined_locations
 
-df['combined_location'] = combine_loop_locations(df.business_location)
+
+df["combined_location"] = combine_loop_locations(df.business_location)
 np.unique(df.combined_location)
 
 
@@ -382,23 +379,21 @@ np.unique(df.combined_location)
 # This is important especially for 2020 and 2021 when there is very little data;
 # for example, the 5/5 rating data for the Loop locations in 2021 is only based on 3 reviews.
 
-# In[ ]:
-
+# In[6]:
 
 
 import matplotlib.pyplot as plt
 
 grouped_by_year_and_loc = df.groupby([df.date.dt.year, df.combined_location])
-annual_ratings = grouped_by_year_and_loc.rating.agg('mean').unstack()
-annual_counts = grouped_by_year_and_loc.rating.agg('count').unstack()
+annual_ratings = grouped_by_year_and_loc.rating.agg("mean").unstack()
+annual_counts = grouped_by_year_and_loc.rating.agg("count").unstack()
 
 ax = annual_ratings.plot()
-ax.set(xlabel='Year', ylabel='Average Annual Rating (1 to 5)')
+ax.set(xlabel="Year", ylabel="Average Annual Rating (1 to 5)")
 for i, loc in enumerate(annual_ratings.columns):
-    col = 'C' + str(i)
-    point_sizes = [5*count for count in annual_counts[loc]]
-    ax.scatter(annual_ratings.index, annual_ratings[loc],
-               s=point_sizes, c=col)
+    col = "C" + str(i)
+    point_sizes = [5 * count for count in annual_counts[loc]]
+    ax.scatter(annual_ratings.index, annual_ratings[loc], s=point_sizes, c=col)
 
 
 # There appears to have been a steady decline in rating throughout 2016.
@@ -410,79 +405,75 @@ for i, loc in enumerate(annual_ratings.columns):
 # A simple analysis assumes a correlation between the number of mentions of an item and its popularity.
 # I've grouped the items like Farmer's Fridge's [website menu](https://www.farmersfridge.com/menu), as well as words that are likely to belong in that grouping. Terms synonymous with salad, for example, are
 
-# In[ ]:
-
+# In[7]:
 
 
 salads = [
-    'Smoked Cheddar Cobb Salad',
-    'Buffalo Chicken Ranch Salad',
-    'Elote Salad',
-    'North Napa Salad',
-    'Grilled Chicken Caesar Salad',
-    'Southwest Salad with Chipotle Chicken',
-    'Green Goddess Salad',
-    'Greek Salad',
-    'Salad',
+    "Smoked Cheddar Cobb Salad",
+    "Buffalo Chicken Ranch Salad",
+    "Elote Salad",
+    "North Napa Salad",
+    "Grilled Chicken Caesar Salad",
+    "Southwest Salad with Chipotle Chicken",
+    "Green Goddess Salad",
+    "Greek Salad",
+    "Salad",
 ]
 
 
 # The other groupings are defind as follows:
 
-# In[ ]:
-
+# In[8]:
 
 
 bowls = [
-    'Apple Cinnamon Oats',
-    'Falafel Bowl',
-    'Pesto Pasta Bowl',
-    'Thai Noodle Bowl',
-    'Burrito Bowl',
-    'Red Chile Braised Pork Bowl by Rick Bayless',
-    'Pineapple Coconut Chia Pudding',
-    'Berries & Granola Greek Yogurt',
-    'Almond Butter Oats Bowl',
-    'Chickpea Tikka Masala',
-    'Chicken Tikka Masala',
-    'Grilled Chicken & Veggie Bowl',
-    'Truffle Couscous with Chicken'
-    'Bowl',
-    'oats',
-    'yogurt'
+    "Apple Cinnamon Oats",
+    "Falafel Bowl",
+    "Pesto Pasta Bowl",
+    "Thai Noodle Bowl",
+    "Burrito Bowl",
+    "Red Chile Braised Pork Bowl by Rick Bayless",
+    "Pineapple Coconut Chia Pudding",
+    "Berries & Granola Greek Yogurt",
+    "Almond Butter Oats Bowl",
+    "Chickpea Tikka Masala",
+    "Chicken Tikka Masala",
+    "Grilled Chicken & Veggie Bowl",
+    "Truffle Couscous with Chicken" "Bowl",
+    "oats",
+    "yogurt",
 ]
 sandwiches = [
-    'Italian Turkey Wrap',
-    'Turkey, Apple & White Cheddar Wrap',
-    'Sandwich',
-    'Wrap'
+    "Italian Turkey Wrap",
+    "Turkey, Apple & White Cheddar Wrap",
+    "Sandwich",
+    "Wrap",
 ]
 snacks = [
-    'White Cheddar Cheese',
-    'Cookie Dough Bites',
-    'Dark Chocolate Trail Mix',
-    'Chips & Guac',
-    'snack',
-    'trail',
-    'dough'
+    "White Cheddar Cheese",
+    "Cookie Dough Bites",
+    "Dark Chocolate Trail Mix",
+    "Chips & Guac",
+    "snack",
+    "trail",
+    "dough",
 ]
 proteins = [
-    'Falafel',
-    'Grilled Chicken',
+    "Falafel",
+    "Grilled Chicken",
 ]
 drinks = [
-    'La Colombe Vanilla Draft Latte',
-    'La Colombe Triple Draft Latte',
-    'Brew Dr. Kombucha Love',
-    'Spindrift Raspberry Lime',
-    'drink'
+    "La Colombe Vanilla Draft Latte",
+    "La Colombe Triple Draft Latte",
+    "Brew Dr. Kombucha Love",
+    "Spindrift Raspberry Lime",
+    "drink",
 ]
 
 
 # With the item groups defined, let's count unique mentions of each group:
 
-# In[ ]:
-
+# In[9]:
 
 
 def count_item_mentions(reviews, item_group):
@@ -498,24 +489,24 @@ def count_item_mentions(reviews, item_group):
                 break
     return count / len(reviews)
 
+
 item_mention_counts = {
-    'salads': count_item_mentions(df.text, salads),
-    'bowls': count_item_mentions(df.text, bowls),
-    'sandwiches': count_item_mentions(df.text, sandwiches),
-    'snacks': count_item_mentions(df.text, snacks),
-    'proteins': count_item_mentions(df.text, proteins),
-    'drinks': count_item_mentions(df.text, drinks)
+    "salads": count_item_mentions(df.text, salads),
+    "bowls": count_item_mentions(df.text, bowls),
+    "sandwiches": count_item_mentions(df.text, sandwiches),
+    "snacks": count_item_mentions(df.text, snacks),
+    "proteins": count_item_mentions(df.text, proteins),
+    "drinks": count_item_mentions(df.text, drinks),
 }
 item_mention_counts
 
 
-# In[ ]:
-
+# In[10]:
 
 
 fig, ax = plt.subplots()
 ax.barh(list(item_mention_counts.keys()), list(item_mention_counts.values()))
-ax.set(xlabel='Fraction of times mentioned in a review')
+ax.set(xlabel="Fraction of times mentioned in a review")
 
 
 # Salads are the overwhelming favorite.
@@ -523,8 +514,7 @@ ax.set(xlabel='Fraction of times mentioned in a review')
 # Below is the annual share for each item type, i.e. the fraction of times an item was mentioned in a review for a given year.
 # Weighting by total number of reviews that year is again used.
 
-# In[ ]:
-
+# In[11]:
 
 
 def annual_item_share_plot(ax, item_group, title):
@@ -532,19 +522,18 @@ def annual_item_share_plot(ax, item_group, title):
         count_item_mentions, item_group=item_group
     ).unstack()
     annual_share.plot(ax=ax)
-    ax.set(xlabel='Year', ylabel='Annual share', title=title)
+    ax.set(xlabel="Year", ylabel="Annual share", title=title)
     for i, loc in enumerate(annual_counts.columns):
-        col = 'C' + str(i)
-        point_sizes = [5*count for count in annual_counts[loc]]
-        ax.scatter(annual_share.index, annual_share[loc],
-                   s=point_sizes, c=col)
+        col = "C" + str(i)
+        point_sizes = [5 * count for count in annual_counts[loc]]
+        ax.scatter(annual_share.index, annual_share[loc], s=point_sizes, c=col)
 
-fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(9.6, 7.2),
-                        sharex=True, sharey=True)
-annual_item_share_plot(axs[0][0], salads, 'Salad Popularity')
-annual_item_share_plot(axs[0][1], bowls, 'Bowl Popularity')
-annual_item_share_plot(axs[1][0], sandwiches, 'Sandwich Popularity')
-annual_item_share_plot(axs[1][1], snacks, 'Snack Popularity')
+
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(9.6, 7.2), sharex=True, sharey=True)
+annual_item_share_plot(axs[0][0], salads, "Salad Popularity")
+annual_item_share_plot(axs[0][1], bowls, "Bowl Popularity")
+annual_item_share_plot(axs[1][0], sandwiches, "Sandwich Popularity")
+annual_item_share_plot(axs[1][1], snacks, "Snack Popularity")
 
 
 # Salad popularity has been decreasing, but still has the largest share.
@@ -555,18 +544,18 @@ annual_item_share_plot(axs[1][1], snacks, 'Snack Popularity')
 # ### What Phrases are Common?
 # 
 # We can answer this question with more sophisticated language processing.
-# Using NLKT, the Natural Language Toolkit, we can parse out individual words in a string of unstructured text, or more generally ngrams that contain n words strung together.
+# Using NLTK, the Natural Language Toolkit, we can parse out individual words in a string of unstructured text, or more generally ngrams that contain n words strung together.
 # Before any of that, let's define a function that combines all the reviews in the `df.text` column of a dataframe:
 
-# In[ ]:
-
+# In[12]:
 
 
 def combine_review_text(df):
     review_text = ""
     for text in df.text:
-        review_text += text + "\n"*3
+        review_text += text + "\n" * 3
     return review_text
+
 
 text = combine_review_text(df)
 print(text[:1200])
@@ -574,16 +563,18 @@ print(text[:1200])
 
 # Next, let's import `nltk` and get a list of words.
 # Technically in language processing terms, we are extracting *tokens*, since objects like punctuation are retained.
-# It's also useful to drop the most common words like "to", "then", and "the" using `nltk`'s library of English stop words and convert everything to lowercase for simplicity:
+# It's also useful to drop the most common words like "to", "then", and "the" using `nltk`'s library of English stop words and convert everything to lowercase for simplicity (must download stopwords and punk):
 
-# In[ ]:
-
+# In[13]:
 
 
 import nltk
+
+nltk.download("stopwords")
+nltk.download("punkt")
 from nltk.corpus import stopwords
 
-stop_words = set(stopwords.words('english'))
+stop_words = set(stopwords.words("english"))
 words = nltk.word_tokenize(text)
 filtered_lowercase_words = []
 for word in words:
@@ -599,11 +590,11 @@ filtered_lowercase_words[:12]
 # I'll define functions for general ngrams for later use.
 # So even though it is overkill to use a "onegram" for just a list of words we already have, I will for generalizibility.
 
-# In[ ]:
-
+# In[14]:
 
 
 from nltk.util import ngrams
+
 
 def count_ngrams(ngrams):
     """Return a dictionary of ngram, count pairs."""
@@ -615,11 +606,11 @@ def count_ngrams(ngrams):
             counts[tuple] = 1
     return counts
 
+
 def sort_dict_by_vals(dict):
-    sorted_dict = {
-        k: v for k, v in sorted(dict.items(), key=lambda item: item[1])
-    }
+    sorted_dict = {k: v for k, v in sorted(dict.items(), key=lambda item: item[1])}
     return sorted_dict
+
 
 def print_top_vals(ngram_counts, min_count, min_length):
     """Print ngrams with at least `min_count` counts and each component
@@ -628,11 +619,13 @@ def print_top_vals(ngram_counts, min_count, min_length):
         if each_elem_is_long_enough(ngram, min_length) and count >= min_count:
             print(ngram, count)
 
+
 def each_elem_is_long_enough(tuple, min_length):
     for elem in tuple:
         if len(elem) < min_length:
             return False
     return True
+
 
 word_counts = list(ngrams(filtered_lowercase_words, 1))
 word_counts = sort_dict_by_vals(count_ngrams(word_counts))
@@ -644,8 +637,7 @@ print_top_vals(word_counts, min_count=50, min_length=3)
 # Because the overall rating across all reviews is high, around 4.3, it's also unsurprising there are no negative words in the most frequent list.
 # We can repeat the above for bigrams and trigrams, which are strings of two and three words, respectively.
 
-# In[ ]:
-
+# In[15]:
 
 
 bigrams = list(ngrams(filtered_lowercase_words, 2))
@@ -653,8 +645,7 @@ bigram_counts = sort_dict_by_vals(count_ngrams(bigrams))
 print_top_vals(bigram_counts, min_count=10, min_length=3)
 
 
-# In[ ]:
-
+# In[16]:
 
 
 trigrams = list(ngrams(filtered_lowercase_words, 3))
@@ -668,8 +659,7 @@ print_top_vals(trigram_counts, min_count=5, min_length=3)
 # Since most of the reviews are positive, it's interesting to repeat the ngram analysis for negative reviews only.
 # Only about 10% of reviews have a rating of 2 or lower.
 
-# In[ ]:
-
+# In[17]:
 
 
 negative_text = combine_review_text(df[df.rating <= 2])
@@ -689,8 +679,7 @@ print_top_vals(word_counts, min_count=5, min_length=3)
 # While we don't see obvious negative terms like "bad", we can infer from the given words that these reviewers didn't like the "prices", "little" [portions?], [available?] "times", etc.
 # Similarly from the bigrams and trigrams,
 
-# In[ ]:
-
+# In[18]:
 
 
 bigrams = list(ngrams(filtered_lowercase_words, 2))
@@ -698,7 +687,7 @@ bigram_counts = sort_dict_by_vals(count_ngrams(bigrams))
 print_top_vals(bigram_counts, min_count=2, min_length=3)
 
 
-# In[ ]:
+# In[19]:
 
 
 trigrams = list(ngrams(filtered_lowercase_words, 3))

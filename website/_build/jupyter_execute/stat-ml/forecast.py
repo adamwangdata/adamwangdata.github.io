@@ -51,7 +51,6 @@
 # In[1]:
 
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -60,7 +59,6 @@ df.head(3)
 
 
 # In[2]:
-
 
 
 df.tail(3)
@@ -72,14 +70,12 @@ df.tail(3)
 # In[3]:
 
 
-
 df = df[df.Time <= 2020]
 
 
 # Next, let's plot the data:
 
 # In[4]:
-
 
 
 fig, ax = plt.subplots()
@@ -103,7 +99,6 @@ plt.show()
 # In[5]:
 
 
-
 def format_years(years):
     """Convert numeric years to YYYY-MM-DD format, using an arbitrary day."""
     ds = [str(year) + "-12-31" for year in years]
@@ -120,7 +115,6 @@ df.head(3)
 # In[6]:
 
 
-
 df.tail(3)
 
 
@@ -130,7 +124,6 @@ df.tail(3)
 # ```
 
 # In[7]:
-
 
 
 from prophet import Prophet
@@ -155,7 +148,6 @@ plot_model_fit(model, df)
 # In[8]:
 
 
-
 model = Prophet(
     daily_seasonality = False,
     weekly_seasonality = False,
@@ -172,7 +164,6 @@ plot_model_fit(model, df)
 # In[9]:
 
 
-
 model = Prophet(
     daily_seasonality = False,
     weekly_seasonality = False,
@@ -186,7 +177,6 @@ plot_model_fit(model, df)
 # Let's see what it forecasts.
 
 # In[10]:
-
 
 
 future = model.make_future_dataframe(periods=30, freq='Y')
@@ -211,7 +201,6 @@ plt.show()
 # In[11]:
 
 
-
 from prophet.diagnostics import cross_validation
 
 df_cv = cross_validation(model, initial='36500 days', horizon='7300 days')
@@ -219,7 +208,6 @@ df_cv.head(3)
 
 
 # In[12]:
-
 
 
 df_cv.tail(3)
@@ -233,7 +221,6 @@ df_cv.tail(3)
 # unsurprisingly, performance is worse the farther out the window:
 
 # In[13]:
-
 
 
 from prophet.plot import plot_cross_validation_metric
@@ -253,7 +240,6 @@ plt.show()
 # A dataframe of metrics can be extracted with `performance_metrics()`:
 
 # In[14]:
-
 
 
 from prophet.diagnostics import performance_metrics
@@ -320,7 +306,6 @@ df_performance
 # In[15]:
 
 
-
 tuning_results = pd.read_csv('./tuning_results.csv')
 tuning_results
 
@@ -339,7 +324,6 @@ best_params
 # Let's see what the optimized model looks like:
 
 # In[17]:
-
 
 
 model = Prophet(

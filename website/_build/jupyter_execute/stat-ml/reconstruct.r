@@ -1,6 +1,4 @@
 library(faraway)  # For data, sumary(), and vif()
-install.packages("corrplot")  # In case not found in conda env
-library(corrplot)  # For corrplot()
 library(ggplot2)  # Plot multiple ggplots in a grid.
 library(gridExtra)  # Plot multiple ggplots in a grid.
 
@@ -100,6 +98,9 @@ par(mfrow = c(3, 3), mar = c(2.5, 3, 0, .1) + .2, mgp = c(1.8, .8, 0), ps = 10)
 summary_plot(df[, !(names(df) %in% 'year')])
 
 
+library(corrplot)  # For corrplot()
+
+
 set_pars(dim=c(5, 5))
 correlations <- cor(df[, !(names(df) %in% 'year')], method = 'spearman')
 corrplot(correlations)
@@ -188,7 +189,6 @@ get_rmse(X_test %*% coef(glmod), test$nhtemp)
 get_rmse(X_test %*% coef(wglmod), test$nhtemp)
 
 
-install.packages('glmnet')
 library(glmnet)
 
 set.seed(1)  # For reproducibility (from cross-validation).
@@ -239,3 +239,12 @@ plot(globwarm$year, globwarm$nhtemp)
 lines(globwarm$year, ridge_lmod_pred, col = 2)
 lines(globwarm$year, glmod_pred, col = 3)
 legend('topleft', legend = c('ridge', 'GLS'), lty = 1, col = 2:3)
+
+
+set_pars(dim=c(8, 3))
+df <- data.frame(year=globwarm$year, temp=globwarm$nhtemp, pred=glmod_pred)
+ggplot(df) +
+  geom_line(aes(x=year, y=pred), size=1) +
+  geom_point(aes(x=year,y=temp), shape=1) +
+  xlab('Year') +
+  ylab('Temperature (C)')

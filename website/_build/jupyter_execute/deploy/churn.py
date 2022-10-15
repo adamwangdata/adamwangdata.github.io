@@ -76,7 +76,6 @@
 # In[1]:
 
 
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -110,7 +109,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 # In[2]:
 
 
-
 from sklearn.linear_model import LogisticRegressionCV
 import matplotlib.pyplot as plt
 
@@ -128,7 +126,6 @@ print(f'Optimal amount of regularization: {model.C_}')
 # Examining accuracies on the training and test sets:
 
 # In[3]:
-
 
 
 print(f'Accuracy on training set: {model.score(X_train, y_train)}')
@@ -149,7 +146,6 @@ print(f'Accuracy on test set: {model.score(X_test, y_test)}')
 # In[4]:
 
 
-
 from sklearn.linear_model import LogisticRegression
 
 model = LogisticRegression(C=.05, penalty='l2', max_iter=1000, random_state=1)
@@ -165,7 +161,6 @@ model.score(X, y)
 # In[5]:
 
 
-
 print(f'Accuracy when predicting no one churns: {np.mean(y == 0)}')
 
 
@@ -174,7 +169,6 @@ print(f'Accuracy when predicting no one churns: {np.mean(y == 0)}')
 # A more complete picture examines false positives and negatives in the *confusion matrix*:
 
 # In[6]:
-
 
 
 from sklearn.metrics import confusion_matrix
@@ -190,7 +184,6 @@ pd.DataFrame(confusion_matrix(y_true, y_pred),
 # In this case, they are:
 
 # In[7]:
-
 
 
 print('True positive rate:', 1021 / (848 + 1021))
@@ -216,7 +209,6 @@ print('True negative rate:', 4655 / (4655 + 519))
 # In[8]:
 
 
-
 effects = pd.Series(model.coef_[0].copy(), index=X.columns)
 effects[numeric_vars] *= X[numeric_vars].apply(np.std) / 2
 effects.head()
@@ -231,7 +223,6 @@ effects.head()
 # In[9]:
 
 
-
 fig, ax = plt.subplots()
 ax.hist(effects, bins=10)
 ax.set(xlabel='Typical predictor effects')
@@ -242,7 +233,6 @@ ax.set(xlabel='Typical predictor effects')
 # In[10]:
 
 
-
 effects[np.abs(effects) > .3].sort_values()
 
 
@@ -251,7 +241,6 @@ effects[np.abs(effects) > .3].sort_values()
 # There is a stark difference comparing churn rates between those groups:
 
 # In[11]:
-
 
 
 print('Churn rate with a contract', np.mean(y[df.Contract != 'Month-to-month']))
@@ -284,7 +273,6 @@ print('Churn rate without a contract', np.mean(y[df.Contract == 'Month-to-month'
 # In[12]:
 
 
-
 x = X.loc[[346]]
 model.predict_proba(x)
 
@@ -292,7 +280,6 @@ model.predict_proba(x)
 # We can compute their personalized effects as follows:
 
 # In[13]:
-
 
 
 def get_personalized_effects(model, x, nonzero=True):
@@ -317,7 +304,6 @@ get_personalized_effects(model, x)
 # In[14]:
 
 
-
 x_modified = x.copy()
 x_modified['Contract_Two year'] = 1
 x_modified['MonthlyCharges'] *= .9
@@ -331,7 +317,6 @@ model.predict_proba(x_modified)
 # In[15]:
 
 
-
 x_modified['TechSupport_Yes'] = 1
 x_modified['OnlineSecurity_Yes'] = 1
 model.predict_proba(x_modified)
@@ -340,7 +325,6 @@ model.predict_proba(x_modified)
 # The above reasoning can be automated in the following `suggest_retention_measures()` function, which returns a list of recommended retention measures.
 
 # In[16]:
-
 
 
 def suggest_retention_measures(model, x):

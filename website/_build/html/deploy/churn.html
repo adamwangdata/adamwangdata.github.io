@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Predicting Churn with Amazon SageMaker &#8212; Portfolio</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,42 +20,41 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/math-aw.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1], "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1], "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1], "abs": ["\\mathopen{}\\left\\lvert#1\\right\\rvert\\mathclose{}", 1], "norm": ["\\mathopen{}\\left\\lVert#1\\right\\rVert\\mathclose{}", 1], "vec": ["\\boldsymbol{\\mathbf{#1}}", 1], "mat": ["\\mathbf{#1}", 1], "tpose": ["#1^T", 1], "inv": ["#1^{-1}", 1], "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1], "seq": ["1, 2, \\ldots, #1", 1], "reals": ["\\mathbb{R}"], "mper": ["\\,\\text{.}"], "mcom": ["\\,\\text{,}"]}}, "tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1], "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1], "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1], "abs": ["\\mathopen{}\\left\\lvert#1\\right\\rvert\\mathclose{}", 1], "norm": ["\\mathopen{}\\left\\lVert#1\\right\\rVert\\mathclose{}", 1], "vec": ["\\boldsymbol{\\mathbf{#1}}", 1], "mat": ["\\mathbf{#1}", 1], "tpose": ["#1^T", 1], "inv": ["#1^{-1}", 1], "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1], "seq": ["1, 2, \\ldots, #1", 1], "reals": ["\\mathbb{R}"], "mper": ["\\,\\text{.}"], "mcom": ["\\,\\text{,}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Farmer’s Fridge Yelp Reviews Analysis" href="../stat-ml/ff_yelp.html" />
@@ -65,7 +66,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -74,9 +89,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
@@ -89,14 +105,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../preface.html">
-   Preface
-  </a>
- </li>
-</ul>
-<p class="caption">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../preface.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Deploying Models
  </span>
@@ -108,7 +125,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Statistics and Machine Learning
  </span>
@@ -135,7 +152,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Python
  </span>
@@ -149,88 +166,164 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/deploy/churn.py"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.py</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        
-        
-        <button type="button" class="btn btn-secondary topbarbtn"
-            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
-                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/deploy/churn.py"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.py</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#summary">
    Summary
@@ -304,12 +397,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Predicting Churn with Amazon SageMaker</h1>
@@ -399,13 +491,14 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="section" id="predicting-churn-with-amazon-sagemaker">
-<span id="churn"></span><h1>Predicting Churn with Amazon SageMaker<a class="headerlink" href="#predicting-churn-with-amazon-sagemaker" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="predicting-churn-with-amazon-sagemaker">
+<span id="churn"></span><h1>Predicting Churn with Amazon SageMaker<a class="headerlink" href="#predicting-churn-with-amazon-sagemaker" title="Permalink to this headline">#</a></h1>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h2>
 <p>I prototyped a model to predict the probability a customer churns using scikit-learn.
 I then identified which characteristics were important and used those insights to suggest personalized customer retention strategies in an automated way.
 Finally, I trained and deployed the model to a hosted endpoint with Amazon SageMaker that is capable of making real-time predictions and automatically suggesting personalized retention strategies.</p>
@@ -416,29 +509,29 @@ Hover over the <span class="fa fa-rocket"></span> launch button at the top of th
 Once you see “Launching from mybinder.org: ready”, you can run code cells.
 Refresh the page to revert to the original view.</p>
 </div>
-</div>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p>It is important for any business to retain their customers.
 Therefore it is important to predict ahead of time who is at risk to churn and implement cost effective strategies to retain them.
 My model and its associated retention strategies are specific to a company that offers phone and internet services, but the approach is generalizable to other domains and datasets.</p>
-<div class="section" id="data-source">
-<h3>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">¶</a></h3>
+<section id="data-source">
+<h3>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">#</a></h3>
 <p>I used the Telco customer churn dataset available by IBM <a class="reference external" href="https://github.com/IBM/telco-customer-churn-on-icp4d">here</a>.
 It consists of data about a fictional company that provides phone and internet service to approximately 7,000 customers.
 Each customer has 20 variables including whether or not they churned this quarter, the services they use, how much they pay, how long they’ve been a customer, and basic demographic information.</p>
-</div>
-<div class="section" id="model-choice">
-<h3>Model Choice<a class="headerlink" href="#model-choice" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="model-choice">
+<h3>Model Choice<a class="headerlink" href="#model-choice" title="Permalink to this headline">#</a></h3>
 <p>I used logistic regression due to its interpretability and thus ability to inform retention strategies.
 I also opted for scikit-learn’s implementation rather than SageMaker’s built-in one for more flexibility;
 in particular, it’s straightforward to access the model’s coefficients via a scikit-learn training script to make personalized recommendations in the deployed model.
 Though I do not show it here, prediction focused algorithms like support vector machines or gradient boosted trees only have marginally better accuracy than cross-validated, regularized logistic regression.
 Combining with logistic regression’s interpretability makes it a strong choice here.</p>
-</div>
-</div>
-<div class="section" id="model-training">
-<span id="churn-train"></span><h2>Model Training<a class="headerlink" href="#model-training" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="model-training">
+<span id="churn-train"></span><h2>Model Training<a class="headerlink" href="#model-training" title="Permalink to this headline">#</a></h2>
 <p>Before training a classification model with scikit-learn, we must split the data into a matrix of predictors <code class="docutils literal notranslate"><span class="pre">X</span></code> and a vector of responses <code class="docutils literal notranslate"><span class="pre">y</span></code> indicating the true labels.
 Because many variables in the churn dataset are categorical variables like yes/no, we also need to specially encode them.
 For binary variables, a simple numeric 0/1 coding is sufficient.
@@ -495,7 +588,7 @@ In this case, the interpretability increase of the <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal amount of regularization: [0.04641589]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal amount of regularization: [2.7825594]
 </pre></div>
 </div>
 <img alt="../_images/churn_5_1.png" src="../_images/churn_5_1.png" />
@@ -510,8 +603,8 @@ In this case, the interpretability increase of the <span class="math notranslate
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy on training set: 0.8046653144016227
-Accuracy on test set: 0.8116422148603881
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy on training set: 0.8042596348884381
+Accuracy on test set: 0.8135352579271179
 </pre></div>
 </div>
 </div>
@@ -519,9 +612,9 @@ Accuracy on test set: 0.8116422148603881
 <p>we see that the model generalized well.
 Though we only trained on 70% of the data, when we deploy the model we should use all of the data.
 The above test suggests it’s reasonable to use <span class="math notranslate nohighlight">\(l_2\)</span> regularization with amount near <code class="docutils literal notranslate"><span class="pre">C=.05</span></code>.</p>
-</div>
-<div class="section" id="model-inference">
-<h2>Model Inference<a class="headerlink" href="#model-inference" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="model-inference">
+<h2>Model Inference<a class="headerlink" href="#model-inference" title="Permalink to this headline">#</a></h2>
 <p>Before deploying the model for use in production, we should learn about it to inform business decisions based on the model predictions.
 For example, while it’s useful to identify customers expected to churn, it’s even more useful to identify why they’re expected to churn and develop customer retention strategies.
 Let’s first train the model on all of the data:</p>
@@ -541,8 +634,8 @@ Let’s first train the model on all of the data:</p>
 </div>
 </div>
 </div>
-<div class="section" id="complementary-metrics-to-accuracy">
-<h3>Complementary Metrics to Accuracy<a class="headerlink" href="#complementary-metrics-to-accuracy" title="Permalink to this headline">¶</a></h3>
+<section id="complementary-metrics-to-accuracy">
+<h3>Complementary Metrics to Accuracy<a class="headerlink" href="#complementary-metrics-to-accuracy" title="Permalink to this headline">#</a></h3>
 <p>While accuracy is a useful metric, it’s not always the best one, particularly for imbalanced data.
 For instance, if our model always predicted no churn:</p>
 <div class="cell docutils container">
@@ -635,9 +728,9 @@ For example, a threshold of <span class="math notranslate nohighlight">\(p_\ast 
 The improved identification of customers who are likely to churn may offset the reduction in overall accuracy, down to 77%.
 Clearly there is a tradeoff between true positive and negative rates, but the ability to tune the threshold to the business’ needs is a strength of the logistic regression model.
 A detailed analysis to choose <span class="math notranslate nohighlight">\(p_\ast\)</span> in conjunction with retention strategies is warranted, with input from experts in finance, customer experience, marketing, etc.</p>
-</div>
-<div class="section" id="informing-retention-strategies">
-<h3>Informing Retention Strategies<a class="headerlink" href="#informing-retention-strategies" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="informing-retention-strategies">
+<h3>Informing Retention Strategies<a class="headerlink" href="#informing-retention-strategies" title="Permalink to this headline">#</a></h3>
 <p>Another important question is “what predictors are related to customer churn?”
 These can help inform what retention strategies should be used.
 We can answer this by looking at the effects of changing predictor values, which are closely related to the logistic regression coefficients:</p>
@@ -650,11 +743,11 @@ We can answer this by looking at the effects of changing predictor values, which
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tenure              -0.772033
-MonthlyCharges       0.101111
-TotalCharges         0.365056
-gender_Male         -0.036198
-SeniorCitizen_yes    0.211798
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tenure              -0.772066
+MonthlyCharges       0.101161
+TotalCharges         0.365043
+gender_Male         -0.036220
+SeniorCitizen_yes    0.211788
 dtype: float64
 </pre></div>
 </div>
@@ -688,15 +781,15 @@ Looking at their distribution,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Contract_Two year             -0.809298
-tenure                        -0.772033
-Contract_One year             -0.476092
-TechSupport_Yes               -0.439334
-PhoneService_Yes              -0.433702
-OnlineSecurity_Yes            -0.425426
-PaperlessBilling_Yes           0.315337
-TotalCharges                   0.365056
-InternetService_Fiber optic    0.561126
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Contract_Two year             -0.809523
+tenure                        -0.772066
+Contract_One year             -0.476209
+TechSupport_Yes               -0.439344
+PhoneService_Yes              -0.433797
+OnlineSecurity_Yes            -0.425431
+PaperlessBilling_Yes           0.315336
+TotalCharges                   0.365043
+InternetService_Fiber optic    0.561223
 dtype: float64
 </pre></div>
 </div>
@@ -730,9 +823,9 @@ Monthly payments are more relevant and modifiable, but do not show up in the top
 <p>There are a few less clear indicators like paperless billing.
 This does not mean that enrolling in paperless billing causes a customer to churn, i.e. advising customers to not enroll in paperless billing is not an effective retention solution.
 More likely there is an unmeasured variable like age that is correlated with paperless billing and churn, e.g. younger people are more likely to enroll in paperless billing and move (resulting in churn).</p>
-</div>
-<div class="section" id="personalizing-retention-strategies">
-<span id="churn-personalize"></span><h3>Personalizing Retention Strategies<a class="headerlink" href="#personalizing-retention-strategies" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="personalizing-retention-strategies">
+<span id="churn-personalize"></span><h3>Personalizing Retention Strategies<a class="headerlink" href="#personalizing-retention-strategies" title="Permalink to this headline">#</a></h3>
 <p>The previous discussion is about average effects over the entire population, but are not personalized.
 It would be better if we could answer “what should we do for this specific person to retain them as a customer?”
 To do that, we can look at the model coefficients weighted by the actual predictor values of a person.
@@ -746,7 +839,7 @@ For instance, consider the following person who’s predicted to churn with 78% 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.22470234, 0.77529766]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.22465375, 0.77534625]])
 </pre></div>
 </div>
 </div>
@@ -769,15 +862,15 @@ For instance, consider the following person who’s predicted to churn with 78% 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PhoneService_Yes                 -0.433702
-tenure                           -0.125750
-TotalCharges                      0.054179
-StreamingTV_Yes                   0.100488
-StreamingMovies_Yes               0.112199
-PaymentMethod_Electronic check    0.288616
-PaperlessBilling_Yes              0.315337
-InternetService_Fiber optic       0.561126
-MonthlyCharges                    0.607583
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PhoneService_Yes                 -0.433797
+tenure                           -0.125755
+TotalCharges                      0.054178
+StreamingTV_Yes                   0.100491
+StreamingMovies_Yes               0.112205
+PaymentMethod_Electronic check    0.288647
+PaperlessBilling_Yes              0.315336
+InternetService_Fiber optic       0.561223
+MonthlyCharges                    0.607883
 Name: 346, dtype: float64
 </pre></div>
 </div>
@@ -800,7 +893,7 @@ If they commited to a 2-year contract at 90% of their current rate, their predic
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.41781569, 0.58218431]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.41781077, 0.58218923]])
 </pre></div>
 </div>
 </div>
@@ -815,7 +908,7 @@ If they commited to a 2-year contract at 90% of their current rate, their predic
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.63018573, 0.36981427]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.63018435, 0.36981565]])
 </pre></div>
 </div>
 </div>
@@ -867,13 +960,13 @@ If they commited to a 2-year contract at 90% of their current rate, their predic
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="model-deployment">
-<h2>Model Deployment<a class="headerlink" href="#model-deployment" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="model-deployment">
+<h2>Model Deployment<a class="headerlink" href="#model-deployment" title="Permalink to this headline">#</a></h2>
 <p>Using the previous training and inference code as a foundation, we are now ready to deploy the model with Amazon SageMaker.</p>
-<div class="section" id="python-training-script">
-<h3>Python Training Script<a class="headerlink" href="#python-training-script" title="Permalink to this headline">¶</a></h3>
+<section id="python-training-script">
+<h3>Python Training Script<a class="headerlink" href="#python-training-script" title="Permalink to this headline">#</a></h3>
 <p>The first step is to include a Python training script that SageMaker will import during the training step.
 The training code is nearly identical to the code in § <a class="reference internal" href="#churn-train"><span class="std std-ref">Model Training</span></a>, but because SageMaker calls this script via command line, we must parse arguments like hyperparameter values and file directory locations.
 We also need a way to serialize and deserialize the trained model, done with the <code class="docutils literal notranslate"><span class="pre">joblib</span></code> module and a custom <code class="docutils literal notranslate"><span class="pre">model_fn()</span></code> function, so SageMaker understands them.
@@ -936,9 +1029,9 @@ The following is my complete <code class="docutils literal notranslate"><span cl
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">churn_prob</span><span class="p">,</span> <span class="n">coef</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="sagemaker-notebook-instance">
-<h3>SageMaker Notebook Instance<a class="headerlink" href="#sagemaker-notebook-instance" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="sagemaker-notebook-instance">
+<h3>SageMaker Notebook Instance<a class="headerlink" href="#sagemaker-notebook-instance" title="Permalink to this headline">#</a></h3>
 <p>Next, we can write the training and inference code in a Jupyter Notebook using a SageMaker notebook instance.
 Once the Jupyter environment is created, upload the above training script <code class="docutils literal notranslate"><span class="pre">sklearn_churn.py</span></code>.
 The following code cells and output were run in the SageMaker notebook using a file titled <code class="docutils literal notranslate"><span class="pre">telco-churn.ipynb</span></code>.
@@ -1135,10 +1228,10 @@ Let’s load in the data and clean it up in a format <code class="docutils liter
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predictor</span><span class="o">.</span><span class="n">delete_endpoint</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="future-work">
-<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="future-work">
+<h2>Future Work<a class="headerlink" href="#future-work" title="Permalink to this headline">#</a></h2>
 <p>There are three main avenues of improvement:</p>
 <ol class="simple">
 <li><p>Determine specific retention strategies after factoring costs of the strategy and of customer churn. Each strategy may have an associated prediction probability threshold <span class="math notranslate nohighlight">\(p_\ast\)</span> before it is suggested.</p></li>
@@ -1172,8 +1265,8 @@ These modifications would make the model harder to interpret, but gains in predi
 <p>It could also be useful to collect time data pinpointing when customers churn, and not just whether they did in the past quarter.
 Customers who have already churned would still be useful data points in such a <em>survival analysis</em> model.
 This may be a more efficient use of data and allow us to predict <em>when</em> a customer is expected to churn.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1197,9 +1290,11 @@ This may be a more efficient use of data and allow us to predict <em>when</em> a
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="../preface.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1215,24 +1310,28 @@ This may be a more efficient use of data and allow us to predict <em>when</em> a
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Adam Wang<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Adam Wang<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

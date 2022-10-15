@@ -44,10 +44,10 @@
 At least, that was my goal when solving them.
 
 ```{margin}
-The magic 100 number may also have been motivated by [Wes McKinney's blog post](https://wesmckinney.com/blog/im-moving-to-san-francisco-and-hiring/) where he gives "Extra points if you have [solved 100 or more problems on Project Euler]".
+$^\dagger$ The magic 100 number may also have been motivated by [Wes McKinney's blog post](https://wesmckinney.com/blog/im-moving-to-san-francisco-and-hiring/) where he gives "Extra points if you have [solved 100 or more problems on Project Euler]".
 ```
 Occasionally the simplest brute force algorithm works, but often clever modifications are required.
-In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.
+In many cases, advanced mathematics (e.g. number theory) is required, which is why I stopped after 100 problems.$^\dagger$
 You can find my all 100 of my solutions [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples), but I wanted to highlight a few particularly interesting ones.
 
 ## Problem 96: Sudoku
@@ -151,7 +151,84 @@ solve_sudoku(grid, print_sol=True);
 #%% [markdown]
 
 """
-## Another problem
+## Other Games
 
-## And one more
+[Problem 54](https://projecteuler.net/problem=54) and [Problem 84](https://projecteuler.net/problem=84) are also fun problems that require you to implement Poker and Monopoly movement.
+They are not particularly difficult algorithmically, but they require a bit of care in keeping track of all possibilities.
+The Poker problem tasks you to construct an algorithm that, given two valid Poker hands, determines the outcome of that game.
+The Monopoly problem tasks you to simulate playing Monopoly by yourself, implementing all the movement rules like dice roll movement and "Go to Jail" squares.
+You are then tasked with finding the long term probabilities of landing on any given square.
+The most common square is the Jail square, with probability near 6%.
+The code for these problems is a bit long, but you can find my solutions (along with all the other 100 problems) [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/python-examples).
+
+## Maximum Paths
+
+[Problem 18](https://projecteuler.net/problem=18) and [Problem 67](https://projecteuler.net/problem=67) contain a triangle of numbers like
+```
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+```
+Starting from the top, you take either a step left or right to the row below, repeating until you reach the bottom.
+You are tasked for finding the path that results in the maximum sum of numbers traversed.
+In the above case, that path is 3 + 7 + 4 + 9 = 23.
+The brute force solution of iterating through all $2^{\text{number of rows} - 1}$ paths works for Problem 18, but is incredibly inefficient.
+The follow-up problem, Problem 67, has 100 rows and therefore cannot solved with brute force.
+
+An efficient algorithm modifies a purely "greedy" approach that would step in the direction of the largest number.
+Starting from the top, we can't use a "greedy" approach because the full
+path is unknown. However, on the *very last* choice, a greedy approach is fine
+because the path terminates there. Take, for example,
+```
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+```
+Conditioned on reaching the line `2 4 6`, if we are at 2 we should always choose
+max(8, 5) = 8 and similarly choose 9 if we are at 4 or 6. Thus the largest
+sum conditioned on reaching 2 4 6 results in a reduced triangle
+```
+     3
+   7   4
+10  13  15
+```
+We can iteratively apply this logic resulting in
+```
+     3       -->  23.
+  20   19
+```
+In Python:
 """
+
+#%%
+
+import time
+
+def reduce_triangle(nums):
+    last_row = nums[-1]
+    next_last_row = nums[-2]
+    for i in range(len(next_last_row)):
+        next_last_row[i] += max(last_row[i], last_row[i+1])
+    nums = nums[:-2]
+    nums.append(next_last_row)
+    return nums
+
+start = time.time()
+
+# Process data.
+with open("p67_tri_nums.txt") as f:
+    nums = f.read().split('\n')
+
+rows = len(nums)
+for i in range(rows):
+    nums[i] = [int(x) for x in nums[i].split(' ')]
+
+# Compute maximum path sum.
+while len(nums) > 1:
+    nums = reduce_triangle(nums)
+print(nums)
+
+print(time.time() - start)
+
