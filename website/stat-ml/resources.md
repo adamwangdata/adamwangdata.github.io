@@ -11,4 +11,4 @@ I've worked through the following books:
 - [*Linear Models with R* (2014)](https://julianfaraway.github.io/faraway/LMR/) by Julian Faraway
 - [*Mathematical Statistics with Applications* (2008)](https://www.amazon.com/Mathematical-Statistics-Applications-Dennis-Wackerly/dp/0495110817) by Dennis Wackerly, William Mendenhall, and Richard Scheaffer
 
-My complete accompaniments for the last two books, totaling over 300 pages, can be found [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/stat-ml-examples).
+My complete accompaniments for the last two books, totaling over 300 pages, can be found [here](https://github.com/adamwangdata/adamwangdata.github.io/tree/main/supplemental/stat-ml).
