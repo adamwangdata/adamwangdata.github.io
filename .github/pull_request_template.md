@@ -1,14 +1,14 @@
-## Description
+## Summary
 
 Summary of PR, one or two sentences
 
-## Changes
+## Details
 
-- `Added`
-  - new features
-- `Changed`
-  - changes in functionality or structure
-- `Removed`
-  - removed features
-- `Fixed`
-  - bug fixes
+### Added
+  - new_feature
+### Changed
+  - change_in_functionality_or_structure
+### Removed
+  - removed_feature
+### Fixed
+  - bug_fix
