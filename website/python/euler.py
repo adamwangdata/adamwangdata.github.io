@@ -11,7 +11,7 @@
 # ---
 
 
-#%% [markdown] Macros Setup tags=['remove-cell']
+# %% [markdown] Macros Setup tags=['remove-cell']
 # $$
 # \newcommand{\parens}[1]{\mathopen{}\left(#1\right)\mathclose{}}
 # \newcommand{\bracks}[1]{\mathopen{}\left[#1\right]\mathclose{}}
@@ -33,7 +33,7 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
-#%% [markdown]
+# %% [markdown]
 
 """
 # Project Euler
@@ -69,7 +69,7 @@ You can even modify the code so if you're having trouble with a Sudoku puzzle, j
 ```
 """
 
-#%%
+# %%
 
 import numpy as np
 
@@ -149,7 +149,7 @@ print(grid)
 print("solving...")
 solve_sudoku(grid, print_sol=True)
 
-#%% [markdown]
+# %% [markdown]
 
 """
 ## Other Games
@@ -203,7 +203,7 @@ We can iteratively apply this logic resulting in
 In Python:
 """
 
-#%%
+# %%
 
 import time
 
