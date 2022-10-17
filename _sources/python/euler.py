@@ -33,6 +33,7 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
+
 # %% [markdown]
 
 """
@@ -66,8 +67,22 @@ Given a 3 by 3 `numpy` array representing a Sudoku grid, the following `solve_su
 You can try out the code without leaving this page!
 Hover over the {fa}`rocket` launch button at the top of this page, then click the {guilabel}`Live Code` button.
 You can even modify the code so if you're having trouble with a Sudoku puzzle, just modify `puzzle` to your liking. Zeros are interpreted as empty cells.
+If you prefer a Jupyter environment, use the {guilabel}`Binder` button instead.
+
+You'll need to run the following cell manually because `Live Code` sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.
 ```
 """
+
+# %% Thebe fix
+
+import os
+
+try:
+    os.chdir("./website/python/")
+except FileNotFoundError:
+    pass
+print(f"cwd: {os.getcwd()}")
 
 # %%
 

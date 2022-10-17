@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1], "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1], "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1], "abs": ["\\mathopen{}\\left\\lvert#1\\right\\rvert\\mathclose{}", 1], "norm": ["\\mathopen{}\\left\\lVert#1\\right\\rVert\\mathclose{}", 1], "vec": ["\\boldsymbol{\\mathbf{#1}}", 1], "mat": ["\\mathbf{#1}", 1], "tpose": ["#1^T", 1], "inv": ["#1^{-1}", 1], "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1], "seq": ["1, 2, \\ldots, #1", 1], "reals": ["\\mathbb{R}"], "mper": ["\\,\\text{.}"], "mcom": ["\\,\\text{,}"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -219,6 +221,24 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
+        <a href="https://mybinder.org/v2/gh/adamwangdata/adamwangdata.github.io/main?urlpath=tree/website/deploy/churn.py"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
         
 <button onclick="initThebeSBT()"
   class="headerbtn headerbtn-launch-thebe"
@@ -253,6 +273,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/adamwangdata/adamwangdata.github.io"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -499,13 +532,6 @@ title="Print to PDF"
 <p>I prototyped a model to predict the probability a customer churns using scikit-learn.
 I then identified which characteristics were important and used those insights to suggest personalized customer retention strategies in an automated way.
 Finally, I trained and deployed the model to a hosted endpoint with Amazon SageMaker that is capable of making real-time predictions and automatically suggesting personalized retention strategies.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
-Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click the <span class="guilabel">Live Code</span> button.
-Once you see “Launching from mybinder.org: ready”, you can run code cells.
-Refresh the page to revert to the original view.</p>
-</div>
 </section>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
@@ -534,6 +560,32 @@ Because many variables in the churn dataset are categorical variables like yes/n
 For binary variables, a simple numeric 0/1 coding is sufficient.
 For categorical variables with <span class="math notranslate nohighlight">\(k\)</span> categories, creating <span class="math notranslate nohighlight">\(k - 1\)</span> binary (dummy) variables is the most flexible way to model them.
 Finally, we should split the data into a training/test set to assess the performance of our trained model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click the <span class="guilabel">Live Code</span> button.
+If you prefer a Jupyter environment, use the <span class="guilabel">Binder</span> button instead.</p>
+<p>You’ll need to run the following cell manually because <code class="docutils literal notranslate"><span class="pre">Live</span> <span class="pre">Code</span></code> sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;./website/deploy/&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cwd: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cwd: /home/adam/projects/website/website/deploy
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -587,7 +639,7 @@ In this case, the interpretability increase of the <span class="math notranslate
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal amount of regularization: [2.7825594]
 </pre></div>
 </div>
-<img alt="../_images/churn_5_1.png" src="../_images/churn_5_1.png" />
+<img alt="../_images/churn_6_1.png" src="../_images/churn_6_1.png" />
 </div>
 </div>
 <p>Examining accuracies on the training and test sets:</p>
@@ -769,7 +821,7 @@ Looking at their distribution,</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Typical predictor effects&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/churn_19_1.png" src="../_images/churn_19_1.png" />
+<img alt="../_images/churn_20_1.png" src="../_images/churn_20_1.png" />
 </div>
 </div>
 <p>we can define the most impactful effects to have magnitude larger than 0.3.</p>

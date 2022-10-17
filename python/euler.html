@@ -220,6 +220,24 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
+        <a href="https://mybinder.org/v2/gh/adamwangdata/adamwangdata.github.io/main?urlpath=tree/website/python/euler.py"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
         
 <button onclick="initThebeSBT()"
   class="headerbtn headerbtn-launch-thebe"
@@ -254,6 +272,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/adamwangdata/adamwangdata.github.io"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -410,7 +441,28 @@ I implemented this guess and backtrack via recursion.</p>
 <p class="admonition-title">Note</p>
 <p>You can try out the code without leaving this page!
 Hover over the <span class="fa fa-rocket"></span> launch button at the top of this page, then click the <span class="guilabel">Live Code</span> button.
-You can even modify the code so if you’re having trouble with a Sudoku puzzle, just modify <code class="docutils literal notranslate"><span class="pre">puzzle</span></code> to your liking. Zeros are interpreted as empty cells.</p>
+You can even modify the code so if you’re having trouble with a Sudoku puzzle, just modify <code class="docutils literal notranslate"><span class="pre">puzzle</span></code> to your liking. Zeros are interpreted as empty cells.
+If you prefer a Jupyter environment, use the <span class="guilabel">Binder</span> button instead.</p>
+<p>You’ll need to run the following cell manually because <code class="docutils literal notranslate"><span class="pre">Live</span> <span class="pre">Code</span></code> sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;./website/python/&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cwd: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cwd: /home/adam/projects/website/website/python
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -609,7 +661,7 @@ sum conditioned on reaching 2 4 6 results in a reduced triangle</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[7273]]
-0.003251314163208008
+0.0031964778900146484
 </pre></div>
 </div>
 </div>

@@ -33,6 +33,7 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
+
 #%% [markdown]
 
 """
@@ -45,12 +46,6 @@ I prototyped a model to predict the probability a customer churns using scikit-l
 I then identified which characteristics were important and used those insights to suggest personalized customer retention strategies in an automated way.
 Finally, I trained and deployed the model to a hosted endpoint with Amazon SageMaker that is capable of making real-time predictions and automatically suggesting personalized retention strategies.
 
-```{note}
-You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
-Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
-Once you see "Launching from mybinder.org: ready", you can run code cells.
-Refresh the page to revert to the original view.
-```
 
 ## Introduction
 
@@ -80,7 +75,26 @@ Because many variables in the churn dataset are categorical variables like yes/n
 For binary variables, a simple numeric 0/1 coding is sufficient.
 For categorical variables with $k$ categories, creating $k - 1$ binary (dummy) variables is the most flexible way to model them.
 Finally, we should split the data into a training/test set to assess the performance of our trained model.
+
+```{note}
+You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
+If you prefer a Jupyter environment, use the {guilabel}`Binder` button instead.
+
+You'll need to run the following cell manually because `Live Code` sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.
+```
 """
+
+# %% Thebe fix
+
+import os
+
+try:
+    os.chdir("./website/deploy/")
+except FileNotFoundError:
+    pass
+print(f"cwd: {os.getcwd()}")
 
 #%%
 
@@ -706,7 +720,7 @@ suggest_retention_measures(model, x)
 # A simple model assumes a retention strategy is implemented if the model predicts a customer will churn (which is based on $p_\ast$) at some fixed cost $C_\text{strategy}$.
 # We also assume a cost if a customer churns, $C_\text{churn}$.
 # Then assuming customers accept the retention strategy, the total cost to the company as a function of the elements of the confusion matrix (false/true positive/negative) is
-
+#
 # $$
 # C_\text{total} \approx
 #     C_\text{strategy} \times \text{FP}
@@ -714,7 +728,7 @@ suggest_retention_measures(model, x)
 #     + C_\text{churn} \times \text{FN}
 #     + 0 \times \text{TN}.
 # $$
-
+#
 # Since the elements of the confusion matrix depend on $p_\ast$, we can view this as an optimization problem with cost function $C_\text{total}$ and tunable parameter $p_\ast$.
 # Of course some true positives can still churn, hence the approximation.
 # A more detailed model could maximize *expected* profits, factoring in the reduction in churn probability due to a retention strategy.

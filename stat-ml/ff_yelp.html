@@ -219,6 +219,24 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
+        <a href="https://mybinder.org/v2/gh/adamwangdata/adamwangdata.github.io/main?urlpath=tree/website/stat-ml/ff_yelp.py"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
         
 <button onclick="initThebeSBT()"
   class="headerbtn headerbtn-launch-thebe"
@@ -253,6 +271,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/adamwangdata/adamwangdata.github.io"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -445,13 +476,6 @@ The results show that, pre-pandemic:</p>
 <li><p>Salad popularity decreased over time while bowl and sandwich popularities increased, but salads are still by far the most popular type of item</p></li>
 </ol>
 <p>Common positive phrases include “healthy”, “good”, and “fresh”, while analysis of negative reviews suggests price and portion sizes factored into their low ratings.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
-Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click the <span class="guilabel">Live Code</span> button.
-Once you see “Launching from mybinder.org: ready”, you can run code cells.
-Refresh the page to revert to the original view.</p>
-</div>
 </section>
 <section id="data-source">
 <h2>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">#</a></h2>
@@ -694,6 +718,32 @@ Two fridges are located in The Loop, while the third location with 57 reviews is
 <section id="data-cleaning-and-exploration">
 <h2>Data Cleaning and Exploration<a class="headerlink" href="#data-cleaning-and-exploration" title="Permalink to this headline">#</a></h2>
 <p>Let’s load in the data and examine it:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click the <span class="guilabel">Live Code</span> button.
+If you prefer a Jupyter environment, use the <span class="guilabel">Binder</span> button instead.</p>
+<p>You’ll need to run the following cell manually because <code class="docutils literal notranslate"><span class="pre">Live</span> <span class="pre">Code</span></code> sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;./website/stat-ml/&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cwd: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cwd: /home/adam/projects/website/website/stat-ml
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -960,7 +1010,7 @@ Also grouping by fridge (i.e. business) location, we can count the number of rev
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Year&#39;), Text(0, 0.5, &#39;Number of Annual Reviews&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/ff_yelp_10_1.png" src="../_images/ff_yelp_10_1.png" />
+<img alt="../_images/ff_yelp_11_1.png" src="../_images/ff_yelp_11_1.png" />
 </div>
 </div>
 <p>The first Loop location seems to have been one of the first fridges, with reviews available in the same year the company was founded.
@@ -1024,7 +1074,7 @@ for example, the 5/5 rating data for the Loop locations in 2021 is only based on
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ff_yelp_14_0.png" src="../_images/ff_yelp_14_0.png" />
+<img alt="../_images/ff_yelp_15_0.png" src="../_images/ff_yelp_15_0.png" />
 </div>
 </div>
 <p>There appears to have been a steady decline in rating throughout 2016.
@@ -1154,7 +1204,7 @@ I’ve grouped the items like Farmer’s Fridge’s <a class="reference external
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;Fraction of times mentioned in a review&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/ff_yelp_21_1.png" src="../_images/ff_yelp_21_1.png" />
+<img alt="../_images/ff_yelp_22_1.png" src="../_images/ff_yelp_22_1.png" />
 </div>
 </div>
 <p>Salads are the overwhelming favorite.
@@ -1184,7 +1234,7 @@ Weighting by total number of reviews that year is again used.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ff_yelp_23_0.png" src="../_images/ff_yelp_23_0.png" />
+<img alt="../_images/ff_yelp_24_0.png" src="../_images/ff_yelp_24_0.png" />
 </div>
 </div>
 <p>Salad popularity has been decreasing, but still has the largest share.

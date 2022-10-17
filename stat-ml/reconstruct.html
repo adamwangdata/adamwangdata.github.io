@@ -221,6 +221,24 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
+        <a href="https://mybinder.org/v2/gh/adamwangdata/adamwangdata.github.io/main?urlpath=tree/website/stat-ml/reconstruct.r"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
         
 <button onclick="initThebeSBT()"
   class="headerbtn headerbtn-launch-thebe"
@@ -255,6 +273,19 @@ title="Fullscreen mode"
   </span>
 
 </button>
+<a href="https://github.com/adamwangdata/adamwangdata.github.io"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -440,13 +471,6 @@ title="Print to PDF"
 Though recorded temperature data is only available from 1850, proxy data is available much further back in time.
 My model results in the following reconstruction:</p>
 <p><img alt="forecast" src="../_images/reconstruct.png" /></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
-Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click the <span class="guilabel">Live Code</span> button.
-Once you see “Launching from mybinder.org: ready”, you can run code cells.
-Refresh the page to revert to the original view.</p>
-</div>
 </section>
 <section id="data-source">
 <h2>Data Source<a class="headerlink" href="#data-source" title="Permalink to this headline">#</a></h2>
@@ -458,6 +482,30 @@ The original data can be found at <a class="reference external" href="https://ww
 <section id="preliminaries">
 <h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">#</a></h2>
 <p>First, a few frequently used package imports:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can run and modify the code on this page in a Jupyter environment!
+Hover over the <span class="fa fa-rocket"></span> launch button at the top of the page, then click  the <span class="guilabel">Binder</span> button.
+(Unfortunately <span class="guilabel">Live Code</span> is not currently supported for R.)</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">tryCatch</span><span class="p">(</span>
+  <span class="nf">setwd</span><span class="p">(</span><span class="s">&quot;./website/stat-ml/&quot;</span><span class="p">),</span>
+  <span class="n">error</span> <span class="o">=</span> <span class="nf">function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">setwd</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&quot;cwd:&quot;</span><span class="p">,</span> <span class="nf">getwd</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cwd: /home/adam/projects/website/website/stat-ml
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">faraway</span><span class="p">)</span> <span class="c1"># For data, sumary(), and vif()</span>
@@ -585,7 +633,7 @@ This would be a serious extrapolation in terms of time while the proxies are som
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_11_0.png" src="../_images/reconstruct_11_0.png" />
+<img alt="../_images/reconstruct_12_0.png" src="../_images/reconstruct_12_0.png" />
 </div>
 </div>
 <p>Note that this does not exclude the use of year in informing the model, e.g. model diagnostics.
@@ -599,7 +647,7 @@ A graphical summary of the response nhtemp and predictors is shown next.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_13_0.png" src="../_images/reconstruct_13_0.png" />
+<img alt="../_images/reconstruct_14_0.png" src="../_images/reconstruct_14_0.png" />
 </div>
 </div>
 <p>Tree ring proxies <code class="docutils literal notranslate"><span class="pre">jasper</span></code>, <code class="docutils literal notranslate"><span class="pre">urals</span></code>, and <code class="docutils literal notranslate"><span class="pre">mongolia</span></code> are strongly skewed left.
@@ -623,7 +671,7 @@ I do this using Spearman’s rank correlation, which measures the strength of mo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_16_0.png" src="../_images/reconstruct_16_0.png" />
+<img alt="../_images/reconstruct_17_0.png" src="../_images/reconstruct_17_0.png" />
 </div>
 </div>
 <p>A few variables have multiple strong correlations, e.g. <code class="docutils literal notranslate"><span class="pre">mongolia</span></code> and <code class="docutils literal notranslate"><span class="pre">urals</span></code>, so I may need to address collinearity later although it is less problematic for prediction.
@@ -642,7 +690,7 @@ There is little noise in the proxy data from year to year, so scatterplots of pr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_18_0.png" src="../_images/reconstruct_18_0.png" />
+<img alt="../_images/reconstruct_19_0.png" src="../_images/reconstruct_19_0.png" />
 </div>
 </div>
 <p>Scatterplots of response against correlated proxies yield more familiar plots; indeed the response is more variable which is why we’re modeling it with a random error.</p>
@@ -660,7 +708,7 @@ There is little noise in the proxy data from year to year, so scatterplots of pr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_20_0.png" src="../_images/reconstruct_20_0.png" />
+<img alt="../_images/reconstruct_21_0.png" src="../_images/reconstruct_21_0.png" />
 </div>
 </div>
 <p>The left (right) plot exhibits a (non)linear trend. Because prediction is of primary interest, I will consider nonlinear transformations later.</p>
@@ -706,7 +754,7 @@ I’ll examine R’s default diagnostic plots next.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_24_0.png" src="../_images/reconstruct_24_0.png" />
+<img alt="../_images/reconstruct_25_0.png" src="../_images/reconstruct_25_0.png" />
 </div>
 </div>
 <ol class="simple">
@@ -745,7 +793,7 @@ This is hard to see from the diagnostic plots because year has not yet informed 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_28_0.png" src="../_images/reconstruct_28_0.png" />
+<img alt="../_images/reconstruct_29_0.png" src="../_images/reconstruct_29_0.png" />
 </div>
 </div>
 <p>To address the correlated errors, I’ll use generalized least squares (GLS) with an AR1 correlation structure.
@@ -859,7 +907,7 @@ n = 102, p = 9, Residual SE = 0.27744, R-Squared = 0.03
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_36_0.png" src="../_images/reconstruct_36_0.png" />
+<img alt="../_images/reconstruct_37_0.png" src="../_images/reconstruct_37_0.png" />
 </div>
 </div>
 <aside class="margin sidebar">
@@ -878,7 +926,7 @@ However, this is an artifact of the transformed design matrix <span class="math 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_38_0.png" src="../_images/reconstruct_38_0.png" />
+<img alt="../_images/reconstruct_39_0.png" src="../_images/reconstruct_39_0.png" />
 </div>
 </div>
 <p>To check the degree of collinearity, I examined the condition numbers. The largest was 11.75677, so I won’t take any special precautions.
@@ -901,7 +949,7 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 “NaNs produced”
 </pre></div>
 </div>
-<img alt="../_images/reconstruct_40_2.png" src="../_images/reconstruct_40_2.png" />
+<img alt="../_images/reconstruct_41_2.png" src="../_images/reconstruct_41_2.png" />
 </div>
 </div>
 <p>The exact form of the weights was found by trial and error. The resultant weights span a large range; the oldest point is weighed more than 10 times the most recent point, which results in a larger Cook’s distance. I’ll see whether the weights help in prediction next, skipping variable selection since <span class="math notranslate nohighlight">\(n/p\)</span> is not too small and we’re focused on prediction.</p>
@@ -1037,7 +1085,7 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_57_0.png" src="../_images/reconstruct_57_0.png" />
+<img alt="../_images/reconstruct_58_0.png" src="../_images/reconstruct_58_0.png" />
 </div>
 </div>
 <p>The GLS model better captures temporal variation, while the ridge model hovers around the mean temperature -0.12034. This feature is even more pronounced when we predict back to year 1000, leading to drastically different predictions.</p>
@@ -1052,7 +1100,7 @@ We can’t address heteroscedasticity using a Box–Cox transformation of the re
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/reconstruct_59_0.png" src="../_images/reconstruct_59_0.png" />
+<img alt="../_images/reconstruct_60_0.png" src="../_images/reconstruct_60_0.png" />
 </div>
 </div>
 <p>Since the ridge model makes no correction for the strongly correlated residuals, other than shrinking estimates, I favor the GLS model.
@@ -1074,7 +1122,7 @@ Converting it to <code class="docutils literal notranslate"><span class="pre">gg
 “Removed 856 rows containing missing values (geom_point).”
 </pre></div>
 </div>
-<img alt="../_images/reconstruct_61_1.png" src="../_images/reconstruct_61_1.png" />
+<img alt="../_images/reconstruct_62_1.png" src="../_images/reconstruct_62_1.png" />
 </div>
 </div>
 </section>
