@@ -33,6 +33,7 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
+
 #%% [markdown]
 
 """
@@ -49,12 +50,6 @@ The results show that, pre-pandemic:
 
 Common positive phrases include "healthy", "good", and "fresh", while analysis of negative reviews suggests price and portion sizes factored into their low ratings.
 
-```{note}
-You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
-Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
-Once you see "Launching from mybinder.org: ready", you can run code cells.
-Refresh the page to revert to the original view.
-```
 
 ## Data Source
 
@@ -306,7 +301,26 @@ My complete code to scrape the reviews can be toggled below, but is not the main
 ## Data Cleaning and Exploration
 
 Let’s load in the data and examine it:
+
+```{note}
+You can run and modify the training and inference code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
+If you prefer a Jupyter environment, use the {guilabel}`Binder` button instead.
+
+You'll need to run the following cell manually because `Live Code` sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.
+```
 """
+
+# %% Thebe fix
+
+import os
+
+try:
+    os.chdir("./website/stat-ml/")
+except FileNotFoundError:
+    pass
+print(f"cwd: {os.getcwd()}")
 
 #%%
 

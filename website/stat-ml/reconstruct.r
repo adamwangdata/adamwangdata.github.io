@@ -8,9 +8,8 @@
 #         language: R
 #         name: ir
 #         display_name: R
+#     thebe-kernel: ir
 # ---
-
-
 
 
 # %% [markdown] Macros Setup tags=['remove-cell']
@@ -48,12 +47,6 @@
 #
 # ![forecast](./reconstruct.png)
 #
-# ```{note}
-# You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
-# Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
-# Once you see "Launching from mybinder.org: ready", you can run code cells.
-# Refresh the page to revert to the original view.
-# ```
 # ## Data Source
 #
 # Data was obtained from the `faraway` package's `globwarm` dataset.
@@ -64,6 +57,22 @@
 # ## Preliminaries
 #
 # First, a few frequently used package imports:
+#
+# ```{note}
+# You can run and modify the code on this page in a Jupyter environment!
+# Hover over the {fa}`rocket` launch button at the top of the page, then click  the {guilabel}`Binder` button.
+# (Unfortunately {guilabel}`Live Code` is not currently supported for R.)
+# ```
+
+# %% Thebe fix
+
+tryCatch(
+  setwd("./website/stat-ml/"),
+  error = function(e) {
+    setwd(".")
+  }
+)
+cat("cwd:", getwd())
 
 # %% tags=["remove-output"]
 
