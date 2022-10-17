@@ -11,9 +11,7 @@
 # ---
 
 
-
-
-#%% [markdown] Macros Setup tags=['remove-cell']
+# %% [markdown] Macros Setup tags=['remove-cell']
 # $$
 # \newcommand{\parens}[1]{\mathopen{}\left(#1\right)\mathclose{}}
 # \newcommand{\bracks}[1]{\mathopen{}\left[#1\right]\mathclose{}}
@@ -35,7 +33,7 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
-#%% [markdown]
+# %% [markdown]
 
 """
 # Project Euler
@@ -71,7 +69,7 @@ You can even modify the code so if you're having trouble with a Sudoku puzzle, j
 ```
 """
 
-#%%
+# %%
 
 import numpy as np
 
@@ -85,8 +83,8 @@ def solve_sudoku(grid, print_sol=False):
     # Start searching in top-left 3x3 grid.
     for row in range(3):
         for col in range(3):
-            for subrow in range(3*row, 3*(row+1)):
-                for subcol in range(3*col, 3*(col+1)):
+            for subrow in range(3 * row, 3 * (row + 1)):
+                for subcol in range(3 * col, 3 * (col + 1)):
 
                     # Fill empty entries.
                     if grid[subrow, subcol] == 0:
@@ -96,8 +94,7 @@ def solve_sudoku(grid, print_sol=False):
                         # recursively continuing search with updated grid.
                         # Backtrack if necessary.
                         for sol in range(1, 10):
-                            if is_not_possible_sol(sol, grid,
-                                                   row, col, subrow, subcol):
+                            if is_not_possible_sol(sol, grid, row, col, subrow, subcol):
                                 continue
                             else:  # sol may be a valid solution.
                                 grid[subrow, subcol] = sol
@@ -105,11 +102,11 @@ def solve_sudoku(grid, print_sol=False):
                                     return True
                                 else:  # No solution found; backtrack.
                                     grid[subrow, subcol] = 0
-                        return False  # No possible solutions found; terminate
-                                      # this branch and backtrack.
+                        # No possible solutions found; terminate this branch and backtrack.
+                        return False
 
     # If no empty entries counted (grid is complete), return True.
-    is_solvable = (n_empty == 0)
+    is_solvable = n_empty == 0
     if is_solvable:
         if print_sol:
             print(grid)
@@ -117,13 +114,16 @@ def solve_sudoku(grid, print_sol=False):
         print("No solution found.")
     return is_solvable
 
+
 def is_not_possible_sol(sol, grid, row, col, subrow, subcol):
     """Determine if sol may fill element grid[subrow, subcol] given Sudoku
     constraints."""
-    return (   sol in grid[subrow, :]
-            or sol in grid[:, subcol]
-            or sol in grid[3*row:3*(row+1), 3*col:3*(col+1)]
-            )
+    return (
+        sol in grid[subrow, :]
+        or sol in grid[:, subcol]
+        or sol in grid[3 * row : 3 * (row + 1), 3 * col : 3 * (col + 1)]
+    )
+
 
 # Initialize a puzzle. Zeros represent empty cells.
 puzzle = """800000000
@@ -147,9 +147,9 @@ print(grid)
 
 # Solve the puzzle!
 print("solving...")
-solve_sudoku(grid, print_sol=True);
+solve_sudoku(grid, print_sol=True)
 
-#%% [markdown]
+# %% [markdown]
 
 """
 ## Other Games
@@ -203,7 +203,7 @@ We can iteratively apply this logic resulting in
 In Python:
 """
 
-#%%
+# %%
 
 import time
 
@@ -212,20 +212,21 @@ def reduce_triangle(nums):
     last_row = nums[-1]
     next_last_row = nums[-2]
     for i in range(len(next_last_row)):
-        next_last_row[i] += max(last_row[i], last_row[i+1])
+        next_last_row[i] += max(last_row[i], last_row[i + 1])
     nums = nums[:-2]
     nums.append(next_last_row)
     return nums
+
 
 start = time.time()
 
 # Process data.
 with open("p67_tri_nums.txt") as f:
-    nums = f.read().split('\n')
+    nums = f.read().split("\n")
 
 rows = len(nums)
 for i in range(rows):
-    nums[i] = [int(x) for x in nums[i].split(' ')]
+    nums[i] = [int(x) for x in nums[i].split(" ")]
 
 # Compute maximum path sum.
 while len(nums) > 1:
@@ -233,4 +234,3 @@ while len(nums) > 1:
 print(nums)
 
 print(time.time() - start)
-

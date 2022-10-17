@@ -1,9 +1,9 @@
 # Book settings
 # Full _config.yml defaults at https://jupyterbook.org/customize/config.html
 
-title: Portfolio
+title: Adam Wang's Data Science Portfolio
 author: Adam Wang
-copyright: "2021"
+copyright: "2022"
 only_build_toc_files: true
 
 execute:
@@ -32,9 +32,9 @@ sphinx:
       .r:
         - jupytext.reads
         - fmt: r:percent
-    mathjax_config:
-      TeX:
-        Macros:
+    mathjax3_config:
+      tex:
+        macros:
           "parens": ["\\mathopen{}\\left(#1\\right)\\mathclose{}", 1]
           "bracks": ["\\mathopen{}\\left[#1\\right]\\mathclose{}", 1]
           "braces": ["\\mathopen{}\\left\\{#1\\right\\}\\mathclose{}", 1]
@@ -45,7 +45,7 @@ sphinx:
           "tpose": ["#1^T", 1]
           "inv": ["#1^{-1}", 1]
           "Matrix": ["\\begin{bmatrix}#1\\end{bmatrix}", 1]
-          "seq" : ["1, 2, \\ldots, #1", 1]
-          "reals" : ["\\mathbb{R}"]
-          "mper" : ["\\,\\text{.}"]
-          "mcom" : ["\\,\\text{,}"]
+          "seq": ["1, 2, \\ldots, #1", 1]
+          "reals": ["\\mathbb{R}"]
+          "mper": ["\\,\\text{.}"]
+          "mcom": ["\\,\\text{,}"]

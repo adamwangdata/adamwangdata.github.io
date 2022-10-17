@@ -11,8 +11,6 @@
 # ---
 
 
-
-
 #%% [markdown] Macros Setup tags=['remove-cell']
 # $$
 # \newcommand{\parens}[1]{\mathopen{}\left(#1\right)\mathclose{}}
@@ -61,10 +59,10 @@ Let's load in the data and examine it:
 
 #%%
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
-df = pd.read_csv('./globwarm.csv')
+df = pd.read_csv("./globwarm.csv")
 df.head(3)
 
 #%%
@@ -91,8 +89,8 @@ Next, let's plot the data:
 #%%
 
 fig, ax = plt.subplots()
-ax.plot(df.Time, df["Anomaly (deg C)"], 'o')
-ax.set(xlabel='Year', ylabel='Temperature (C)')
+ax.plot(df.Time, df["Anomaly (deg C)"], "o")
+ax.set(xlabel="Year", ylabel="Temperature (C)")
 plt.show()
 
 #%% [markdown]
@@ -113,14 +111,15 @@ Prophet expects a two column dataframe with datestamps `ds` formatted like `YYYY
 
 #%%
 
+
 def format_years(years):
     """Convert numeric years to YYYY-MM-DD format, using an arbitrary day."""
     ds = [str(year) + "-12-31" for year in years]
     return ds
 
-df = (
-    df[["Time", "Anomaly (deg C)"]]
-    .rename(columns={"Time": "ds", "Anomaly (deg C)": "y"})
+
+df = df[["Time", "Anomaly (deg C)"]].rename(
+    columns={"Time": "ds", "Anomaly (deg C)": "y"}
 )
 df.ds = format_years(df.ds)
 df.head(3)
@@ -142,11 +141,13 @@ The INFO messages tell us weekly and daily seasonalities are disabled (by defaul
 
 from prophet import Prophet
 
+
 def plot_model_fit(model, df):
     """Fit and plot predictions of a Prophet() model on the training data."""
     model.fit(df)
     predictions = model.predict()
-    model.plot(predictions, xlabel='Year', ylabel='Temperature (C)')
+    model.plot(predictions, xlabel="Year", ylabel="Temperature (C)")
+
 
 model = Prophet()
 plot_model_fit(model, df)
@@ -164,11 +165,11 @@ In other words, we shouldn't include too many Fourier terms, controlled by the `
 #%%
 
 model = Prophet(
-    daily_seasonality = False,
-    weekly_seasonality = False,
-    yearly_seasonality = False,
+    daily_seasonality=False,
+    weekly_seasonality=False,
+    yearly_seasonality=False,
 )
-model.add_seasonality('50 years', period = 365*50, fourier_order = 2)
+model.add_seasonality("50 years", period=365 * 50, fourier_order=2)
 plot_model_fit(model, df)
 
 
@@ -183,11 +184,11 @@ Let's try increasing the seasonality period a bit more:
 #%%
 
 model = Prophet(
-    daily_seasonality = False,
-    weekly_seasonality = False,
-    yearly_seasonality = False,
+    daily_seasonality=False,
+    weekly_seasonality=False,
+    yearly_seasonality=False,
 )
-model.add_seasonality('centuryly', period = 365*100, fourier_order = 2)
+model.add_seasonality("centuryly", period=365 * 100, fourier_order=2)
 plot_model_fit(model, df)
 
 #%% [markdown]
@@ -199,9 +200,9 @@ Let's see what it forecasts.
 
 #%%
 
-future = model.make_future_dataframe(periods=30, freq='Y')
+future = model.make_future_dataframe(periods=30, freq="Y")
 forecast = model.predict(future)
-model.plot(forecast, xlabel='Year', ylabel='Temperature (C)')
+model.plot(forecast, xlabel="Year", ylabel="Temperature (C)")
 plt.show()
 
 #%% [markdown]
@@ -225,7 +226,7 @@ This approach can be implemented in Prophet as follows:
 
 from prophet.diagnostics import cross_validation
 
-df_cv = cross_validation(model, initial='36500 days', horizon='7300 days')
+df_cv = cross_validation(model, initial="36500 days", horizon="7300 days")
 df_cv.head(3)
 
 #%%
@@ -248,10 +249,8 @@ unsurprisingly, performance is worse the farther out the window:
 from prophet.plot import plot_cross_validation_metric
 
 fig, ax = plt.subplots(figsize=(10, 6))
-plot_cross_validation_metric(df_cv, metric='mse', rolling_window=.1,
-                             ax=ax, color='C0')
-plot_cross_validation_metric(df_cv, metric='mse', rolling_window=.5,
-                             ax=ax, color='C1')
+plot_cross_validation_metric(df_cv, metric="mse", rolling_window=0.1, ax=ax, color="C0")
+plot_cross_validation_metric(df_cv, metric="mse", rolling_window=0.5, ax=ax, color="C1")
 plt.show()
 
 #%% [markdown]
@@ -333,7 +332,7 @@ The result is stored in a dataframe of cross-validated MSEs and the parameters u
 
 #%%
 
-tuning_results = pd.read_csv('./tuning_results.csv')
+tuning_results = pd.read_csv("./tuning_results.csv")
 tuning_results
 
 #%% [markdown]
@@ -345,7 +344,7 @@ The best parameters, measured by MSE, are easily obtained:
 #%%
 import numpy as np
 
-best_params = tuning_results.iloc[np.argmin(tuning_results['mse']), :]
+best_params = tuning_results.iloc[np.argmin(tuning_results["mse"]), :]
 best_params
 
 #%% [markdown]
@@ -357,15 +356,15 @@ Let's see what the optimized model looks like:
 #%%
 
 model = Prophet(
-    daily_seasonality = False,
-    weekly_seasonality = False,
-    yearly_seasonality = False,
-    changepoint_prior_scale = .5,
-    seasonality_prior_scale = 10.0
+    daily_seasonality=False,
+    weekly_seasonality=False,
+    yearly_seasonality=False,
+    changepoint_prior_scale=0.5,
+    seasonality_prior_scale=10.0,
 )
-model.add_seasonality('centuryly', period = 365*75, fourier_order = 2)
+model.add_seasonality("centuryly", period=365 * 75, fourier_order=2)
 model.fit(df)
-future = model.make_future_dataframe(periods=30, freq='Y')
+future = model.make_future_dataframe(periods=30, freq="Y")
 forecast = model.predict(future)
-model.plot(forecast, xlabel='Year', ylabel='Temperature (C)')
+model.plot(forecast, xlabel="Year", ylabel="Temperature (C)")
 plt.show()

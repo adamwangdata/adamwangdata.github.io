@@ -3,24 +3,26 @@
 channels:
   - conda-forge
 dependencies:
-  - python=3.9
-  - jupyter-book
-  - jupytext
-  - black
-  - pandas
-  - numpy
-  - scipy
-  - matplotlib
-  - scikit-learn
-  - nltk
-  - pystan==2.19.1.1
-  - prophet
-  - r-base
-  - r-irkernel
-  - r-repr
-  - r-faraway
-  - r-corrplot
-  - r-ggplot2
-  - r-gridExtra
-  - r-nlme
-  - r-glmnet
+  - python=3.9.13
+  - jupyter-book=0.13.1
+  - jupytext=1.14.0
+  - black=22.10.0
+  - pandas=1.5.0
+  - numpy=1.23.3
+  - scipy=1.9.1
+  - matplotlib=3.6.1
+  - scikit-learn=1.1.2
+  - nltk=3.6.7
+  - pystan=2.19.1.1
+  - prophet=1.0.1
+  - r-base=4.0.5
+  - r-irkernel=1.3
+  - r-repr=1.1.4
+  - r-faraway=1.0.8
+  - r-corrplot=0.92
+  - r-ggplot2=3.3.6
+  - r-gridExtra=2.3
+  - r-nlme=3.1_159
+  - r-glmnet=4.1_2
+  - r-languageserver=0.3.13
+  - r-styler=1.7.0
