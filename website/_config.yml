@@ -14,6 +14,9 @@ parse:
     - dollarmath
     - amsmath
 
+html:
+  use_repository_button: true
+
 launch_buttons:
   binderhub_url: ""
   thebe: true
