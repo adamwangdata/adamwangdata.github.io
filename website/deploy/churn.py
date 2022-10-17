@@ -706,7 +706,7 @@ suggest_retention_measures(model, x)
 # A simple model assumes a retention strategy is implemented if the model predicts a customer will churn (which is based on $p_\ast$) at some fixed cost $C_\text{strategy}$.
 # We also assume a cost if a customer churns, $C_\text{churn}$.
 # Then assuming customers accept the retention strategy, the total cost to the company as a function of the elements of the confusion matrix (false/true positive/negative) is
-
+#
 # $$
 # C_\text{total} \approx
 #     C_\text{strategy} \times \text{FP}
@@ -714,7 +714,7 @@ suggest_retention_measures(model, x)
 #     + C_\text{churn} \times \text{FN}
 #     + 0 \times \text{TN}.
 # $$
-
+#
 # Since the elements of the confusion matrix depend on $p_\ast$, we can view this as an optimization problem with cost function $C_\text{total}$ and tunable parameter $p_\ast$.
 # Of course some true positives can still churn, hence the approximation.
 # A more detailed model could maximize *expected* profits, factoring in the reduction in churn probability due to a retention strategy.
