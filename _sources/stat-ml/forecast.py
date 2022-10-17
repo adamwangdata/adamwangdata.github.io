@@ -11,8 +11,6 @@
 # ---
 
 
-
-
 #%% [markdown] Macros Setup tags=['remove-cell']
 # $$
 # \newcommand{\parens}[1]{\mathopen{}\left(#1\right)\mathclose{}}
@@ -43,19 +41,8 @@
 
 ## Summary
 
-Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures up until 2050.
-This results in the following projection:
+Using all recorded annual temperatures averages (from 1850 to 2020), I use [Prophet](https://facebook.github.io/prophet/) to forecast annual temperatures for the next two decades.
 
-```{image} ./forecast.png
-:align: center
-```
-
-```{note}
-You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
-Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
-Once you see "Launching from mybinder.org: ready", you can run code cells.
-Refresh the page to revert to the original view.
-```
 
 ## Data Source
 
@@ -72,10 +59,10 @@ Let's load in the data and examine it:
 
 #%%
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
-df = pd.read_csv('./globwarm.csv')
+df = pd.read_csv("./globwarm.csv")
 df.head(3)
 
 #%%
@@ -102,19 +89,19 @@ Next, let's plot the data:
 #%%
 
 fig, ax = plt.subplots()
-ax.plot(df.Time, df["Anomaly (deg C)"], 'o')
-ax.set(xlabel='Year', ylabel='Temperature (C)')
+ax.plot(df.Time, df["Anomaly (deg C)"], "o")
+ax.set(xlabel="Year", ylabel="Temperature (C)")
 plt.show()
 
 #%% [markdown]
 
 """
-There is clearly a nonlinear trend amidst the random variation from year to year.
-We expect some long term cyclical patterns, for instance [Milankovitch cycles](https://en.wikipedia.org/wiki/Milankovitch_cycles) due to variations in Earth's movement relative to the Sun.
+There is also clearly a nonlinear trend amidst the random variation from year to year.
+We also expect some long term cyclical patterns, for instance [Milankovitch cycles](https://en.wikipedia.org/wiki/Milankovitch_cycles) due to variations in Earth's movement relative to the Sun.
 However, these patterns are difficult to extract because we have just under 200 years of data to work with.
 These cyclical patterns are very important, however, because we don't have access to more granular data with daily, weekly, and/or yearly variation typically present in business problems.
 For this reason, [Prophet](https://facebook.github.io/prophet/) is useful as it can easily implement custom seasonalities.
-It's also flexible in its ability to detect changepoints, another crucial parameter affecting model fit as we will see in § [](optimize-forecast)
+It's also flexible in its ability to detect changepoints, another crucial parameter affecting model fit as we will see next.
 
 ## Building a Simple Forecast
 
@@ -124,14 +111,15 @@ Prophet expects a two column dataframe with datestamps `ds` formatted like `YYYY
 
 #%%
 
+
 def format_years(years):
     """Convert numeric years to YYYY-MM-DD format, using an arbitrary day."""
     ds = [str(year) + "-12-31" for year in years]
     return ds
 
-df = (
-    df[["Time", "Anomaly (deg C)"]]
-    .rename(columns={"Time": "ds", "Anomaly (deg C)": "y"})
+
+df = df[["Time", "Anomaly (deg C)"]].rename(
+    columns={"Time": "ds", "Anomaly (deg C)": "y"}
 )
 df.ds = format_years(df.ds)
 df.head(3)
@@ -143,7 +131,7 @@ df.tail(3)
 #%% [markdown]
 
 """
-`df` is now ready for Prophet modeling, but as hinted in § [](data-exploration), a model built from defaults performs poorly:
+`df` is now ready for Prophet modeling, but as hinted in § [](data-exploration), a model built from defaults performs very poorly:
 ```{margin}
 The INFO messages tell us weekly and daily seasonalities are disabled (by default) as they should be, because our data resolution is on much longer timescales.
 ```
@@ -153,11 +141,13 @@ The INFO messages tell us weekly and daily seasonalities are disabled (by defaul
 
 from prophet import Prophet
 
+
 def plot_model_fit(model, df):
     """Fit and plot predictions of a Prophet() model on the training data."""
     model.fit(df)
     predictions = model.predict()
-    model.plot(predictions, xlabel='Year', ylabel='Temperature (C)')
+    model.plot(predictions, xlabel="Year", ylabel="Temperature (C)")
+
 
 model = Prophet()
 plot_model_fit(model, df)
@@ -169,17 +159,17 @@ The reason is that we need to account for long term cycles over many years.
 A yearly seasonality is meaningless in this context, because we don't have sub-year level data.
 Let's try again, disabling the usual seasonalities and implementing our own using the `add_seasonality()` method.
 From the scatterplot of the raw data, any noticeable variation occurs after at least 50 years.
-At the 50 year scale, the variation is relatively small, so we shouldn't make the fit too flexible.
-In Prophet's language, we shouldn't include too many Fourier terms, controlled by the `fourier_order` parameter.
+At this scale, the variation is relatively small, so the fit shouldn't be too flexible.
+In other words, we shouldn't include too many Fourier terms, controlled by the `fourier_order` parameter.
 """
 #%%
 
 model = Prophet(
-    daily_seasonality = False,
-    weekly_seasonality = False,
-    yearly_seasonality = False,
+    daily_seasonality=False,
+    weekly_seasonality=False,
+    yearly_seasonality=False,
 )
-model.add_seasonality('50 years', period=365*50, fourier_order=2)
+model.add_seasonality("50 years", period=365 * 50, fourier_order=2)
 plot_model_fit(model, df)
 
 
@@ -194,11 +184,11 @@ Let's try increasing the seasonality period a bit more:
 #%%
 
 model = Prophet(
-    daily_seasonality = False,
-    weekly_seasonality = False,
-    yearly_seasonality = False,
+    daily_seasonality=False,
+    weekly_seasonality=False,
+    yearly_seasonality=False,
 )
-model.add_seasonality('centuryly', period=365*100, fourier_order=2)
+model.add_seasonality("centuryly", period=365 * 100, fourier_order=2)
 plot_model_fit(model, df)
 
 #%% [markdown]
@@ -210,9 +200,9 @@ Let's see what it forecasts.
 
 #%%
 
-future = model.make_future_dataframe(periods=30, freq='Y')
+future = model.make_future_dataframe(periods=30, freq="Y")
 forecast = model.predict(future)
-model.plot(forecast, xlabel='Year', ylabel='Temperature (C)')
+model.plot(forecast, xlabel="Year", ylabel="Temperature (C)")
 plt.show()
 
 #%% [markdown]
@@ -220,14 +210,13 @@ plt.show()
 """
 The model stays roughly linear with the latest data, but levels off due to the seasonality built into the model.
 
-(optimize-forecast)=
 ## Optimizing the Forecast
 
 The previous hand-tuning was insightful, but largely experimental.
 A more principled approach tunes the parameters based on some performance metric(s).
-Cross-validation is often used for this, but we have to be careful with time series data due to correlations between data points.
+Cross-validation is often used for this, but we have to be a bit careful with time series data due to correlations between data points.
 One approach preserves the ordering of time by training on the first (say) 100 years of data and testing on the next 20 years of data.
-Then we train on the first 110 years of data and test on the next 20 years of data.
+Then we train on the first 110 years of data and again test on the next 20 years of data.
 We repeat this until we reach the end of the data.
 Each batch gives us an estimate of errors of predictions made 1, 2, ..., 20 years in the future while preserving the ordering of time.
 This approach can be implemented in Prophet as follows:
@@ -237,7 +226,7 @@ This approach can be implemented in Prophet as follows:
 
 from prophet.diagnostics import cross_validation
 
-df_cv = cross_validation(model, initial='36500 days', horizon='7300 days')
+df_cv = cross_validation(model, initial="36500 days", horizon="7300 days")
 df_cv.head(3)
 
 #%%
@@ -247,9 +236,9 @@ df_cv.tail(3)
 #%% [markdown]
 
 """
-For example, we see the the first `cutoff` point is in 1951.
+For example, we see the the first `cutoff` point is in 1960.
 The model is trained on data up until the cutoff, then predictions (`yhat`) are made for the next 20 years.
-The cutoff points are then incremented by 10 years until 2001.
+The cutoff points are then incremented by 10 years until 2000.
 I'll measure model performance using mean squared error (MSE), but a variety of metrics could be used.
 We can plot MSE as a function of horizon length (how far in time the prediction is made) using `plot_cross_validation_metric()`;
 unsurprisingly, performance is worse the farther out the window:
@@ -260,19 +249,17 @@ unsurprisingly, performance is worse the farther out the window:
 from prophet.plot import plot_cross_validation_metric
 
 fig, ax = plt.subplots(figsize=(10, 6))
-plot_cross_validation_metric(df_cv, metric='mse', rolling_window=.1,
-                             ax=ax, color='C0')
-plot_cross_validation_metric(df_cv, metric='mse', rolling_window=.5,
-                             ax=ax, color='C1')
+plot_cross_validation_metric(df_cv, metric="mse", rolling_window=0.1, ax=ax, color="C0")
+plot_cross_validation_metric(df_cv, metric="mse", rolling_window=0.5, ax=ax, color="C1")
 plt.show()
 
 #%% [markdown]
 
 """
 The two curves differ by the amount of averaging used in computing the MSE.
-Each point in the blue curved is averaged over 10% of the data while each point in the orange curve is averaged over 50% of the data.
+Each point in the blue curved is averaged over 10% of the data while the orange curve is averaged over 50% of the data.
 The blue curve is more variable but can give estimates over shorter horizons.
-Setting `rolling_window=1` averages over all the data, giving just a single average estimate for the MSE of predictions within a 20 year horizon.
+Setting `rolling_window=1` averages over all the data, giving just a single average estimate for the MSE predicting within a 20 year horizon.
 A dataframe of metrics can be extracted with `performance_metrics()`:
 """
 
@@ -286,7 +273,7 @@ df_performance
 #%% [markdown]
 
 # The above code with `rolling_window=1` is useful for hyperparameter tuning.
-# It allows us to optimize average performance over a fixed horizon window.
+# It allows us to optimizing average performance over a fixed horizon window.
 # This is done in the code below to find the optimum seasonality period and number of Fourier terms.
 # I also optimize over two model parameters `changepoint_prior_scale` and `seasonality_prior_scale` which control the flexibility of the changepoints and seasonalities.
 # ```{margin}
@@ -345,7 +332,7 @@ The result is stored in a dataframe of cross-validated MSEs and the parameters u
 
 #%%
 
-tuning_results = pd.read_csv('./tuning_results.csv')
+tuning_results = pd.read_csv("./tuning_results.csv")
 tuning_results
 
 #%% [markdown]
@@ -357,7 +344,7 @@ The best parameters, measured by MSE, are easily obtained:
 #%%
 import numpy as np
 
-best_params = tuning_results.iloc[np.argmin(tuning_results['mse']), :]
+best_params = tuning_results.iloc[np.argmin(tuning_results["mse"]), :]
 best_params
 
 #%% [markdown]
@@ -369,27 +356,15 @@ Let's see what the optimized model looks like:
 #%%
 
 model = Prophet(
-    daily_seasonality = False,
-    weekly_seasonality = False,
-    yearly_seasonality = False,
-    changepoint_prior_scale = .5,
-    seasonality_prior_scale = 10.0
+    daily_seasonality=False,
+    weekly_seasonality=False,
+    yearly_seasonality=False,
+    changepoint_prior_scale=0.5,
+    seasonality_prior_scale=10.0,
 )
-model.add_seasonality('centuryly', period = 365*75, fourier_order = 2)
+model.add_seasonality("centuryly", period=365 * 75, fourier_order=2)
 model.fit(df)
-future = model.make_future_dataframe(periods=30, freq='Y')
+future = model.make_future_dataframe(periods=30, freq="Y")
 forecast = model.predict(future)
-model.plot(forecast, xlabel='Year', ylabel='Temperature (C)')
+model.plot(forecast, xlabel="Year", ylabel="Temperature (C)")
 plt.show()
-
-#%% [markdown]
-
-"""
-## Conclusion
-
-Using Prophet, I modeled atypical seasonal variations estimated from the data itself with the help of cross-validation.
-Optimizing over other flexibility tuning parameters yields the above forecast.
-Though the projection is made over 30 years, we are most confident in its ability over the next 20 years due to the 20 year horizon used when cross-validating.
-The procedure to generate time series forecasts is extendable to other domains, for instance sales data.
-It can be easily automated to incorporate the latest data to provide the most up-to-date forecasts.
-"""
