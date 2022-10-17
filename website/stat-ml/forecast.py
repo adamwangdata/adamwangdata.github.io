@@ -33,6 +33,12 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
+# %% Thebe fix tags=['remove-cell', 'thebe-init']
+
+import os
+
+os.chdir("./website/stat-ml/")
+
 #%% [markdown]
 
 """

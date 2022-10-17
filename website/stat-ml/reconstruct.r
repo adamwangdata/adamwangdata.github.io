@@ -35,6 +35,10 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
+# %% Thebe fix tags=['remove-cell', 'thebe-init']
+
+setwd("./website/stat-ml/")
+
 # %% [markdown]
 #
 # (reconstruct)=
