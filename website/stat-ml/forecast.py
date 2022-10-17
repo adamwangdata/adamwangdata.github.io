@@ -33,11 +33,6 @@
 # \newcommand{\mcom}{\,\text{,}}
 # $$
 
-# %% Thebe fix tags=['remove-cell', 'thebe-init']
-
-import os
-
-os.chdir("./website/stat-ml/")
 
 #%% [markdown]
 
@@ -61,7 +56,26 @@ For the purposes of this analysis, I will just use the point estimate.
 ## Data Exploration
 
 Let's load in the data and examine it:
+
+```{note}
+You can run and modify the code on this page Jupyter Notebook style, but without leaving the page!
+Hover over the {fa}`rocket` launch button at the top of the page, then click the {guilabel}`Live Code` button.
+If you prefer a Jupyter environment, use the {guilabel}`Binder` button instead.
+
+You'll need to run the following cell manually because `Live Code` sessions assume a cwd of the root directory.
+Refresh the page to revert to the original view.
+```
 """
+
+# %% Thebe fix
+
+import os
+
+try:
+    os.chdir("./website/stat-ml/")
+except FileNotFoundError:
+    pass
+print(f"cwd: {os.getcwd()}")
 
 #%%
 
